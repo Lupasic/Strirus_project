@@ -7,7 +7,7 @@
 <maintainer email="obulichev@yandex.ru">Bulichev Oleg</maintainer>
 
   <author email="obulichev@yandex.ru">Bulichev Oleg</author>
-
+ <license>TODO</license>
 
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>gazebo_ros</build_depend>
