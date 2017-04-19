@@ -9,32 +9,40 @@
 
 	<xacro:property name="deg2rad" value="${pi / 180}" />
 	<!-- Constants for simulating -->
-	<!-- number of legs need to be real number - 1 -->
-	<xacro:property name="real_number_of_legs" value="19" />
-	<xacro:property name="number_of_legs" value="${real_number_of_legs - 1}" />
-	<xacro:property name="angle_between_legs" value="60" />
+	<!-- number of legs need to be real number - 1 (it is from one side only)-->
+	<!-- Xacro arg provides xacro.py file.xacro real_number_of_legs:=3 -->
+	<xacro:arg name="real_number_of_legs" default="6" />
+	<xacro:arg name="angle_between_legs" default="90" />
 	<!-- in degree -->
-	<xacro:property name="offset_between_legs_wave" value="0" />
+	<xacro:arg name="offset_between_legs_wave" default="0" />
+	<!-- scale is needed for easily change scale of stl -->
+	<xacro:property name="scale" value="5" />
+
+	<xacro:property name="real_number_of_legs" value="$(arg real_number_of_legs)" />
+	<xacro:property name="number_of_legs" value="${real_number_of_legs - 1}" />
+	<xacro:property name="angle_between_legs" value="$(arg angle_between_legs)" />
+	<!-- in degree -->
+	<xacro:property name="offset_between_legs_wave" value="$(arg offset_between_legs_wave)" />
 
 
 	<!-- Body and leg Constants -->
-	<xacro:property name="body_x_offset" value="0" />
+	<xacro:property name="body_x_offset" value="${0 * scale}" />
 	<xacro:property name="body_y_offset" value="${body_length / 2}" />
 	<xacro:property name="body_z_offset" value="${leg_width + leg_height}" />
-	<xacro:property name="first_hole_x_offset" value="0.05" />	
+	<xacro:property name="first_hole_x_offset" value="${0.05 * scale}" />	
 
-	<xacro:property name="body_width" value="0.5" />
-	<xacro:property name="body_height" value="0.07" />
-	<xacro:property name="body_weight" value="${body_width * body_length * body_height * 250}"/>	
+	<xacro:property name="body_width" value="${0.5 * scale}" />
+	<xacro:property name="body_height" value="${0.07 * scale}" />
+	<xacro:property name="body_weight" value="${body_width * body_length * body_height * 0.3}"/>	
 
-	<xacro:property name="leg_x_offset" value="0" />
-	<xacro:property name="leg_y_offset" value="0" />
-	<xacro:property name="leg_z_offset" value="0" />
+	<xacro:property name="leg_x_offset" value="${0 * scale}" />
+	<xacro:property name="leg_y_offset" value="${0 * scale}" />
+	<xacro:property name="leg_z_offset" value="${0 * scale}" />
 
-	<xacro:property name="leg_x_offset_in_body" value="-0.075" />
-	<xacro:property name="leg_width" value="0.02" />
-	<xacro:property name="leg_height" value="0.08" />
-	<xacro:property name="fallibility_between_legs" value="${0.002 + 2 * leg_width}" />
+	<xacro:property name="leg_x_offset_in_body" value="${-0.075 * scale}" />
+	<xacro:property name="leg_width" value="${0.02 * scale}" />
+	<xacro:property name="leg_height" value="${0.08 * scale}" />
+	<xacro:property name="fallibility_between_legs" value="${(0.002 * scale) + 2 * leg_width}" />
 
 	<!-- Formulas -->
 	<xacro:property name="dist_between_legs" value="${leg_height * sin(angle_between_legs * deg2rad) + fallibility_between_legs}" />
@@ -45,9 +53,9 @@
 	<xacro:macro name="leg" params="prefix num side">
 		<link name="leg_${prefix}_${num}">
 			<inertial>
-				<mass value="0.00035"/>
+				<mass value="${0.05 * scale}"/>
 				<origin rpy="0  0  0" xyz="${leg_x_offset} ${leg_y_offset} ${leg_z_offset}"/>
-				<inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+				<inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
 			</inertial>
 			<collision >
 			<!-- legs wave offset change only on the left side -->
@@ -58,7 +66,7 @@
 				<origin rpy="${-(angle_between_legs * num) % 360 * deg2rad} 0 ${pi}" xyz="${leg_x_offset} ${leg_y_offset} ${leg_z_offset}"/>
 				</xacro:if>
 				<geometry>
-					<mesh filename="package://strirus_robot_description/meshes/stl/leg_30_degree.stl" scale="1.0 1.0 1.0"/>
+					<mesh filename="package://strirus_robot_description/meshes/stl/leg_30_degree_normal.stl" scale="1.0 1.0 1.0"/>
 				</geometry>
 			</collision>
 			<visual>
@@ -69,7 +77,7 @@
 				<origin rpy="${-(angle_between_legs * num) % 360 * deg2rad} 0 ${pi}" xyz="${leg_x_offset} ${leg_y_offset} ${leg_z_offset}"/>
 				</xacro:if>
 				<geometry>
-					<mesh filename="package://strirus_robot_description/meshes/stl/leg_30_degree.stl" scale="1.0 1.0 1.0"/>
+					<mesh filename="package://strirus_robot_description/meshes/stl/leg_30_degree_normal.stl" scale="1.0 1.0 1.0"/>
 				</geometry>
 				<material name="blue"/>
 			</visual>
@@ -78,9 +86,11 @@
 		<joint name="leg_${prefix}_${num}_revolute_joint" type="revolute">
 		<parent link="body"/>
 			<child link="leg_${prefix}_${num}"/>
-			<origin rpy="0       0      0" xyz="${(body_width / 4 + leg_x_offset_in_body)* side} ${first_hole_x_offset + (num) * dist_between_legs}  ${body_z_offset}"/>
+			<origin rpy="0       0      0" xyz="${(body_width / 4 + leg_x_offset_in_body) * side} ${first_hole_x_offset + (num) * dist_between_legs}  ${body_z_offset}"/>
 			<axis xyz="1 0  0"/>
-			<limit effort="-1" lower="-1e+100" upper="1e+100" velocity="100"/>
+			<limit effort="30" lower="-1e+100" upper="1e+100" velocity="1"/>
+			<joint_properties damping="0.0" friction="0.0" />
+
 		</joint>
 
 <!-- /////////////// -->
@@ -89,9 +99,9 @@
 			<joint name="leg_${prefix}_${num}_revolute_joint">
 				<hardwareInterface>EffortJointInterface</hardwareInterface>
 			</joint>
-			<actuator name="leg_${prefix}_${num}_actuator">
+			<actuator name="leg_${prefix}_0_actuator">
 				<hardwareInterface>EffortJointInterface</hardwareInterface>
-				<mechanicalReduction>1</mechanicalReduction>
+				<mechanicalReduction>50</mechanicalReduction>
 			</actuator>
 		</transmission>
 
@@ -137,17 +147,42 @@
     	</xacro:if>
 	</xacro:macro>
 
-<!-- create needed number of joints between legs (is implemented by recurcion)
-	<xacro:macro name="create_revolute_joints" params="prefix side number">
-    	<xacro:wheel prefix="${prefix}" num="${number}" side="${side}"/>
-    	<xacro:if value="${number}">
-        	<xacro:loop number="${number-1}" prefix="${prefix}" side="${side}"/>
-    	</xacro:if>
-	</xacro:macro>
+<!-- create needed number of joints between legs (is implemented by recurcion) -->
+<!-- 	<xacro:macro name="create_dependence_between_legs" params="prefix side number">
+    			<joint name="legs_${prefix}_${number}_and_${number - 1}_revolute_joint" type="revolute">
+		<parent link="leg_${prefix}_${number}"/>
+			<child link="leg_${prefix}_${number - 1}"/>
+			<origin rpy="0       0      0" xyz="0 ${-dist_between_legs} 0"/>
+			<axis xyz="1 0  0"/>
+			<limit effort="-1" lower="-1e+100" upper="1e+100" velocity="100"/>
+		</joint>
 
--->
+    	<xacro:if value="${number - 1}">
+        	<xacro:create_dependence_between_legs number="${number-1}" prefix="${prefix}" side="${side}"/>
+    	</xacro:if>
+	</xacro:macro> -->
+
 
 <xacro:create_legs prefix="left" side="1" number="${number_of_legs}" />
 <xacro:create_legs prefix="right" side="-1" number="${number_of_legs}" />
 
+<!-- <xacro:create_dependence_between_legs prefix="left" side="1" number="${number_of_legs}" />
+<xacro:create_dependence_between_legs prefix="right" side="-1" number="${number_of_legs}" /> -->
+
+<!--  <joint name="legs_l_1_and_0_revolute_joint" type="fixed">
+		<parent link="leg_left_0"/>
+			<child link="leg_left_1"/>
+			<origin rpy="0  0  0" xyz="0 ${dist_between_legs} 0"/>
+			<axis xyz="0 0  0"/>
+			<limit effort="40" lower="-1e+100" upper="1e+100" velocity="3"/>
+		</joint>
+
+ <joint name="legs_r_1_and_0_revolute_joint" type="fixed">
+		<parent link="leg_right_0"/>
+			<child link="leg_right_1"/>
+			<origin rpy="0  0  0" xyz="0 ${dist_between_legs} 0"/>
+			<axis xyz="0 0  0"/>
+			<limit effort="40" lower="-1e+100" upper="1e+100" velocity="3"/>
+		</joint>
+  -->
 </robot>
