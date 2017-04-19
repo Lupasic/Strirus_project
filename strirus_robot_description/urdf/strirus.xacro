@@ -127,7 +127,7 @@
 		<collision >
 			<origin rpy="0  0  0" xyz="${body_x_offset} ${body_y_offset}  ${body_z_offset}"/>
 			<geometry>
-				<box size="${body_width / 2} ${body_length /2} ${body_height / 2}"/>
+				<box size="${body_width / 2} ${body_length} ${body_height / 2}"/>
 			</geometry>
 		</collision>
 		<visual >
