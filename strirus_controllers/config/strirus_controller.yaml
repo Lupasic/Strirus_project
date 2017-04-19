@@ -1,0 +1,56 @@
+strirus:
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50  
+  
+  # Position Controllers ---------------------------------------
+  leg_left_0_revolute_controller:
+    type: effort_controllers/JointPositionController
+    joint: leg_left_0_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 650.0}
+  leg_left_1_revolute_controller:
+    type: effort_controllers/JointPositionController
+    joint: leg_left_1_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 650.0}
+  leg_left_2_revolute_controller:
+    type: effort_controllers/JointPositionController
+    joint: leg_left_2_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 650.0}
+  leg_left_3_revolute_controller:
+    type: effort_controllers/JointPositionController
+    joint: leg_left_3_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 650.0}
+  leg_left_4_revolute_controller:
+    type: effort_controllers/JointPositionController
+    joint: leg_left_4_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 650.0}
+  leg_left_5_revolute_controller:
+    type: effort_controllers/JointPositionController
+    joint: leg_left_5_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 650.0}
+
+  leg_right_0_revolute_controller:
+    type: effort_controllers/JointPositionController
+    joint: leg_right_0_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 650.0}
+  leg_right_1_revolute_controller:
+    type: effort_controllers/JointPositionController
+    joint: leg_right_1_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 650.0}
+  leg_right_2_revolute_controller:
+    type: effort_controllers/JointPositionController
+    joint: leg_right_2_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 650.0}
+  leg_right_3_revolute_controller:
+    type: effort_controllers/JointPositionController
+    joint: leg_right_3_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 650.0}
+  leg_right_4_revolute_controller:
+    type: effort_controllers/JointPositionController
+    joint: leg_right_4_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 650.0}
+  leg_right_5_revolute_controller:
+    type: effort_controllers/JointPositionController
+    joint: leg_right_5_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 650.0}

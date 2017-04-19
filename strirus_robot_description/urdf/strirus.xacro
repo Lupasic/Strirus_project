@@ -99,9 +99,9 @@
 			<joint name="leg_${prefix}_${num}_revolute_joint">
 				<hardwareInterface>EffortJointInterface</hardwareInterface>
 			</joint>
-			<actuator name="leg_${prefix}_0_actuator">
+			<actuator name="leg_${prefix}_${num}_actuator">
 				<hardwareInterface>EffortJointInterface</hardwareInterface>
-				<mechanicalReduction>50</mechanicalReduction>
+				<mechanicalReduction>1</mechanicalReduction>
 			</actuator>
 		</transmission>
 
