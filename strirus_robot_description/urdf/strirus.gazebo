@@ -2,12 +2,12 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <!-- plugins -->
-<!--   <gazebo>
+   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so" >
       <robotNamespace>/strirus</robotNamespace>
     </plugin>
   </gazebo>
--->
+
 	<xacro:property name="dich" value="5" />
 
 <!--   <gazebo>

@@ -94,17 +94,17 @@
 		</joint> -->
 
 		<!-- /////////////// -->
-<!-- 		<transmission name="leg_${prefix}_${num}_transmission">
+ 		<transmission name="leg_${prefix}_${num}_transmission">
 			<type>transmission_interface/SimpleTransmission</type>
 			<joint name="leg_${prefix}_${num}_revolute_joint">
-				<hardwareInterface>EffortJointInterface</hardwareInterface>
+				<hardwareInterface>VelocityJointInterface</hardwareInterface>
 			</joint>
 			<actuator name="leg_${prefix}_0_actuator">
-				<hardwareInterface>EffortJointInterface</hardwareInterface>
-				<mechanicalReduction>50</mechanicalReduction>
+				<hardwareInterface>VelocityJointInterface</hardwareInterface>
+				<mechanicalReduction>1</mechanicalReduction>
 			</actuator>
 		</transmission>
-	-->
+	
 </xacro:macro>
 
 	<!-- create needed number of legs (is implemented by recurcion) -->
