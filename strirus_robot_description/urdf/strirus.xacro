@@ -99,7 +99,7 @@
 			<joint name="leg_${prefix}_${num}_revolute_joint">
 				<hardwareInterface>VelocityJointInterface</hardwareInterface>
 			</joint>
-			<actuator name="leg_${prefix}_0_actuator">
+			<actuator name="leg_${prefix}_${num}_actuator">
 				<hardwareInterface>VelocityJointInterface</hardwareInterface>
 				<mechanicalReduction>1</mechanicalReduction>
 			</actuator>
