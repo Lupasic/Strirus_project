@@ -10,6 +10,8 @@
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <!--<arg name="world_name" value="$(find plastun_gazebo)/worlds/komnata.world"/> -->
     <arg name="paused" value="true"/>
+    <arg name="physics" default="ode"/>
+    <arg name="verbose" default="true"/>
     <arg name="use_sim_time" value="$(arg use_sim_time)"/>
     
   </include>
