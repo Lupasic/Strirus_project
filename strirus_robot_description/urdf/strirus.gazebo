@@ -8,7 +8,7 @@
     </plugin>
   </gazebo>
 -->
-  <gazebo>
+<!--   <gazebo>
   <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
     <alwaysOn>true</alwaysOn>
     <updateRate>30</updateRate>
@@ -22,6 +22,6 @@
     <odometryFrame>odom</odometryFrame>
     <robotBaseFrame>base_link</robotBaseFrame>
   </plugin>
-</gazebo>
+</gazebo> -->
 
 </robot>
