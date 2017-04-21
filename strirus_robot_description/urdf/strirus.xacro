@@ -11,8 +11,8 @@
 	<!-- Constants for simulating -->
 	<!-- number of legs need to be real number - 1 (it is from one side only)-->
 	<!-- Xacro arg provides xacro.py file.xacro real_number_of_legs:=3 -->
-	<xacro:arg name="real_number_of_legs" default="5" />
-	<xacro:arg name="angle_between_legs" default="89" />
+	<xacro:arg name="real_number_of_legs" default="19" />
+	<xacro:arg name="angle_between_legs" default="60" />
 	<!-- in degree -->
 	<xacro:arg name="offset_between_legs_wave" default="0" />
 	<!-- scale is needed for easily change scale of stl -->
@@ -53,9 +53,9 @@
 	<xacro:macro name="leg" params="prefix num side">
 		<link name="leg_${prefix}_${num}">
 			<inertial>
-				<mass value="${0.01 * scale}"/>
+				<mass value="${0.05 * scale}"/>
 				<origin rpy="0  0  0" xyz="${leg_x_offset} ${leg_y_offset} ${leg_z_offset}"/>
-				<inertia ixx="0.0" ixy="0" ixz="0" iyy="0.00" iyz="0" izz="0.00"/>
+				<inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
 			</inertial>
 			<collision >
 				<!-- legs wave offset change only on the left side -->
@@ -83,18 +83,18 @@
 			</visual>
 		</link>
 		<!-- /////////////// -->
-<!-- 		<joint name="leg_${prefix}_${num}_revolute_joint" type="revolute">
-		<parent link="body"/>
+		<joint name="leg_${prefix}_${num}_revolute_joint" type="revolute">
+			<parent link="body"/>
 			<child link="leg_${prefix}_${num}"/>
 			<origin rpy="0       0      0" xyz="${(body_width / 4 + leg_x_offset_in_body) * side} ${first_hole_x_offset + (num) * dist_between_legs}  ${body_z_offset}"/>
 			<axis xyz="1 0  0"/>
 			<limit effort="30" lower="-1e+100" upper="1e+100" velocity="3"/>
-			<joint_properties damping="900.0" friction="900.0" /> 
+			<joint_properties damping="0.0" friction="0.0" />
 
-		</joint> -->
+		</joint>
 
 		<!-- /////////////// -->
- 		<transmission name="leg_${prefix}_${num}_transmission">
+		<transmission name="leg_${prefix}_${num}_transmission">
 			<type>transmission_interface/SimpleTransmission</type>
 			<joint name="leg_${prefix}_${num}_revolute_joint">
 				<hardwareInterface>VelocityJointInterface</hardwareInterface>
@@ -104,152 +104,51 @@
 				<mechanicalReduction>1</mechanicalReduction>
 			</actuator>
 		</transmission>
-	
-</xacro:macro>
 
-	<!-- create needed number of legs (is implemented by recurcion) -->
-<!-- 	<xacro:macro name="create_legs" params="prefix side number">
-		<xacro:leg prefix="${prefix}" num="${number}" side="${side}"/>
-		<xacro:if value="${number}">
-			<xacro:create_legs number="${number-1}" prefix="${prefix}" side="${side}"/>
-		</xacro:if>
 	</xacro:macro>
 
-    <xacro:create_legs prefix="left" side="1" number="${number_of_legs}" />
- -->
-
- 	<xacro:leg prefix="left" num="0" side="1"/>
- 	<xacro:leg prefix="left" num="1" side="1"/>
- 	<xacro:leg prefix="left" num="2" side="1"/>
- 	<xacro:leg prefix="left" num="3" side="1"/>
- 	<xacro:leg prefix="left" num="4" side="1"/>
-    <joint name="leg_left_0_revolute_joint" type="revolute">
-	<parent link="body"/>
-	<child link="leg_left_0"/>
-	<origin rpy="0       0      0" xyz="${(body_width / 4 + leg_x_offset_in_body) * 1} ${first_hole_x_offset + (0) * dist_between_legs}  ${body_z_offset}"/>
-	<axis xyz="1 0  0"/>
-	<limit effort="30" lower="-1e+100" upper="1e+100" velocity="3"/>
-</joint>
-<joint name="leg_left_1_revolute_joint" type="revolute">
-	<parent link="body"/>
-	<child link="leg_left_1"/>
-	<origin rpy="0       0      0" xyz="${(body_width / 4 + leg_x_offset_in_body) * 1} ${first_hole_x_offset + (1) * dist_between_legs}  ${body_z_offset}"/>
-	<axis xyz="1 0  0"/>
-	<limit effort="30" lower="-1e+100" upper="1e+100" velocity="3"/>
-	<mimic joint="leg_left_0_revolute_joint" multiplier="1" offset="0" />
-</joint>
-<joint name="leg_left_2_revolute_joint" type="revolute">
-	<parent link="body"/>
-	<child link="leg_left_2"/>
-	<origin rpy="0       0      0" xyz="${(body_width / 4 + leg_x_offset_in_body) * 1} ${first_hole_x_offset + (2) * dist_between_legs}  ${body_z_offset}"/>
-	<axis xyz="1 0  0"/>
-	<limit effort="30" lower="-1e+100" upper="1e+100" velocity="3"/>
-	<mimic joint="leg_left_0_revolute_joint" multiplier="1" offset="0" />
-</joint>
-<joint name="leg_left_3_revolute_joint" type="revolute">
-	<parent link="body"/>
-	<child link="leg_left_3"/>
-	<origin rpy="0       0      0" xyz="${(body_width / 4 + leg_x_offset_in_body) * 1} ${first_hole_x_offset + (3) * dist_between_legs}  ${body_z_offset}"/>
-	<axis xyz="1 0  0"/>
-	<limit effort="30" lower="-1e+100" upper="1e+100" velocity="3"/>
-	<mimic joint="leg_left_0_revolute_joint" multiplier="1" offset="0" />
-</joint>
-<joint name="leg_left_4_revolute_joint" type="revolute">
-	<parent link="body"/>
-	<child link="leg_left_4"/>
-	<origin rpy="0       0      0" xyz="${(body_width / 4 + leg_x_offset_in_body) * 1} ${first_hole_x_offset + (4) * dist_between_legs}  ${body_z_offset}"/>
-	<axis xyz="1 0  0"/>
-	<limit effort="30" lower="-1e+100" upper="1e+100" velocity="3"/>
-	<mimic joint="leg_left_0_revolute_joint" multiplier="1" offset="0" />
-</joint>
-
-
-
-
-<!-- Body description -->
-<link name="base_link"/>
-<joint name="base_link_body_fixed" type="fixed">
-	<parent link="base_link"/>
-	<child link="body"/>
-</joint>
-<!-- /////////////// -->
-<link name="body">
-	<inertial>
-		<!-- 250 value is mass density, the value is just empiric-->
-		<mass value="${body_weight}"/>
-		<origin rpy="0  0  0" xyz="${body_x_offset} ${body_y_offset}  ${body_z_offset}"/>
-<!--			<inertia 
+	<!-- Body description -->
+	<link name="base_link"/>
+	<joint name="base_link_body_fixed" type="fixed">
+		<parent link="base_link"/>
+		<child link="body"/>
+	</joint>
+	<!-- /////////////// -->
+	<link name="body">
+		<inertial>
+			<!-- 250 value is mass density, the value is just empiric-->
+			<mass value="${body_weight}"/>
+			<origin rpy="0  0  0" xyz="${body_x_offset} ${body_y_offset}  ${body_z_offset}"/>
+			<inertia 
 				ixx="${1/12 * body_weight * (body_height * body_height + body_length * body_length)}"  ixy="0"  ixz="0" 
 				iyy="${1/12 * body_weight * (body_height * body_height + body_width * body_width)}" iyz="0" 
 				izz="${1/12 * body_weight * (body_length * body_length + body_width * body_width)}" />
-			-->
-			<inertia ixx="0.0" ixy="0" ixz="0" iyy="0.00" iyz="0" izz="0.00"/>
-		</inertial>
-		<collision >
-			<origin rpy="0  0  0" xyz="${body_x_offset} ${body_y_offset}  ${body_z_offset}"/>
-			<geometry>
-				<box size="${body_width / 2} ${body_length} ${body_height / 2}"/>
-			</geometry>
-		</collision>
-		<visual >
-			<origin rpy="0  0  0" xyz="${body_x_offset} ${body_y_offset}  ${body_z_offset}"/>
-			<geometry>
-				<box size="${body_width / 2} ${body_length} ${body_height / 2}"/>
-			</geometry>
-			<material name="green"/>
-		</visual>
-	</link>
+			</inertial>
+			<collision >
+				<origin rpy="0  0  0" xyz="${body_x_offset} ${body_y_offset}  ${body_z_offset}"/>
+				<geometry>
+					<box size="${body_width / 2} ${body_length} ${body_height / 2}"/>
+				</geometry>
+			</collision>
+			<visual >
+				<origin rpy="0  0  0" xyz="${body_x_offset} ${body_y_offset}  ${body_z_offset}"/>
+				<geometry>
+					<box size="${body_width / 2} ${body_length} ${body_height / 2}"/>
+				</geometry>
+				<material name="green"/>
+			</visual>
+		</link>
+
+		<!-- create needed number of legs (is implemented by recurcion) -->
+		<xacro:macro name="create_legs" params="prefix side number">
+			<xacro:leg prefix="${prefix}" num="${number}" side="${side}"/>
+			<xacro:if value="${number}">
+				<xacro:create_legs number="${number-1}" prefix="${prefix}" side="${side}"/>
+			</xacro:if>
+		</xacro:macro>
 
 
-	<!-- create needed number of joints between legs (is implemented by recurcion) -->
-<!-- 	<xacro:macro name="create_dependence_between_legs" params="prefix side number">
-    			<joint name="legs_${prefix}_${number}_and_${number - 1}_revolute_joint" type="revolute">
-		<parent link="leg_${prefix}_${number}"/>
-			<child link="leg_${prefix}_${number - 1}"/>
-			<origin rpy="0       0      0" xyz="0 ${-dist_between_legs} 0"/>
-			<axis xyz="1 0  0"/>
-			<limit effort="-1" lower="-1e+100" upper="1e+100" velocity="100"/>
-		</joint>
+		<xacro:create_legs prefix="left" side="1" number="${number_of_legs}" />
+		<xacro:create_legs prefix="right" side="-1" number="${number_of_legs}" />
 
-    	<xacro:if value="${number - 1}">
-        	<xacro:create_dependence_between_legs number="${number-1}" prefix="${prefix}" side="${side}"/>
-    	</xacro:if>
-    </xacro:macro> -->
-
-
-
-    <!-- <xacro:create_legs prefix="right" side="-1" number="${number_of_legs}" /> -->
-<!-- 
-	<joint type="revolute" name="legs_left_0_and_1_revolute_joint">
-      <pose>0 ${-dist_between_legs} 0 0 0 0</pose>
-      <parent>leg_left_0</parent>
-      <child>leg_left_1</child>
-      <axis>
-        <xyz>1 0 0</xyz>
-      </axis>
-  </joint> -->
-
-<!-- <gazebo>
-	<joint type="revolute" name="legs_left_0_and_1_revolute_joint">
-      <pose>0 ${-dist_between_legs} 0 0 0 0</pose>
-      <parent>leg_left_0</parent>
-      <child>leg_left_1</child>
-      <axis>
-        <xyz>1 0 0</xyz>
-      </axis>
-    </joint>
-
-    	<joint type="revolute" name="legs_left_1_and_0_revolute_joint">
-      <pose>0 ${dist_between_legs} 0 0 0 0</pose>
-      <parent>leg_left_1</parent>
-      <child>leg_left_0</child>
-      <axis>
-        <xyz>1 0 0</xyz>
-      </axis>
-    </joint>
-</gazebo> -->
-
-
-
-
-</robot>
+	</robot>

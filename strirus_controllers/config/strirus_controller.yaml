@@ -6,51 +6,157 @@ strirus:
   
   # Position Controllers ---------------------------------------
   leg_left_0_revolute_controller:
-    type: effort_controllers/JointPositionController
+    type: velocity_controllers/JointVelocityController
     joint: leg_left_0_revolute_joint
-    pid: {p: 100.0, i: 0.01, d: 650.0}
+    pid: {p: 100.0, i: 0.01, d: 10.0}
   leg_left_1_revolute_controller:
-    type: effort_controllers/JointPositionController
+    type: velocity_controllers/JointVelocityController
     joint: leg_left_1_revolute_joint
-    pid: {p: 100.0, i: 0.01, d: 650.0}
+    pid: {p: 100.0, i: 0.01, d: 10.0}
   leg_left_2_revolute_controller:
-    type: effort_controllers/JointPositionController
+    type: velocity_controllers/JointVelocityController
     joint: leg_left_2_revolute_joint
-    pid: {p: 100.0, i: 0.01, d: 650.0}
+    pid: {p: 100.0, i: 0.01, d: 10.0}
   leg_left_3_revolute_controller:
-    type: effort_controllers/JointPositionController
+    type: velocity_controllers/JointVelocityController
     joint: leg_left_3_revolute_joint
-    pid: {p: 100.0, i: 0.01, d: 650.0}
+    pid: {p: 100.0, i: 0.01, d: 10.0}
   leg_left_4_revolute_controller:
-    type: effort_controllers/JointPositionController
+    type: velocity_controllers/JointVelocityController
     joint: leg_left_4_revolute_joint
-    pid: {p: 100.0, i: 0.01, d: 650.0}
+    pid: {p: 100.0, i: 0.01, d: 10.0}
   leg_left_5_revolute_controller:
-    type: effort_controllers/JointPositionController
+    type: velocity_controllers/JointVelocityController
     joint: leg_left_5_revolute_joint
-    pid: {p: 100.0, i: 0.01, d: 650.0}
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_left_6_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_left_6_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_left_7_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_left_7_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_left_8_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_left_8_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_left_9_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_left_9_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_left_10_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_left_10_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_left_11_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_left_11_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_left_12_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_left_12_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_left_13_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_left_13_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_left_14_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_left_14_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_left_15_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_left_15_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_left_16_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_left_16_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_left_17_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_left_17_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_left_18_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_left_18_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
 
   leg_right_0_revolute_controller:
-    type: effort_controllers/JointPositionController
+    type: velocity_controllers/JointVelocityController
     joint: leg_right_0_revolute_joint
-    pid: {p: 100.0, i: 0.01, d: 650.0}
+    pid: {p: 100.0, i: 0.01, d: 10.0}
   leg_right_1_revolute_controller:
-    type: effort_controllers/JointPositionController
+    type: velocity_controllers/JointVelocityController
     joint: leg_right_1_revolute_joint
-    pid: {p: 100.0, i: 0.01, d: 650.0}
+    pid: {p: 100.0, i: 0.01, d: 10.0}
   leg_right_2_revolute_controller:
-    type: effort_controllers/JointPositionController
+    type: velocity_controllers/JointVelocityController
     joint: leg_right_2_revolute_joint
-    pid: {p: 100.0, i: 0.01, d: 650.0}
+    pid: {p: 100.0, i: 0.01, d: 10.0}
   leg_right_3_revolute_controller:
-    type: effort_controllers/JointPositionController
+    type: velocity_controllers/JointVelocityController
     joint: leg_right_3_revolute_joint
-    pid: {p: 100.0, i: 0.01, d: 650.0}
+    pid: {p: 100.0, i: 0.01, d: 10.0}
   leg_right_4_revolute_controller:
-    type: effort_controllers/JointPositionController
+    type: velocity_controllers/JointVelocityController
     joint: leg_right_4_revolute_joint
-    pid: {p: 100.0, i: 0.01, d: 650.0}
+    pid: {p: 100.0, i: 0.01, d: 10.0}
   leg_right_5_revolute_controller:
-    type: effort_controllers/JointPositionController
+    type: velocity_controllers/JointVelocityController
     joint: leg_right_5_revolute_joint
-    pid: {p: 100.0, i: 0.01, d: 650.0}
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_right_6_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_right_6_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_right_7_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_right_7_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_right_8_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_right_8_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_right_9_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_right_9_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_right_10_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_right_10_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_right_11_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_right_11_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_right_12_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_right_12_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_right_13_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_right_13_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_right_14_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_right_14_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_right_15_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_right_15_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_right_16_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_right_16_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_right_17_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_right_17_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  leg_right_18_revolute_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: leg_right_18_revolute_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+
