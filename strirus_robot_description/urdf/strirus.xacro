@@ -11,7 +11,7 @@
 	<!-- Constants for simulating -->
 	<!-- number of legs need to be real number - 1 (it is from one side only)-->
 	<!-- Xacro arg provides xacro.py file.xacro real_number_of_legs:=3 -->
-	<xacro:arg name="real_number_of_legs" default="14" />
+	<xacro:arg name="real_number_of_legs" default="19" />
 	<xacro:arg name="angle_between_legs" default="60" />
 	<!-- in degree -->
 	<xacro:arg name="offset_between_legs_wave" default="0" />
@@ -156,9 +156,9 @@
 		<gazebo>
 
 		<xacro:macro name="create_gearbox_joints_between_legs" params="prefix side number">
-			<joint name="legs_${prefix}_${number -1}_${number}_gearbox_joint" type="gearbox">
-          <parent>leg_${prefix}_${number - 1}</parent>
-          <child>leg_${prefix}_0</child>
+			<joint name="legs_${prefix}_${number}_0_gearbox_joint" type="gearbox">
+          <parent>leg_${prefix}_0</parent>
+          <child>leg_${prefix}_${number}</child>
           <gearbox_ratio>-1</gearbox_ratio>
           <gearbox_reference_body>base_link</gearbox_reference_body>
           <axis>
