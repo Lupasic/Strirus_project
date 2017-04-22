@@ -16,10 +16,10 @@
     <include>
       <uri>model://sun</uri>
     </include>
-<!--         <include>
+        <include>
 		<uri>model://strirus_gazebo/maps/Generated_terrain</uri>
-      <name>Plafon</name>
-      <pose>1.0 6.0 0 0 0 0</pose>
-    </include> -->
+      <name>Terrain</name>
+      <pose>0 -2.0 0 0 0 0</pose>
+    </include>
   </world>
 </sdf>
