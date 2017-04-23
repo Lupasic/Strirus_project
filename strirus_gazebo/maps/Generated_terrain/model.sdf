@@ -3,7 +3,7 @@
 	<model name='Terrain'>
 		<static>true</static>
 		<link name="box_0_0">
-			<pose>-5 0 0.133414176441 0 0 0</pose>
+			<pose>-3.5 0.0 0.272499956098 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -18,21 +18,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.266828352881</size>
+						<size>1.0 1.0 0.544999912196</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.266828352881</size>
+						<size>1.0 1.0 0.544999912196</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_0_1">
-			<pose>-5 -1 0.292692896182 0 0 0</pose>
+			<pose>-3.5 -1.0 0.101038313469 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -47,21 +47,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.585385792363</size>
+						<size>1.0 1.0 0.202076626938</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.585385792363</size>
+						<size>1.0 1.0 0.202076626938</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_0_2">
-			<pose>-5 -2 0.194895121189 0 0 0</pose>
+			<pose>-3.5 -2.0 0.232256847428 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -76,21 +76,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.389790242379</size>
+						<size>1.0 1.0 0.464513694855</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.389790242379</size>
+						<size>1.0 1.0 0.464513694855</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_0_3">
-			<pose>-5 -3 0.199065488108 0 0 0</pose>
+			<pose>-3.5 -3.0 0.274733256966 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -105,21 +105,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.398130976217</size>
+						<size>1.0 1.0 0.549466513931</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.398130976217</size>
+						<size>1.0 1.0 0.549466513931</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_0_4">
-			<pose>-5 -4 0.133203710356 0 0 0</pose>
+			<pose>-3.5 -4.0 0.231005338864 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -134,21 +134,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.266407420712</size>
+						<size>1.0 1.0 0.462010677729</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.266407420712</size>
+						<size>1.0 1.0 0.462010677729</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_0_5">
-			<pose>-5 -5 0.0602036243585 0 0 0</pose>
+			<pose>-3.5 -5.0 0.120596064399 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -163,21 +163,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.120407248717</size>
+						<size>1.0 1.0 0.241192128799</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.120407248717</size>
+						<size>1.0 1.0 0.241192128799</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_0_6">
-			<pose>-5 -6 0.136906504307 0 0 0</pose>
+			<pose>-3.5 -6.0 0.122034234327 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -192,21 +192,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.273813008614</size>
+						<size>1.0 1.0 0.244068468654</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.273813008614</size>
+						<size>1.0 1.0 0.244068468654</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_0_7">
-			<pose>-5 -7 0.0843363641837 0 0 0</pose>
+			<pose>-3.5 -7.0 0.282332880111 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -221,21 +221,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.168672728367</size>
+						<size>1.0 1.0 0.564665760223</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.168672728367</size>
+						<size>1.0 1.0 0.564665760223</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_0_8">
-			<pose>-5 -8 0.0776696924388 0 0 0</pose>
+			<pose>-3.5 -8.0 0.189253350711 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -250,21 +250,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.155339384878</size>
+						<size>1.0 1.0 0.378506701421</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.155339384878</size>
+						<size>1.0 1.0 0.378506701421</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_0_9">
-			<pose>-5 -9 0.238478236547 0 0 0</pose>
+			<pose>-3.5 -9.0 0.134848083503 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -279,21 +279,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.476956473095</size>
+						<size>1.0 1.0 0.269696167006</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.476956473095</size>
+						<size>1.0 1.0 0.269696167006</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_0_10">
-			<pose>-5 -10 0.119781623629 0 0 0</pose>
+			<pose>-3.5 -10.0 0.148451853137 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -308,21 +308,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.239563247257</size>
+						<size>1.0 1.0 0.296903706273</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.239563247257</size>
+						<size>1.0 1.0 0.296903706273</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_0_11">
-			<pose>-5 -11 0.149824332582 0 0 0</pose>
+			<pose>-3.5 -11.0 0.113627644031 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -337,21 +337,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.299648665165</size>
+						<size>1.0 1.0 0.227255288062</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.299648665165</size>
+						<size>1.0 1.0 0.227255288062</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_0_12">
-			<pose>-5 -12 0.12497595302 0 0 0</pose>
+			<pose>-3.5 -12.0 0.166017125896 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -366,21 +366,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.249951906039</size>
+						<size>1.0 1.0 0.332034251793</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.249951906039</size>
+						<size>1.0 1.0 0.332034251793</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_0_13">
-			<pose>-5 -13 0.294411337618 0 0 0</pose>
+			<pose>-3.5 -13.0 0.1073009512 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -395,21 +395,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.588822675236</size>
+						<size>1.0 1.0 0.214601902401</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.588822675236</size>
+						<size>1.0 1.0 0.214601902401</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_0_14">
-			<pose>-5 -14 0.125037147207 0 0 0</pose>
+			<pose>-3.5 -14.0 0.246761855153 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -424,21 +424,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.250074294414</size>
+						<size>1.0 1.0 0.493523710307</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.250074294414</size>
+						<size>1.0 1.0 0.493523710307</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_1_0">
-			<pose>-4 0 0.142540585359 0 0 0</pose>
+			<pose>-2.5 0.0 0.204047100231 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -453,21 +453,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.285081170717</size>
+						<size>1.0 1.0 0.408094200462</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.285081170717</size>
+						<size>1.0 1.0 0.408094200462</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_1_1">
-			<pose>-4 -1 0.148618553249 0 0 0</pose>
+			<pose>-2.5 -1.0 0.123215784424 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -482,21 +482,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.297237106499</size>
+						<size>1.0 1.0 0.246431568847</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.297237106499</size>
+						<size>1.0 1.0 0.246431568847</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_1_2">
-			<pose>-4 -2 0.221585807444 0 0 0</pose>
+			<pose>-2.5 -2.0 0.28898929039 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -511,21 +511,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.443171614888</size>
+						<size>1.0 1.0 0.57797858078</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.443171614888</size>
+						<size>1.0 1.0 0.57797858078</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_1_3">
-			<pose>-4 -3 0.223825281603 0 0 0</pose>
+			<pose>-2.5 -3.0 0.198203194202 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -540,21 +540,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.447650563206</size>
+						<size>1.0 1.0 0.396406388405</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.447650563206</size>
+						<size>1.0 1.0 0.396406388405</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_1_4">
-			<pose>-4 -4 0.188388062319 0 0 0</pose>
+			<pose>-2.5 -4.0 0.150811475435 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -569,21 +569,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.376776124637</size>
+						<size>1.0 1.0 0.30162295087</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.376776124637</size>
+						<size>1.0 1.0 0.30162295087</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_1_5">
-			<pose>-4 -5 0.212286160623 0 0 0</pose>
+			<pose>-2.5 -5.0 0.112691654226 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -598,21 +598,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.424572321246</size>
+						<size>1.0 1.0 0.225383308452</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.424572321246</size>
+						<size>1.0 1.0 0.225383308452</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_1_6">
-			<pose>-4 -6 0.295232913584 0 0 0</pose>
+			<pose>-2.5 -6.0 0.165187638087 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -627,21 +627,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.590465827169</size>
+						<size>1.0 1.0 0.330375276174</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.590465827169</size>
+						<size>1.0 1.0 0.330375276174</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_1_7">
-			<pose>-4 -7 0.244340383609 0 0 0</pose>
+			<pose>-2.5 -7.0 0.148565999148 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -656,21 +656,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.488680767219</size>
+						<size>1.0 1.0 0.297131998296</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.488680767219</size>
+						<size>1.0 1.0 0.297131998296</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_1_8">
-			<pose>-4 -8 0.0786492191135 0 0 0</pose>
+			<pose>-2.5 -8.0 0.0553265972769 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -685,21 +685,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.157298438227</size>
+						<size>1.0 1.0 0.110653194554</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.157298438227</size>
+						<size>1.0 1.0 0.110653194554</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_1_9">
-			<pose>-4 -9 0.157730913503 0 0 0</pose>
+			<pose>-2.5 -9.0 0.142500895256 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -714,21 +714,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.315461827006</size>
+						<size>1.0 1.0 0.285001790512</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.315461827006</size>
+						<size>1.0 1.0 0.285001790512</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_1_10">
-			<pose>-4 -10 0.0846688903492 0 0 0</pose>
+			<pose>-2.5 -10.0 0.197189406593 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -743,21 +743,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.169337780698</size>
+						<size>1.0 1.0 0.394378813187</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.169337780698</size>
+						<size>1.0 1.0 0.394378813187</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_1_11">
-			<pose>-4 -11 0.18665755538 0 0 0</pose>
+			<pose>-2.5 -11.0 0.119512957198 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -772,21 +772,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.37331511076</size>
+						<size>1.0 1.0 0.239025914396</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.37331511076</size>
+						<size>1.0 1.0 0.239025914396</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_1_12">
-			<pose>-4 -12 0.143657161952 0 0 0</pose>
+			<pose>-2.5 -12.0 0.215083297156 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -801,21 +801,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.287314323905</size>
+						<size>1.0 1.0 0.430166594313</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.287314323905</size>
+						<size>1.0 1.0 0.430166594313</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_1_13">
-			<pose>-4 -13 0.199745364913 0 0 0</pose>
+			<pose>-2.5 -13.0 0.219376016491 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -830,21 +830,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.399490729826</size>
+						<size>1.0 1.0 0.438752032983</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.399490729826</size>
+						<size>1.0 1.0 0.438752032983</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_1_14">
-			<pose>-4 -14 0.132395692959 0 0 0</pose>
+			<pose>-2.5 -14.0 0.298749249758 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -859,21 +859,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.264791385919</size>
+						<size>1.0 1.0 0.597498499516</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.264791385919</size>
+						<size>1.0 1.0 0.597498499516</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_2_0">
-			<pose>-3 0 0.126723651719 0 0 0</pose>
+			<pose>-1.5 0.0 0.237459950889 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -888,21 +888,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.253447303438</size>
+						<size>1.0 1.0 0.474919901778</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.253447303438</size>
+						<size>1.0 1.0 0.474919901778</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_2_1">
-			<pose>-3 -1 0.0657273921655 0 0 0</pose>
+			<pose>-1.5 -1.0 0.251662837829 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -917,21 +917,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.131454784331</size>
+						<size>1.0 1.0 0.503325675659</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.131454784331</size>
+						<size>1.0 1.0 0.503325675659</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_2_2">
-			<pose>-3 -2 0.0534270232415 0 0 0</pose>
+			<pose>-1.5 -2.0 0.273289101243 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -946,21 +946,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.106854046483</size>
+						<size>1.0 1.0 0.546578202486</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.106854046483</size>
+						<size>1.0 1.0 0.546578202486</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_2_3">
-			<pose>-3 -3 0.164096220085 0 0 0</pose>
+			<pose>-1.5 -3.0 0.110858595782 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -975,21 +975,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.32819244017</size>
+						<size>1.0 1.0 0.221717191564</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.32819244017</size>
+						<size>1.0 1.0 0.221717191564</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_2_4">
-			<pose>-3 -4 0.237767652755 0 0 0</pose>
+			<pose>-1.5 -4.0 0.13835860481 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1004,21 +1004,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.475535305509</size>
+						<size>1.0 1.0 0.276717209619</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.475535305509</size>
+						<size>1.0 1.0 0.276717209619</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_2_5">
-			<pose>-3 -5 0.275763825928 0 0 0</pose>
+			<pose>-1.5 -5.0 0.290042348588 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1033,21 +1033,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.551527651856</size>
+						<size>1.0 1.0 0.580084697177</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.551527651856</size>
+						<size>1.0 1.0 0.580084697177</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_2_6">
-			<pose>-3 -6 0.105732553385 0 0 0</pose>
+			<pose>-1.5 -6.0 0.229763389926 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1062,21 +1062,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.211465106769</size>
+						<size>1.0 1.0 0.459526779852</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.211465106769</size>
+						<size>1.0 1.0 0.459526779852</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_2_7">
-			<pose>-3 -7 0.0577227809511 0 0 0</pose>
+			<pose>-1.5 -7.0 0.162774404756 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1091,21 +1091,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.115445561902</size>
+						<size>1.0 1.0 0.325548809513</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.115445561902</size>
+						<size>1.0 1.0 0.325548809513</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_2_8">
-			<pose>-3 -8 0.268589338353 0 0 0</pose>
+			<pose>-1.5 -8.0 0.139286992067 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1120,21 +1120,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.537178676706</size>
+						<size>1.0 1.0 0.278573984133</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.537178676706</size>
+						<size>1.0 1.0 0.278573984133</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_2_9">
-			<pose>-3 -9 0.137740854472 0 0 0</pose>
+			<pose>-1.5 -9.0 0.276656480615 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1149,21 +1149,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.275481708945</size>
+						<size>1.0 1.0 0.553312961229</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.275481708945</size>
+						<size>1.0 1.0 0.553312961229</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_2_10">
-			<pose>-3 -10 0.145415741044 0 0 0</pose>
+			<pose>-1.5 -10.0 0.169088075197 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1178,21 +1178,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.290831482087</size>
+						<size>1.0 1.0 0.338176150394</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.290831482087</size>
+						<size>1.0 1.0 0.338176150394</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_2_11">
-			<pose>-3 -11 0.188235357656 0 0 0</pose>
+			<pose>-1.5 -11.0 0.275910806047 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1207,21 +1207,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.376470715312</size>
+						<size>1.0 1.0 0.551821612093</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.376470715312</size>
+						<size>1.0 1.0 0.551821612093</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_2_12">
-			<pose>-3 -12 0.114066619598 0 0 0</pose>
+			<pose>-1.5 -12.0 0.134207908582 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1236,21 +1236,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.228133239196</size>
+						<size>1.0 1.0 0.268415817164</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.228133239196</size>
+						<size>1.0 1.0 0.268415817164</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_2_13">
-			<pose>-3 -13 0.231012955003 0 0 0</pose>
+			<pose>-1.5 -13.0 0.158532300775 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1265,21 +1265,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.462025910006</size>
+						<size>1.0 1.0 0.317064601549</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.462025910006</size>
+						<size>1.0 1.0 0.317064601549</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_2_14">
-			<pose>-3 -14 0.269685029667 0 0 0</pose>
+			<pose>-1.5 -14.0 0.220261392294 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1294,21 +1294,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.539370059335</size>
+						<size>1.0 1.0 0.440522784587</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.539370059335</size>
+						<size>1.0 1.0 0.440522784587</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_3_0">
-			<pose>-2 0 0.291069293952 0 0 0</pose>
+			<pose>-0.5 0.0 0.184032899987 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1323,21 +1323,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.582138587905</size>
+						<size>1.0 1.0 0.368065799973</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.582138587905</size>
+						<size>1.0 1.0 0.368065799973</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_3_1">
-			<pose>-2 -1 0.0549159019841 0 0 0</pose>
+			<pose>-0.5 -1.0 0.0938046843147 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1352,21 +1352,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.109831803968</size>
+						<size>1.0 1.0 0.187609368629</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.109831803968</size>
+						<size>1.0 1.0 0.187609368629</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_3_2">
-			<pose>-2 -2 0.0711059581258 0 0 0</pose>
+			<pose>-0.5 -2.0 0.146056249426 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1381,21 +1381,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.142211916252</size>
+						<size>1.0 1.0 0.292112498852</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.142211916252</size>
+						<size>1.0 1.0 0.292112498852</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_3_3">
-			<pose>-2 -3 0.0557402012581 0 0 0</pose>
+			<pose>-0.5 -3.0 0.159215814094 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1410,21 +1410,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.111480402516</size>
+						<size>1.0 1.0 0.318431628188</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.111480402516</size>
+						<size>1.0 1.0 0.318431628188</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_3_4">
-			<pose>-2 -4 0.0628632207524 0 0 0</pose>
+			<pose>-0.5 -4.0 0.111924241766 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1439,21 +1439,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.125726441505</size>
+						<size>1.0 1.0 0.223848483533</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.125726441505</size>
+						<size>1.0 1.0 0.223848483533</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_3_5">
-			<pose>-2 -5 0.258846334827 0 0 0</pose>
+			<pose>-0.5 -5.0 0.189356622419 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1468,21 +1468,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.517692669654</size>
+						<size>1.0 1.0 0.378713244839</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.517692669654</size>
+						<size>1.0 1.0 0.378713244839</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_3_6">
-			<pose>-2 -6 0.224264478927 0 0 0</pose>
+			<pose>-0.5 -6.0 0.136221014916 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1497,21 +1497,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.448528957853</size>
+						<size>1.0 1.0 0.272442029833</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.448528957853</size>
+						<size>1.0 1.0 0.272442029833</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_3_7">
-			<pose>-2 -7 0.0619187489787 0 0 0</pose>
+			<pose>-0.5 -7.0 0.106185145516 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1526,21 +1526,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.123837497957</size>
+						<size>1.0 1.0 0.212370291033</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.123837497957</size>
+						<size>1.0 1.0 0.212370291033</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_3_8">
-			<pose>-2 -8 0.103397536431 0 0 0</pose>
+			<pose>-0.5 -8.0 0.191298768606 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1555,21 +1555,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.206795072863</size>
+						<size>1.0 1.0 0.382597537213</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.206795072863</size>
+						<size>1.0 1.0 0.382597537213</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_3_9">
-			<pose>-2 -9 0.195290879441 0 0 0</pose>
+			<pose>-0.5 -9.0 0.22982406681 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1584,21 +1584,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.390581758882</size>
+						<size>1.0 1.0 0.459648133619</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.390581758882</size>
+						<size>1.0 1.0 0.459648133619</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_3_10">
-			<pose>-2 -10 0.182753547712 0 0 0</pose>
+			<pose>-0.5 -10.0 0.1683559013 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1613,21 +1613,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.365507095423</size>
+						<size>1.0 1.0 0.336711802599</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.365507095423</size>
+						<size>1.0 1.0 0.336711802599</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_3_11">
-			<pose>-2 -11 0.183602675804 0 0 0</pose>
+			<pose>-0.5 -11.0 0.0925507207032 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1642,21 +1642,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.367205351608</size>
+						<size>1.0 1.0 0.185101441406</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.367205351608</size>
+						<size>1.0 1.0 0.185101441406</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_3_12">
-			<pose>-2 -12 0.249422261604 0 0 0</pose>
+			<pose>-0.5 -12.0 0.124289558132 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1671,21 +1671,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.498844523208</size>
+						<size>1.0 1.0 0.248579116265</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.498844523208</size>
+						<size>1.0 1.0 0.248579116265</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_3_13">
-			<pose>-2 -13 0.0949050102953 0 0 0</pose>
+			<pose>-0.5 -13.0 0.26223649795 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1700,21 +1700,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.189810020591</size>
+						<size>1.0 1.0 0.5244729959</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.189810020591</size>
+						<size>1.0 1.0 0.5244729959</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_3_14">
-			<pose>-2 -14 0.244788414876 0 0 0</pose>
+			<pose>-0.5 -14.0 0.107161808904 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1729,21 +1729,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.489576829753</size>
+						<size>1.0 1.0 0.214323617809</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.489576829753</size>
+						<size>1.0 1.0 0.214323617809</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_4_0">
-			<pose>-1 0 0.125484795823 0 0 0</pose>
+			<pose>0.5 0.0 0.1922704245 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1758,21 +1758,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.250969591646</size>
+						<size>1.0 1.0 0.384540849001</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.250969591646</size>
+						<size>1.0 1.0 0.384540849001</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_4_1">
-			<pose>-1 -1 0.146380339802 0 0 0</pose>
+			<pose>0.5 -1.0 0.187158147232 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1787,21 +1787,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.292760679605</size>
+						<size>1.0 1.0 0.374316294463</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.292760679605</size>
+						<size>1.0 1.0 0.374316294463</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_4_2">
-			<pose>-1 -2 0.0820821514217 0 0 0</pose>
+			<pose>0.5 -2.0 0.155889775259 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1816,21 +1816,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.164164302843</size>
+						<size>1.0 1.0 0.311779550518</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.164164302843</size>
+						<size>1.0 1.0 0.311779550518</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_4_3">
-			<pose>-1 -3 0.161763992542 0 0 0</pose>
+			<pose>0.5 -3.0 0.29365476315 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1845,21 +1845,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.323527985083</size>
+						<size>1.0 1.0 0.5873095263</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.323527985083</size>
+						<size>1.0 1.0 0.5873095263</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_4_4">
-			<pose>-1 -4 0.142680299049 0 0 0</pose>
+			<pose>0.5 -4.0 0.248014571588 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1874,21 +1874,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.285360598098</size>
+						<size>1.0 1.0 0.496029143177</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.285360598098</size>
+						<size>1.0 1.0 0.496029143177</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_4_5">
-			<pose>-1 -5 0.1274951044 0 0 0</pose>
+			<pose>0.5 -5.0 0.200856628843 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1903,21 +1903,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.2549902088</size>
+						<size>1.0 1.0 0.401713257686</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.2549902088</size>
+						<size>1.0 1.0 0.401713257686</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_4_6">
-			<pose>-1 -6 0.125450950028 0 0 0</pose>
+			<pose>0.5 -6.0 0.171165706783 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1932,21 +1932,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.250901900056</size>
+						<size>1.0 1.0 0.342331413566</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.250901900056</size>
+						<size>1.0 1.0 0.342331413566</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_4_7">
-			<pose>-1 -7 0.160742050991 0 0 0</pose>
+			<pose>0.5 -7.0 0.0948985728958 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1961,21 +1961,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.321484101981</size>
+						<size>1.0 1.0 0.189797145792</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.321484101981</size>
+						<size>1.0 1.0 0.189797145792</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_4_8">
-			<pose>-1 -8 0.111566267383 0 0 0</pose>
+			<pose>0.5 -8.0 0.104834069217 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -1990,21 +1990,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.223132534765</size>
+						<size>1.0 1.0 0.209668138434</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.223132534765</size>
+						<size>1.0 1.0 0.209668138434</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_4_9">
-			<pose>-1 -9 0.264849456973 0 0 0</pose>
+			<pose>0.5 -9.0 0.186768936641 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2019,21 +2019,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.529698913946</size>
+						<size>1.0 1.0 0.373537873281</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.529698913946</size>
+						<size>1.0 1.0 0.373537873281</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_4_10">
-			<pose>-1 -10 0.110697834224 0 0 0</pose>
+			<pose>0.5 -10.0 0.13289999719 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2048,21 +2048,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.221395668448</size>
+						<size>1.0 1.0 0.26579999438</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.221395668448</size>
+						<size>1.0 1.0 0.26579999438</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_4_11">
-			<pose>-1 -11 0.105518084835 0 0 0</pose>
+			<pose>0.5 -11.0 0.258518234396 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2077,21 +2077,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.211036169669</size>
+						<size>1.0 1.0 0.517036468793</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.211036169669</size>
+						<size>1.0 1.0 0.517036468793</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_4_12">
-			<pose>-1 -12 0.141376625373 0 0 0</pose>
+			<pose>0.5 -12.0 0.177296747618 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2106,21 +2106,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.282753250746</size>
+						<size>1.0 1.0 0.354593495235</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.282753250746</size>
+						<size>1.0 1.0 0.354593495235</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_4_13">
-			<pose>-1 -13 0.273430492272 0 0 0</pose>
+			<pose>0.5 -13.0 0.275332291582 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2135,21 +2135,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.546860984544</size>
+						<size>1.0 1.0 0.550664583164</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.546860984544</size>
+						<size>1.0 1.0 0.550664583164</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_4_14">
-			<pose>-1 -14 0.248810703838 0 0 0</pose>
+			<pose>0.5 -14.0 0.174050584643 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2164,21 +2164,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.497621407675</size>
+						<size>1.0 1.0 0.348101169286</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.497621407675</size>
+						<size>1.0 1.0 0.348101169286</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_5_0">
-			<pose>0 0 0.226771389061 0 0 0</pose>
+			<pose>1.5 0.0 0.244402146303 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2193,21 +2193,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.453542778122</size>
+						<size>1.0 1.0 0.488804292605</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.453542778122</size>
+						<size>1.0 1.0 0.488804292605</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_5_1">
-			<pose>0 -1 0.051482129836 0 0 0</pose>
+			<pose>1.5 -1.0 0.0743393794902 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2222,21 +2222,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.102964259672</size>
+						<size>1.0 1.0 0.14867875898</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.102964259672</size>
+						<size>1.0 1.0 0.14867875898</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_5_2">
-			<pose>0 -2 0.192515121142 0 0 0</pose>
+			<pose>1.5 -2.0 0.0860911700109 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2251,21 +2251,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.385030242285</size>
+						<size>1.0 1.0 0.172182340022</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.385030242285</size>
+						<size>1.0 1.0 0.172182340022</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_5_3">
-			<pose>0 -3 0.296243940457 0 0 0</pose>
+			<pose>1.5 -3.0 0.293481563029 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2280,21 +2280,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.592487880913</size>
+						<size>1.0 1.0 0.586963126058</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.592487880913</size>
+						<size>1.0 1.0 0.586963126058</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_5_4">
-			<pose>0 -4 0.115193522859 0 0 0</pose>
+			<pose>1.5 -4.0 0.144563785493 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2309,21 +2309,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.230387045717</size>
+						<size>1.0 1.0 0.289127570986</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.230387045717</size>
+						<size>1.0 1.0 0.289127570986</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_5_5">
-			<pose>0 -5 0.131301041248 0 0 0</pose>
+			<pose>1.5 -5.0 0.169491803948 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2338,21 +2338,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.262602082497</size>
+						<size>1.0 1.0 0.338983607896</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.262602082497</size>
+						<size>1.0 1.0 0.338983607896</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_5_6">
-			<pose>0 -6 0.17569396962 0 0 0</pose>
+			<pose>1.5 -6.0 0.274660898478 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2367,21 +2367,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.35138793924</size>
+						<size>1.0 1.0 0.549321796957</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.35138793924</size>
+						<size>1.0 1.0 0.549321796957</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_5_7">
-			<pose>0 -7 0.0992015937902 0 0 0</pose>
+			<pose>1.5 -7.0 0.269448403755 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2396,21 +2396,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.19840318758</size>
+						<size>1.0 1.0 0.538896807511</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.19840318758</size>
+						<size>1.0 1.0 0.538896807511</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_5_8">
-			<pose>0 -8 0.223454087531 0 0 0</pose>
+			<pose>1.5 -8.0 0.189733586578 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2425,21 +2425,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.446908175062</size>
+						<size>1.0 1.0 0.379467173156</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.446908175062</size>
+						<size>1.0 1.0 0.379467173156</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_5_9">
-			<pose>0 -9 0.113614317115 0 0 0</pose>
+			<pose>1.5 -9.0 0.238463360949 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2454,21 +2454,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.227228634231</size>
+						<size>1.0 1.0 0.476926721898</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.227228634231</size>
+						<size>1.0 1.0 0.476926721898</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_5_10">
-			<pose>0 -10 0.196049681527 0 0 0</pose>
+			<pose>1.5 -10.0 0.24932919379 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2483,21 +2483,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.392099363053</size>
+						<size>1.0 1.0 0.49865838758</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.392099363053</size>
+						<size>1.0 1.0 0.49865838758</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_5_11">
-			<pose>0 -11 0.151365337786 0 0 0</pose>
+			<pose>1.5 -11.0 0.0895959794288 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2512,21 +2512,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.302730675571</size>
+						<size>1.0 1.0 0.179191958858</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.302730675571</size>
+						<size>1.0 1.0 0.179191958858</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_5_12">
-			<pose>0 -12 0.277298434788 0 0 0</pose>
+			<pose>1.5 -12.0 0.205467882052 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2541,21 +2541,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.554596869576</size>
+						<size>1.0 1.0 0.410935764103</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.554596869576</size>
+						<size>1.0 1.0 0.410935764103</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_5_13">
-			<pose>0 -13 0.266352501728 0 0 0</pose>
+			<pose>1.5 -13.0 0.224423119616 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2570,21 +2570,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.532705003456</size>
+						<size>1.0 1.0 0.448846239233</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.532705003456</size>
+						<size>1.0 1.0 0.448846239233</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_5_14">
-			<pose>0 -14 0.236784606667 0 0 0</pose>
+			<pose>1.5 -14.0 0.282337551495 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2599,21 +2599,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.473569213334</size>
+						<size>1.0 1.0 0.564675102989</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.473569213334</size>
+						<size>1.0 1.0 0.564675102989</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_6_0">
-			<pose>1 0 0.202802836186 0 0 0</pose>
+			<pose>2.5 0.0 0.26143702353 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2628,21 +2628,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.405605672372</size>
+						<size>1.0 1.0 0.522874047059</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.405605672372</size>
+						<size>1.0 1.0 0.522874047059</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_6_1">
-			<pose>1 -1 0.19720251496 0 0 0</pose>
+			<pose>2.5 -1.0 0.0657516723984 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2657,21 +2657,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.394405029919</size>
+						<size>1.0 1.0 0.131503344797</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.394405029919</size>
+						<size>1.0 1.0 0.131503344797</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_6_2">
-			<pose>1 -2 0.185188966201 0 0 0</pose>
+			<pose>2.5 -2.0 0.223642977922 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2686,21 +2686,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.370377932402</size>
+						<size>1.0 1.0 0.447285955844</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.370377932402</size>
+						<size>1.0 1.0 0.447285955844</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_6_3">
-			<pose>1 -3 0.202174156796 0 0 0</pose>
+			<pose>2.5 -3.0 0.105223783908 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2715,21 +2715,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.404348313591</size>
+						<size>1.0 1.0 0.210447567816</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.404348313591</size>
+						<size>1.0 1.0 0.210447567816</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_6_4">
-			<pose>1 -4 0.112096664845 0 0 0</pose>
+			<pose>2.5 -4.0 0.190281588963 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2744,21 +2744,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.224193329689</size>
+						<size>1.0 1.0 0.380563177926</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.224193329689</size>
+						<size>1.0 1.0 0.380563177926</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_6_5">
-			<pose>1 -5 0.135574706619 0 0 0</pose>
+			<pose>2.5 -5.0 0.157284603848 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2773,21 +2773,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.271149413239</size>
+						<size>1.0 1.0 0.314569207696</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.271149413239</size>
+						<size>1.0 1.0 0.314569207696</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_6_6">
-			<pose>1 -6 0.0826785527068 0 0 0</pose>
+			<pose>2.5 -6.0 0.265499361101 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2802,21 +2802,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.165357105414</size>
+						<size>1.0 1.0 0.530998722203</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.165357105414</size>
+						<size>1.0 1.0 0.530998722203</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_6_7">
-			<pose>1 -7 0.118089627827 0 0 0</pose>
+			<pose>2.5 -7.0 0.28508417689 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2831,21 +2831,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.236179255653</size>
+						<size>1.0 1.0 0.570168353781</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.236179255653</size>
+						<size>1.0 1.0 0.570168353781</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_6_8">
-			<pose>1 -8 0.289291888911 0 0 0</pose>
+			<pose>2.5 -8.0 0.296097454551 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2860,21 +2860,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.578583777822</size>
+						<size>1.0 1.0 0.592194909102</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.578583777822</size>
+						<size>1.0 1.0 0.592194909102</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_6_9">
-			<pose>1 -9 0.0744322441859 0 0 0</pose>
+			<pose>2.5 -9.0 0.182999301327 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2889,21 +2889,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.148864488372</size>
+						<size>1.0 1.0 0.365998602653</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.148864488372</size>
+						<size>1.0 1.0 0.365998602653</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_6_10">
-			<pose>1 -10 0.235495767397 0 0 0</pose>
+			<pose>2.5 -10.0 0.127124167867 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2918,21 +2918,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.470991534793</size>
+						<size>1.0 1.0 0.254248335733</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.470991534793</size>
+						<size>1.0 1.0 0.254248335733</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_6_11">
-			<pose>1 -11 0.212341119276 0 0 0</pose>
+			<pose>2.5 -11.0 0.29340175936 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2947,21 +2947,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.424682238551</size>
+						<size>1.0 1.0 0.586803518721</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.424682238551</size>
+						<size>1.0 1.0 0.586803518721</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_6_12">
-			<pose>1 -12 0.264261750854 0 0 0</pose>
+			<pose>2.5 -12.0 0.168259235228 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -2976,21 +2976,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.528523501708</size>
+						<size>1.0 1.0 0.336518470456</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.528523501708</size>
+						<size>1.0 1.0 0.336518470456</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_6_13">
-			<pose>1 -13 0.0736922482556 0 0 0</pose>
+			<pose>2.5 -13.0 0.126048961815 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -3005,21 +3005,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.147384496511</size>
+						<size>1.0 1.0 0.252097923631</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.147384496511</size>
+						<size>1.0 1.0 0.252097923631</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_6_14">
-			<pose>1 -14 0.130428110587 0 0 0</pose>
+			<pose>2.5 -14.0 0.0623742058515 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -3034,21 +3034,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.260856221173</size>
+						<size>1.0 1.0 0.124748411703</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.260856221173</size>
+						<size>1.0 1.0 0.124748411703</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_7_0">
-			<pose>2 0 0.202851336232 0 0 0</pose>
+			<pose>3.5 0.0 0.22009743617 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -3063,21 +3063,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.405702672465</size>
+						<size>1.0 1.0 0.44019487234</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.405702672465</size>
+						<size>1.0 1.0 0.44019487234</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_7_1">
-			<pose>2 -1 0.0875576779079 0 0 0</pose>
+			<pose>3.5 -1.0 0.191317031119 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -3092,21 +3092,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.175115355816</size>
+						<size>1.0 1.0 0.382634062237</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.175115355816</size>
+						<size>1.0 1.0 0.382634062237</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_7_2">
-			<pose>2 -2 0.119179046771 0 0 0</pose>
+			<pose>3.5 -2.0 0.117002084296 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -3121,21 +3121,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.238358093542</size>
+						<size>1.0 1.0 0.234004168592</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.238358093542</size>
+						<size>1.0 1.0 0.234004168592</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_7_3">
-			<pose>2 -3 0.125709076285 0 0 0</pose>
+			<pose>3.5 -3.0 0.227330047548 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -3150,21 +3150,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.25141815257</size>
+						<size>1.0 1.0 0.454660095096</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.25141815257</size>
+						<size>1.0 1.0 0.454660095096</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_7_4">
-			<pose>2 -4 0.0728428760025 0 0 0</pose>
+			<pose>3.5 -4.0 0.147801703439 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -3179,21 +3179,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.145685752005</size>
+						<size>1.0 1.0 0.295603406879</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.145685752005</size>
+						<size>1.0 1.0 0.295603406879</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_7_5">
-			<pose>2 -5 0.0641437848009 0 0 0</pose>
+			<pose>3.5 -5.0 0.277484583537 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -3208,21 +3208,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.128287569602</size>
+						<size>1.0 1.0 0.554969167074</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.128287569602</size>
+						<size>1.0 1.0 0.554969167074</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_7_6">
-			<pose>2 -6 0.063041165837 0 0 0</pose>
+			<pose>3.5 -6.0 0.136766142603 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -3237,21 +3237,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.126082331674</size>
+						<size>1.0 1.0 0.273532285206</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.126082331674</size>
+						<size>1.0 1.0 0.273532285206</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_7_7">
-			<pose>2 -7 0.21193284311 0 0 0</pose>
+			<pose>3.5 -7.0 0.192509587451 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -3266,21 +3266,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.42386568622</size>
+						<size>1.0 1.0 0.385019174902</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.42386568622</size>
+						<size>1.0 1.0 0.385019174902</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_7_8">
-			<pose>2 -8 0.119170697476 0 0 0</pose>
+			<pose>3.5 -8.0 0.259541558408 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -3295,21 +3295,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.238341394952</size>
+						<size>1.0 1.0 0.519083116817</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.238341394952</size>
+						<size>1.0 1.0 0.519083116817</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_7_9">
-			<pose>2 -9 0.0629041339201 0 0 0</pose>
+			<pose>3.5 -9.0 0.259666441895 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -3324,21 +3324,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.12580826784</size>
+						<size>1.0 1.0 0.519332883789</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.12580826784</size>
+						<size>1.0 1.0 0.519332883789</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_7_10">
-			<pose>2 -10 0.236607430103 0 0 0</pose>
+			<pose>3.5 -10.0 0.289332164916 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -3353,21 +3353,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.473214860206</size>
+						<size>1.0 1.0 0.578664329833</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.473214860206</size>
+						<size>1.0 1.0 0.578664329833</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_7_11">
-			<pose>2 -11 0.192072789584 0 0 0</pose>
+			<pose>3.5 -11.0 0.132018627223 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -3382,21 +3382,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.384145579168</size>
+						<size>1.0 1.0 0.264037254446</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.384145579168</size>
+						<size>1.0 1.0 0.264037254446</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_7_12">
-			<pose>2 -12 0.206879796559 0 0 0</pose>
+			<pose>3.5 -12.0 0.137193728904 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -3411,21 +3411,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.413759593117</size>
+						<size>1.0 1.0 0.274387457809</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.413759593117</size>
+						<size>1.0 1.0 0.274387457809</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_7_13">
-			<pose>2 -13 0.076142940534 0 0 0</pose>
+			<pose>3.5 -13.0 0.298660799613 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -3440,21 +3440,21 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.152285881068</size>
+						<size>1.0 1.0 0.597321599227</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.152285881068</size>
+						<size>1.0 1.0 0.597321599227</size>
 					</box>
 				</geometry>
 			</visual>
 		</link>
 
 		<link name="box_7_14">
-			<pose>2 -14 0.0585787672901 0 0 0</pose>
+			<pose>3.5 -14.0 0.141139506064 0 0 0</pose>
 			<inertial>
 				<mass>1.0</mass>
 				<inertia>
@@ -3469,884 +3469,14 @@
 			<collision name="collision">
 				<geometry>
 					<box>
-						<size>1 1 0.11715753458</size>
+						<size>1.0 1.0 0.282279012128</size>
 					</box>
 				</geometry>
 			</collision>
 			<visual name="visual">
 				<geometry>
 					<box>
-						<size>1 1 0.11715753458</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_8_0">
-			<pose>3 0 0.0709107114054 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.141821422811</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.141821422811</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_8_1">
-			<pose>3 -1 0.199173084616 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.398346169231</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.398346169231</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_8_2">
-			<pose>3 -2 0.235999125335 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.471998250669</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.471998250669</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_8_3">
-			<pose>3 -3 0.15714113509 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.314282270181</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.314282270181</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_8_4">
-			<pose>3 -4 0.11013857605 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.2202771521</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.2202771521</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_8_5">
-			<pose>3 -5 0.053092887662 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.106185775324</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.106185775324</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_8_6">
-			<pose>3 -6 0.142701102853 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.285402205705</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.285402205705</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_8_7">
-			<pose>3 -7 0.0851705287935 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.170341057587</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.170341057587</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_8_8">
-			<pose>3 -8 0.237758279193 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.475516558386</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.475516558386</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_8_9">
-			<pose>3 -9 0.292124188944 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.584248377889</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.584248377889</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_8_10">
-			<pose>3 -10 0.122526161487 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.245052322975</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.245052322975</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_8_11">
-			<pose>3 -11 0.114112766131 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.228225532261</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.228225532261</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_8_12">
-			<pose>3 -12 0.248547941954 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.497095883907</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.497095883907</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_8_13">
-			<pose>3 -13 0.0724663725682 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.144932745136</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.144932745136</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_8_14">
-			<pose>3 -14 0.165331631202 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.330663262404</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.330663262404</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_9_0">
-			<pose>4 0 0.201313908252 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.402627816504</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.402627816504</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_9_1">
-			<pose>4 -1 0.175382383719 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.350764767438</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.350764767438</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_9_2">
-			<pose>4 -2 0.144672029178 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.289344058355</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.289344058355</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_9_3">
-			<pose>4 -3 0.108921805569 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.217843611139</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.217843611139</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_9_4">
-			<pose>4 -4 0.0999499878608 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.199899975722</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.199899975722</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_9_5">
-			<pose>4 -5 0.20108472704 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.402169454079</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.402169454079</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_9_6">
-			<pose>4 -6 0.162778157102 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.325556314203</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.325556314203</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_9_7">
-			<pose>4 -7 0.114309234202 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.228618468403</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.228618468403</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_9_8">
-			<pose>4 -8 0.297644212724 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.595288425449</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.595288425449</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_9_9">
-			<pose>4 -9 0.087357274274 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.174714548548</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.174714548548</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_9_10">
-			<pose>4 -10 0.193141390064 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.386282780127</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.386282780127</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_9_11">
-			<pose>4 -11 0.255195231276 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.510390462552</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.510390462552</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_9_12">
-			<pose>4 -12 0.126054787562 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.252109575124</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.252109575124</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_9_13">
-			<pose>4 -13 0.0574863757605 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.114972751521</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.114972751521</size>
-					</box>
-				</geometry>
-			</visual>
-		</link>
-
-		<link name="box_9_14">
-			<pose>4 -14 0.217765271516 0 0 0</pose>
-			<inertial>
-				<mass>1.0</mass>
-				<inertia>
-					<ixx>0.083</ixx>
- 					<ixy>0.0</ixy>
-   					<ixz>0.0</ixz>
-   					<iyy>0.083</iyy>
- 					<iyz>0.0</iyz>
-   					<izz>0.083</izz>
- 				</inertia>
-			</inertial>
-			<collision name="collision">
-				<geometry>
-					<box>
-						<size>1 1 0.435530543032</size>
-					</box>
-				</geometry>
-			</collision>
-			<visual name="visual">
-				<geometry>
-					<box>
-						<size>1 1 0.435530543032</size>
+						<size>1.0 1.0 0.282279012128</size>
 					</box>
 				</geometry>
 			</visual>

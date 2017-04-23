@@ -38,7 +38,8 @@ args = updateArgs(args_default)
 if args['cell_width_number'] % 2 == 1:
     first_point = - ((args['cell_width_number'] - 1) / 2 * args['cage_width_and_lengh'])
 else:
-    first_point = - (args['cage_width_and_lengh'] / 2 + ((args['cell_width_number'] / 2) * args['cage_width_and_lengh']))
+    first_point = - ((args['cage_width_and_lengh'] / 2) + ((args['cell_width_number'] / 2 - 1) * args['cage_width_and_lengh']))
+    print(first_point)
 
 writeFile = open(args['file_path'], 'w')
 writeFile.write("<?xml version='1.0'?>\n<sdf version='1.6'>\n	<model name='Terrain'>\n		<static>true</static>")

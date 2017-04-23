@@ -16,6 +16,7 @@
     <rightJoint>leg_right_0_revolute_joint</rightJoint>
     <wheelSeparation>${body_width}</wheelSeparation>
     <wheelDiameter>${leg_height}</wheelDiameter>
+    <legacyMode>false</legacyMode>
     <torque>40</torque>
     <commandTopic>cmd_vel</commandTopic>
     <odometryTopic>odom</odometryTopic>

@@ -8,8 +8,8 @@
 <node name="generating_terrain" pkg="strirus_gazebo" type="generating_terrain.py" output="screen">
 		<param name="cage_height_range_begin" value="0.1"/>
 		<param name="cage_height_range_end" value="0.6" />
-		<param name="cage_width_and_lengh" value="1"/>
-		<param name="cell_width_number" value="10"/>
+		<param name="cage_width_and_lengh" value="1.0"/> <!-- need to be float type -->
+		<param name="cell_width_number" value="8"/>
 		<param name="cell_length_number" value="15" />
 		<param name="cage_height_param" value="rand"/>
 		<param name="file_path" value="$(find strirus_gazebo)/maps/Generated_terrain/model.sdf"/>
