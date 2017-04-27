@@ -1,7 +1,7 @@
 <launch>
  <!-- args for changing robot params -->
  <arg name="use_sim_time" default="true"/>
- <arg name="real_number_of_legs" default="12" />
+ <arg name="real_number_of_legs" default="19" />
  <arg name="angle_between_legs" default="60" /> <!-- in degree -->
  <arg name="offset_between_legs_waves" default="0" />
 
