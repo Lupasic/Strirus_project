@@ -6,12 +6,12 @@
  <arg name="offset_between_legs_waves" default="0" />
 
  <!-- args for changing terrain params -->
- <arg name="cage_height_range_begin" value="0.1"/>
- <arg name="cage_height_range_end" value="1.5" />
- <arg name="cage_width_and_lengh" value="1.0"/> <!-- need to be float type -->
- <arg name="cell_width_number" value="8"/>
- <arg name="cell_length_number" value="15" />
- <arg name="cage_height_param" value="rand"/>
+ <arg name="cage_height_range_begin" default="0.1"/>
+ <arg name="cage_height_range_end" default="1.5" />
+ <arg name="cage_width_and_lengh" default="1.0"/> <!-- need to be float type -->
+ <arg name="cell_width_number" default="8"/>
+ <arg name="cell_length_number" default="15" />
+ <arg name="cage_height_param" default="rand"/>
 
  <param name="robot_description"
   command="$(find xacro)/xacro.py '$(find strirus_robot_description)/urdf/strirus.xacro' real_number_of_legs:=$(arg real_number_of_legs) angle_between_legs:=$(arg angle_between_legs) offset_between_legs_wave:=$(arg offset_between_legs_waves)" /> 
