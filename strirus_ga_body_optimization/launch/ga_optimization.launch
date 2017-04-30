@@ -1,0 +1,4 @@
+<launch>
+  <node name="ga_body_optimization" pkg="strirus_ga_body_optimization" type="ga_body_optimization.py" output="screen" required="true">
+  </node>
+ </launch>
