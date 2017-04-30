@@ -1,0 +1,45 @@
+<launch>
+
+ <arg name="number_of_worlds" default="3"/>
+ <!-- args for changing terrain params -->
+ <arg name="cage_height_range_begin" default="0.1"/>
+ <arg name="cage_height_range_end" default="1.5" />
+ <arg name="cage_width_and_lengh" default="1.0"/> <!-- need to be float type -->
+ <arg name="cell_width_number" default="8"/>
+ <arg name="cell_length_number" default="15" />
+ <arg name="cage_height_param" default="rand"/>
+ <arg name="terrain_file_path_without_extention" default="$(find strirus_ga_body_optimization)/maps/Generated_terrain/model"/>
+
+ <!-- args for changing world params -->
+ <arg name="world_file_path_without_extention" default="$(find strirus_ga_body_optimization)/worlds/testing_area"/>
+ <arg name="physics_iter" default="400" />
+ <arg name="real_time_update_rate" default="111.2"/>
+ <arg name="max_step_size" default="0.009"/>
+ <arg name="package_name" default="strirus_ga_body_optimization"/>
+ <arg name="terrain_path" default="/maps/Generated_terrain" />
+
+
+
+  <node name="full_world_generation" pkg="strirus_ga_body_optimization" type="full_world_generation.py" output="screen" required="true">
+    <param name="number_of_worlds" value="$(arg number_of_worlds)"/>
+    
+    <param name="cage_height_range_begin" value="$(arg cage_height_range_begin)"/>
+    <param name="cage_height_range_end" value="$(arg cage_height_range_end)" />
+    <param name="cage_width_and_lengh" value="$(arg cage_width_and_lengh)"/> 
+    <param name="cell_width_number" value="$(arg cell_width_number)"/>
+    <param name="cell_length_number" value="$(arg cell_length_number)" />
+    <param name="cage_height_param" value="$(arg cage_height_param)"/>
+    <param name="terrain_file_path_without_extention" value="$(arg terrain_file_path_without_extention)"/>
+
+    <param name="world_file_path_without_extention" value="$(arg world_file_path_without_extention)"/>
+    <param name="physics_iter" value="$(arg physics_iter)" />
+    <param name="real_time_update_rate" value="$(arg real_time_update_rate)"/> 
+    <param name="max_step_size" value="$(arg max_step_size)"/>
+    <param name="package_name" value="$(arg package_name)"/>
+    <param name="terrain_path" value="$(arg terrain_path)" />
+
+
+  </node>
+
+
+ </launch>
