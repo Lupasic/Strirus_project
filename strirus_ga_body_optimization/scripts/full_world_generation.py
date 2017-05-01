@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 import random
 import rospy
-from os import remove
+from os import mkdir
+from os import path
 
 
 def updateArgs(arg_defaults):
@@ -32,7 +33,9 @@ def generate_terrain(index):
         first_point = - (
             (args['cage_width_and_lengh'] / 2) + ((args['cell_width_number'] / 2 - 1) * args['cage_width_and_lengh']))
 
-    writeFile = open(args['terrain_file_path_without_extention'] + "_" + str(index) + ".sdf", 'w')
+    if not path.exists(args['terrain_file_path_without_file_name'] + "_" + str(index)):
+        mkdir(args['terrain_file_path_without_file_name'] + "_" + str(index))
+    writeFile = open(args['terrain_file_path_without_file_name'] + "_" + str(index) + "/model.sdf", 'w')
     writeFile.write(
         "<?xml version='1.0'?>\n<sdf version='1.6'>\n	<model name='Terrain'>\n		<static>true</static>")
 
@@ -58,10 +61,8 @@ def generate_terrain(index):
     writeFile.close()
 
     # also it is needed to generate model.sdf
-    writeFile = open(args['terrain_file_path_without_extention'] + "_" + str(index) + ".config", 'w')
-    writeFile.write("<?xml version=\"1.0\" ?>\n<model>\n    <name>Terrain_" + str(
-        index) + "</name>\n    <version>1.0</version>\n    <sdf version=\"1.6\">model_" + str(
-        index) + ".sdf</sdf>\n<author>\n        <name>Bulichev Oleg</name>\n        <email>obulichev@yandex.ru</email>\n    </author>\n    <description>Terrain for testing robot's passability</description>\n</model>")
+    writeFile = open(args['terrain_file_path_without_file_name'] + "_" + str(index) + "/model.config", 'w')
+    writeFile.write("<?xml version=\"1.0\" ?>\n<model>\n    <name>Terrain</name>\n    <version>1.0</version>\n    <sdf version=\"1.6\">model.sdf</sdf>\n<author>\n        <name>Bulichev Oleg</name>\n        <email>obulichev@yandex.ru</email>\n    </author>\n    <description>Terrain for testing robot's passability</description>\n</model>")
     writeFile.close()
 
 
@@ -79,8 +80,7 @@ def generate_world(index):
     writeFile.write(
         "      <include>\n      <uri>model://ground_plane</uri>\n    </include>\n    <include>\n      <uri>model://sun</uri>\n    </include>\n")
     writeFile.write("        <include>\n		<uri>model://" + str(args['package_name']) + "/" + str(
-        args['terrain_path']) + "</uri>\n      <name>Terrain_" + str(
-        index) + "</name>\n      <pose>0 -2.0 0 0 0 0</pose>\n    </include>\n")
+        args['terrain_path']) +"_"+str(index)+ "</uri>\n      <name>Terrain</name>\n      <pose>0 -2.0 0 0 0 0</pose>\n    </include>\n")
 
     writeFile.write("  </world>\n</sdf>")
     writeFile.close()
@@ -96,7 +96,7 @@ args_default = {
     'cell_width_number': '10',
     'cell_length_number': '10',
     'cage_height_param': 'rand',
-    'terrain_file_path_without_extention': '../maps/Generated_terrain/model',
+    'terrain_file_path_without_file_name': '../maps/Generated_terrain',
     'world_file_path_without_extention': '../worlds/Generated_terrain/testing_area',
     'physics_iter': '400',
     'real_time_update_rate': '111.2',
@@ -105,14 +105,6 @@ args_default = {
     'terrain_path': '/maps/Generated_terrain/model.sdf'
 
 }
-
-
-def delete_files():
-    for i in range(args['number_of_worlds']):
-        remove(args['terrain_file_path_without_extention'] + "_" + str(i) + ".config")
-        remove(args['terrain_file_path_without_extention'] + "_" + str(i) + ".sdf")
-        remove(args['world_file_path_without_extention'] + "_" + str(index) + ".world")
-
 
 args = updateArgs(args_default)
 for index in range(args['number_of_worlds']):

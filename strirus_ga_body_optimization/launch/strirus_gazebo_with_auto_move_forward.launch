@@ -13,7 +13,7 @@
 
   <!-- запускаем комнату -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find strirus_ga_body_optimization)/worlds/testing_area_$(arg_index).world"/>
+    <arg name="world_name" value="$(find strirus_ga_body_optimization)/worlds/testing_area_$(arg cur_index).world"/>
     <arg name="paused" value="false"/>
     <arg name="physics" default="ode"/>
     <arg name="verbose" default="true"/>'

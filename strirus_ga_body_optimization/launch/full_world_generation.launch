@@ -8,7 +8,7 @@
  <arg name="cell_width_number" default="8"/>
  <arg name="cell_length_number" default="15" />
  <arg name="cage_height_param" default="rand"/>
- <arg name="terrain_file_path_without_extention" default="$(find strirus_ga_body_optimization)/maps/Generated_terrain/model"/>
+ <arg name="terrain_file_path_without_file_name" default="$(find strirus_ga_body_optimization)/maps/Generated_terrain"/>
 
  <!-- args for changing world params -->
  <arg name="world_file_path_without_extention" default="$(find strirus_ga_body_optimization)/worlds/testing_area"/>
@@ -16,7 +16,8 @@
  <arg name="real_time_update_rate" default="111.2"/>
  <arg name="max_step_size" default="0.009"/>
  <arg name="package_name" default="strirus_ga_body_optimization"/>
- <arg name="terrain_path" default="/maps/Generated_terrain" />
+ <arg name="terrain_path" default="maps/Generated_terrain" /> <!-- without first '/' -->
+
 
 
 
@@ -29,7 +30,7 @@
     <param name="cell_width_number" value="$(arg cell_width_number)"/>
     <param name="cell_length_number" value="$(arg cell_length_number)" />
     <param name="cage_height_param" value="$(arg cage_height_param)"/>
-    <param name="terrain_file_path_without_extention" value="$(arg terrain_file_path_without_extention)"/>
+    <param name="terrain_file_path_without_file_name" value="$(arg terrain_file_path_without_file_name)"/>
 
     <param name="world_file_path_without_extention" value="$(arg world_file_path_without_extention)"/>
     <param name="physics_iter" value="$(arg physics_iter)" />
