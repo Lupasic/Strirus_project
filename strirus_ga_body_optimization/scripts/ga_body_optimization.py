@@ -1,19 +1,20 @@
 #!/usr/bin/env python
 
+import rospy.impl.init
 import os
 import math
 import time
 from multiprocessing import Pool
 import rospy
-from rosgraph_msgs.msg import Clock
-from gazebo_msgs.msg import ModelStates
+import rospy.exceptions
+from Listener_class import Listener
 
 #need to divided without remainder
-WORLDS_NUM = 2
+WORLDS_NUM = 4
 MAX_PROCCESSES = 2
-ROS_FIRST_PORT = 1240
-GAZEBO_FIRST_PORT = 11346
-SIM_TIME_MAX = 30
+ROS_FIRST_PORT = 1234
+GAZEBO_FIRST_PORT = 11345
+SIM_TIME_MAX = 10
 
 def updateArgs(arg_defaults):
     '''Look up parameters starting in the driver's private parameter space, but
@@ -31,25 +32,9 @@ def updateArgs(arg_defaults):
     return (args)
 
 
-class Listener:
-    clock = 0
-    last_point = 0
-
-    def __init__(self):
-        # subscribers
-        listener = rospy.init_node('listeners')
-        clock_subscriber = rospy.Subscriber("/clock", Clock, self.callback_clock)
-        distance_subscriber = rospy.Subscriber("/gazebo/model_states", ModelStates, self.callback_distance)
-
-    def callback_clock(data):
-        Listener.clock = data.clock.secs
-
-    def callback_distance(data):
-        Listener.last_point = data.pose[2]
-
-
 def get_avg_dist_and_vel(index):
     data = {}
+
     real_number_of_legs = "real_number_of_legs:=\"" + str(19) + "\" "
     angle_between_legs = "angle_between_legs:=\"60\" "
     offset_between_legs_waves = "offset_between_legs_waves:=\"0\" "
@@ -60,26 +45,28 @@ def get_avg_dist_and_vel(index):
     os.environ['ROS_MASTER_URI'] = "http://localhost:"+str(ROS_FIRST_PORT+index)
 
     #subscribers
-    # cur_listener = Listener()
-    # while not rospy.is_shutdown():
-    #     if Listener.clock > SIM_TIME_MAX:
-    #         data['distance'] = math.sqrt(
-    #             math.pow(cur_listener.last_point.x, 2) + math.pow(cur_listener.last_point.y, 2) + math.pow(
-    #                 cur_listener.last_point.z, 2))
-    #         data['velocity_avg'] = data['distance'] / cur_listener.clock
-    #         rospy.signal_shutdown()
-    #         os.system("kill %1")
-    time.sleep(20)
+    try:
+        rospy.init_node("Listener")
+    except rospy.exceptions.ROSInitExeption:
+        print("It cannot be init\n")
 
-    os.system("killall gzclient || killall gzserver")
-    data = index
 
+
+    cur_listener = Listener()
+    while not rospy.is_shutdown():
+        if Listener.clock > SIM_TIME_MAX:
+            data['distance'] = math.sqrt(
+                math.pow(cur_listener.last_point.x, 2) + math.pow(cur_listener.last_point.y, 2) + math.pow(
+                    cur_listener.last_point.z, 2))
+            data['velocity_avg'] = data['distance'] / cur_listener.clock
+            rospy.signal_shutdown("is needed")
+
+    #TODO shutdown roslaunch correctly with needed gzclient and gzserver
+    os.system("killall gzclient && killall gzserver")
     return data
 
 #Generate worlds
 if __name__ == '__main__':
-    nodename = "ga_body_optimization"
-    node = rospy.init_node(nodename)
     args_default = {
         'terrain_file_path_without_file_name': '../maps/Generated_terrain',
         'world_file_path_without_extention': '../worlds/Generated_terrain/testing_area'

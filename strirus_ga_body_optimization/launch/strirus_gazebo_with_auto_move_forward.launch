@@ -16,8 +16,8 @@
     <arg name="world_name" value="$(find strirus_ga_body_optimization)/worlds/testing_area_$(arg cur_index).world"/>
     <arg name="paused" value="false"/>
     <arg name="physics" default="ode"/>
-    <arg name="verbose" default="true"/>'
-    <arg name="gui" value="true"/>
+    <arg name="verbose" default="false"/>'
+    <arg name="gui" value="false"/>
     <arg name="use_sim_time" value="$(arg use_sim_time)"/>
   </include>
   

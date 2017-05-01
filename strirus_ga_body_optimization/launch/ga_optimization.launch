@@ -3,8 +3,8 @@
  <arg name="terrain_file_path_without_file_name" default="$(find strirus_ga_body_optimization)/maps/Generated_terrain"/>
  <arg name="world_file_path_without_extention" default="$(find strirus_ga_body_optimization)/worlds/testing_area"/>
 
-  <node name="ga_body_optimization" pkg="strirus_ga_body_optimization" type="ga_body_optimization.py" output="screen" required="true">
-    <param name="terrain_file_path_without_file_name" value="$(arg terrain_file_path_without_file_name)"/>
-    <param name="world_file_path_without_extention" value="$(arg world_file_path_without_extention)"/>
-  </node>
+<param name="terrain_file_path_without_file_name" value="$(arg terrain_file_path_without_file_name)"/>
+<param name="world_file_path_without_extention" value="$(arg world_file_path_without_extention)"/>
+
+  <node name="ga_body_optimization" pkg="strirus_ga_body_optimization" type="ga_body_optimization.py" output="screen" required="true"/>
  </launch>
