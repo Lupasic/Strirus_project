@@ -1,9 +1,21 @@
 <launch>
 	<arg name="terrain_file_path_without_file_name" default="$(find strirus_ga_body_optimization)/maps/Generated_terrain"/>
 	<arg name="world_file_path_without_extention" default="$(find strirus_ga_body_optimization)/worlds/testing_area"/>
+	<!-- need to divided without remainder -->
+	<arg name="number_of_worlds" default="4"/>
+	<arg name="max_simultaneous_processes" default="2"/>
+	<!-- -->
+	<arg name="simulation_time" default="3"/>
 
 	<param name="terrain_file_path_without_file_name" value="$(arg terrain_file_path_without_file_name)"/>
 	<param name="world_file_path_without_extention" value="$(arg world_file_path_without_extention)"/>
+	<param name="rosmaster_first_port" value="1220"/>
+	<param name="gazebo_first_port" value="11350"/>
+	<param name="number_of_worlds" value="$(arg number_of_worlds)"/>
+	<param name="max_simultaneous_processes" value="$(arg max_simultaneous_processes)"/>
+	<param name="simulation_time" value="$(arg simulation_time)"/>
+
+
 
 	<node name="ga_body_optimization" pkg="strirus_ga_body_optimization" type="ga_body_optimization.py" output="screen" required="true"/>
 </launch>
