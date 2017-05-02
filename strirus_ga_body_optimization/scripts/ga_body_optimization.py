@@ -43,6 +43,7 @@ def get_avg_dist_and_vel(index):
         ['roslaunch', '-p', str(cur_ros_port), 'strirus_ga_body_optimization',
          'strirus_gazebo_with_auto_move_forward.launch', real_number_of_legs, angle_between_legs,
          offset_between_legs_waves, cur_index], env=neended_env)
+    os.environ['ROS_MASTER_URI'] = "http://localhost:" + str(cur_ros_port)
 
     # subscribers
     try:
@@ -76,14 +77,14 @@ if __name__ == '__main__':
         'simulation_time': '10'
     }
     args = updateArgs(args_default)
+    print(args)
+
 
     number_of_worlds = "number_of_worlds:=\"" + str(args['number_of_worlds']) + "\" "
     cage_height_range_begin = "cage_height_range_begin:=\"0.1\" "
     cage_height_range_end = "cage_height_range_end:=\"1.5\" "
     cage_width_and_lengh = "cage_width_and_lengh:=\"1.0\""
     all_args = number_of_worlds + cage_height_range_begin + cage_height_range_end + cage_width_and_lengh
-
-    print(all_args)
 
     os.system("roslaunch strirus_ga_body_optimization full_world_generation.launch " + all_args)
 
@@ -97,15 +98,6 @@ if __name__ == '__main__':
         all_data_from_cur_robot = all_data_from_cur_robot + result
 
     print(all_data_from_cur_robot)
-
-    # Debug piece of code
-    # if not os.path.exists("/home/lupasic/Programs/dich.txt"):
-    #     writeFile = open("/home/lupasic/Programs/dich.txt", "w")
-    # else:
-    #     writeFile = open("/home/lupasic/Programs/dich.txt", "a")
-    #
-    # writeFile.write("\n\n" + str(all_data_from_cur_robot))
-    # writeFile.close()
 
     # delete all world files after working
     os.system("rm -r " + args['terrain_file_path_without_file_name'] + "_*")

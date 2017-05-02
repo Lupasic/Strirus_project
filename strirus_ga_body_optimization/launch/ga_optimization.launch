@@ -5,12 +5,12 @@
 	<arg name="number_of_worlds" default="4"/>
 	<arg name="max_simultaneous_processes" default="2"/>
 	<!-- -->
-	<arg name="simulation_time" default="3"/>
+	<arg name="simulation_time" default="5"/>
 
 	<param name="terrain_file_path_without_file_name" value="$(arg terrain_file_path_without_file_name)"/>
 	<param name="world_file_path_without_extention" value="$(arg world_file_path_without_extention)"/>
-	<param name="rosmaster_first_port" value="1220"/>
-	<param name="gazebo_first_port" value="11350"/>
+	<param name="rosmaster_first_port" value="1237"/>
+	<param name="gazebo_first_port" value="11347"/>
 	<param name="number_of_worlds" value="$(arg number_of_worlds)"/>
 	<param name="max_simultaneous_processes" value="$(arg max_simultaneous_processes)"/>
 	<param name="simulation_time" value="$(arg simulation_time)"/>

@@ -33,6 +33,11 @@ def generate_terrain(index):
         first_point = - (
             (args['cage_width_and_lengh'] / 2) + ((args['cell_width_number'] / 2 - 1) * args['cage_width_and_lengh']))
 
+    temp = args['terrain_file_path_without_file_name'].split("/")
+    temp = temp[-1]
+
+    if not path.exists(args['terrain_file_path_without_file_name'][:-(len(temp) + 1)]):
+        mkdir(args['terrain_file_path_without_file_name'][:-(len(temp) + 1)])
     if not path.exists(args['terrain_file_path_without_file_name'] + "_" + str(index)):
         mkdir(args['terrain_file_path_without_file_name'] + "_" + str(index))
     writeFile = open(args['terrain_file_path_without_file_name'] + "_" + str(index) + "/model.sdf", 'w')
@@ -67,6 +72,10 @@ def generate_terrain(index):
 
 
 def generate_world(index):
+    temp = args['world_file_path_without_extention'].split("/")
+    temp = temp[-1]
+    if not path.exists(args['world_file_path_without_extention'][:-(len(temp) + 1)]):
+        mkdir(args['world_file_path_without_extention'][:-(len(temp) + 1)])
     writeFile = open(args['world_file_path_without_extention'] + "_" + str(index) + ".world", 'w')
     writeFile.write(
         "<?xml version=\"1.0\" ?>\n<sdf version=\"1.6\">\n  <world name=\"default\">\n  <gravity>0 0 -9.81</gravity>\n")
