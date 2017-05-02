@@ -3,18 +3,19 @@
 import rospy.impl.init
 import os
 import math
-import time
 from multiprocessing import Pool
 import rospy
 import rospy.exceptions
 from Listener_class import Listener
 
-#need to divided without remainder
+# need to divided without remainder
+# TODO make it server params
 WORLDS_NUM = 4
-MAX_PROCCESSES = 2
+MAX_PROCCESSES = 1
 ROS_FIRST_PORT = 1234
 GAZEBO_FIRST_PORT = 11345
 SIM_TIME_MAX = 10
+
 
 def updateArgs(arg_defaults):
     '''Look up parameters starting in the driver's private parameter space, but
@@ -34,23 +35,24 @@ def updateArgs(arg_defaults):
 
 def get_avg_dist_and_vel(index):
     data = {}
+    cur_gazebo_port = GAZEBO_FIRST_PORT + index
+    cur_ros_port = ROS_FIRST_PORT + index
 
     real_number_of_legs = "real_number_of_legs:=\"" + str(19) + "\" "
     angle_between_legs = "angle_between_legs:=\"60\" "
     offset_between_legs_waves = "offset_between_legs_waves:=\"0\" "
-    cur_index = "cur_index:=\""+str(index)+"\""
+    cur_index = "cur_index:=\"" + str(index) + "\""
     all_args = real_number_of_legs + angle_between_legs + offset_between_legs_waves + cur_index
     print("cur index !!!!!!!!! " + cur_index)
-    os.system("GAZEBO_MASTER_URI=http://localhost:"+str(GAZEBO_FIRST_PORT+index)+" roslaunch -p  "+str(ROS_FIRST_PORT+index)+" strirus_ga_body_optimization strirus_gazebo_with_auto_move_forward.launch "+all_args+" &")
-    os.environ['ROS_MASTER_URI'] = "http://localhost:"+str(ROS_FIRST_PORT+index)
+    os.system("GAZEBO_MASTER_URI=http://localhost:" + str(cur_gazebo_port) + " roslaunch -p  " + str(
+        cur_ros_port) + " strirus_ga_body_optimization strirus_gazebo_with_auto_move_forward.launch " + all_args + " &")
+    os.environ['ROS_MASTER_URI'] = "http://localhost:" + str(cur_ros_port)
 
-    #subscribers
+    # subscribers
     try:
         rospy.init_node("Listener")
     except rospy.exceptions.ROSInitExeption:
         print("It cannot be init\n")
-
-
 
     cur_listener = Listener()
     while not rospy.is_shutdown():
@@ -59,13 +61,16 @@ def get_avg_dist_and_vel(index):
                 math.pow(cur_listener.last_point.x, 2) + math.pow(cur_listener.last_point.y, 2) + math.pow(
                     cur_listener.last_point.z, 2))
             data['velocity_avg'] = data['distance'] / cur_listener.clock
-            rospy.signal_shutdown("is needed")
+            rospy.signal_shutdown("Sim time is out")
 
-    #TODO shutdown roslaunch correctly with needed gzclient and gzserver
-    os.system("killall gzclient && killall gzserver")
+    # It is killed roslaunch process, tail -n3 (roslaunch, command below, grep), head -n1 -> roslaunch pid
+    os.system(
+        "ps axu | grep \"roslaunch -p " + str(cur_ros_port) + "\" | cut -d ' ' -f3 | tail -n3 | head -n1 | xargs kill")
+
     return data
 
-#Generate worlds
+
+# Generate worlds
 if __name__ == '__main__':
     args_default = {
         'terrain_file_path_without_file_name': '../maps/Generated_terrain',
@@ -73,7 +78,7 @@ if __name__ == '__main__':
     }
     args = updateArgs(args_default)
 
-    number_of_worlds = "number_of_worlds:=\""+str(WORLDS_NUM)+"\" "
+    number_of_worlds = "number_of_worlds:=\"" + str(WORLDS_NUM) + "\" "
     cage_height_range_begin = "cage_height_range_begin:=\"0.1\" "
     cage_height_range_end = "cage_height_range_end:=\"1.5\" "
     cage_width_and_lengh = "cage_width_and_lengh:=\"1.0\""
@@ -81,7 +86,7 @@ if __name__ == '__main__':
 
     print(all_args)
 
-    os.system("roslaunch strirus_ga_body_optimization full_world_generation.launch "+all_args)
+    os.system("roslaunch strirus_ga_body_optimization full_world_generation.launch " + all_args)
 
     all_data_from_cur_robot = []
 
@@ -92,7 +97,14 @@ if __name__ == '__main__':
 
     print(all_data_from_cur_robot)
 
-    #delete all world files after working
+    # TODO delete this output
+    if not os.path.exists("/home/lupasic/Programs/dich.txt"):
+        writeFile = open("/home/lupasic/Programs/dich.txt", "w")
+    else:
+        writeFile = open("/home/lupasic/Programs/dich.txt", "a")
+
+    writeFile.write("\n" + str(all_data_from_cur_robot))
+    writeFile.close()
+    # delete all world files after working
     os.system("rm -r " + args['terrain_file_path_without_file_name'] + "_*")
     os.system("rm " + args['world_file_path_without_extention'] + "_*")
-
