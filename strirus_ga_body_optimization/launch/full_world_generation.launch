@@ -21,7 +21,7 @@
 
 
 
-	<node name="full_world_generation" pkg="strirus_ga_body_optimization" type="full_world_generation.py" output="screen" required="true">
+	<node name="full_world_generation" pkg="strirus_ga_body_optimization" type="full_world_generation.py" output="log" required="true">
 		<param name="number_of_worlds" value="$(arg number_of_worlds)"/>
 		
 		<param name="cage_height_range_begin" value="$(arg cage_height_range_begin)"/>

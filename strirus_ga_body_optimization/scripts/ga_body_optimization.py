@@ -4,6 +4,7 @@ import rospy.impl.init
 import os
 import math
 from multiprocessing import Pool
+from functools import partial
 import rospy
 import rospy.exceptions
 from Listener_class import Listener
@@ -27,14 +28,13 @@ def updateArgs(arg_defaults):
     return (args)
 
 
-def get_avg_dist_and_vel(index):
+def get_avg_dist_and_vel(index, legs_num, angle_between_legs, offset_between_leg_waves):
     data = {}
     cur_gazebo_port = args['gazebo_first_port'] + index
     cur_ros_port = args['rosmaster_first_port'] + index
-
-    real_number_of_legs = "real_number_of_legs:=\"" + str(19) + "\" "
-    angle_between_legs = "angle_between_legs:=\"60\" "
-    offset_between_legs_waves = "offset_between_legs_waves:=\"0\" "
+    real_number_of_legs = "real_number_of_legs:=\"" + str(legs_num) + "\" "
+    angle_between_legs = "angle_between_legs:=\"" + str(angle_between_legs) + "\" "
+    offset_between_legs_waves = "offset_between_legs_waves:=\"" + str(offset_between_leg_waves) + "\" "
     cur_index = "cur_index:=\"" + str(index) + "\""
 
     neended_env = os.environ
@@ -43,6 +43,7 @@ def get_avg_dist_and_vel(index):
         ['roslaunch', '-p', str(cur_ros_port), 'strirus_ga_body_optimization',
          'strirus_gazebo_with_auto_move_forward.launch', real_number_of_legs, angle_between_legs,
          offset_between_legs_waves, cur_index], env=neended_env)
+    #change ROS_MASTER_URI for Listener node
     os.environ['ROS_MASTER_URI'] = "http://localhost:" + str(cur_ros_port)
 
     # subscribers
@@ -65,7 +66,35 @@ def get_avg_dist_and_vel(index):
     return data
 
 
-# Generate worlds
+def world_generation():
+    number_of_worlds = "number_of_worlds:=\"" + str(args['number_of_worlds']) + "\" "
+    cage_height_range_begin = "cage_height_range_begin:=\"0.1\" "
+    cage_height_range_end = "cage_height_range_end:=\"1.5\" "
+    cage_width_and_lengh = "cage_width_and_lengh:=\"1.0\""
+    all_args = number_of_worlds + cage_height_range_begin + cage_height_range_end + cage_width_and_lengh
+
+    os.system("roslaunch strirus_ga_body_optimization full_world_generation.launch " + all_args)
+
+
+def get_avg_vel_dist_from_robot(legs_num, angle_between_legs, offset_between_leg_waves):
+    all_data_from_cur_robot = []
+    p = Pool()
+
+    for i in range(int(args['number_of_worlds'] / args['max_simultaneous_processes'])):
+        index_arr = range(i * args['max_simultaneous_processes'],
+                          args['max_simultaneous_processes'] + i * args['max_simultaneous_processes'])
+        result = p.map(partial(get_avg_dist_and_vel, legs_num=legs_num, angle_between_legs=angle_between_legs,
+                               offset_between_leg_waves=offset_between_leg_waves), index_arr)
+        all_data_from_cur_robot = all_data_from_cur_robot + result
+    return all_data_from_cur_robot
+
+
+def delete_worlds():
+    # delete all world files after working
+    os.system("rm -r " + args['terrain_file_path_without_file_name'] + "_*")
+    os.system("rm " + args['world_file_path_without_extention'] + "_*")
+
+
 if __name__ == '__main__':
     args_default = {
         'terrain_file_path_without_file_name': '../maps/Generated_terrain',
@@ -77,28 +106,12 @@ if __name__ == '__main__':
         'simulation_time': '10'
     }
     args = updateArgs(args_default)
-    print(args)
-
-
-    number_of_worlds = "number_of_worlds:=\"" + str(args['number_of_worlds']) + "\" "
-    cage_height_range_begin = "cage_height_range_begin:=\"0.1\" "
-    cage_height_range_end = "cage_height_range_end:=\"1.5\" "
-    cage_width_and_lengh = "cage_width_and_lengh:=\"1.0\""
-    all_args = number_of_worlds + cage_height_range_begin + cage_height_range_end + cage_width_and_lengh
-
-    os.system("roslaunch strirus_ga_body_optimization full_world_generation.launch " + all_args)
-
-    all_data_from_cur_robot = []
-
-    p = Pool()
-    for i in range(int(args['number_of_worlds'] / args['max_simultaneous_processes'])):
-        result = p.map(get_avg_dist_and_vel, range(i * args['max_simultaneous_processes'],
-                                                   args['max_simultaneous_processes'] + i * args[
-                                                       'max_simultaneous_processes']))
-        all_data_from_cur_robot = all_data_from_cur_robot + result
-
-    print(all_data_from_cur_robot)
-
-    # delete all world files after working
-    os.system("rm -r " + args['terrain_file_path_without_file_name'] + "_*")
-    os.system("rm " + args['world_file_path_without_extention'] + "_*")
+    # Generate world
+    world_generation()
+    # get avg velosity and distance for robot with params
+    data_from_robot = get_avg_vel_dist_from_robot(12, 60, 0)
+    print(data_from_robot)
+    data_from_robot = get_avg_vel_dist_from_robot(4, 90, 90)
+    print(data_from_robot)
+    # delete generated worlds
+    delete_worlds()
