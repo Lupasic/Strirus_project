@@ -2,10 +2,10 @@
 	<arg name="terrain_file_path_without_file_name" default="$(find strirus_ga_body_optimization)/maps/Generated_terrain"/>
 	<arg name="world_file_path_without_extention" default="$(find strirus_ga_body_optimization)/worlds/testing_area"/>
 	<!-- need to divided without remainder -->
-	<arg name="number_of_worlds" default="4"/>
+	<arg name="number_of_worlds" default="2"/>
 	<arg name="max_simultaneous_processes" default="2"/>
 	<!-- -->
-	<arg name="simulation_time" default="5"/>
+	<arg name="simulation_time" default="6"/>
 
 	<param name="terrain_file_path_without_file_name" value="$(arg terrain_file_path_without_file_name)"/>
 	<param name="world_file_path_without_extention" value="$(arg world_file_path_without_extention)"/>
