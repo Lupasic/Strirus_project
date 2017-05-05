@@ -13,7 +13,8 @@
 	<!-- args for changing world params -->
 	<arg name="world_file_path_without_extention" default="$(find strirus_ga_body_optimization)/worlds/testing_area"/>
 	<arg name="physics_iter" default="400" />
-	<arg name="real_time_update_rate" default="111.2"/>
+	<!--<arg name="real_time_update_rate" default="111.2"/> -->
+	<arg name="real_time_update_rate" default="311.2"/>
 	<arg name="max_step_size" default="0.009"/>
 	<arg name="package_name" default="strirus_ga_body_optimization"/>
 	<arg name="terrain_path" default="maps/Generated_terrain" /> <!-- without first '/' -->

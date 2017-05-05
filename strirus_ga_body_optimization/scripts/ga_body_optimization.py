@@ -29,10 +29,10 @@ import sys
 #                         define 'individual' to be an individual
 #                         consisting of 3 elements ('genes')
 ATTR_LEGS_NUM_MIN, ATTR_LEGS_NUM_MAX = 4, 40
-ATTR_ANGLE_BETWEEN_LEGS_MIN, ATTR_ANGLE_BETWEEN_LEGS_MAX = 0, 360
-ATTR_OFFSET_BETWEEN_LEG_WAVES_MIN, ATTR_OFFSET_BETWEEN_LEG_WAVES_MAX = 0, 360
+ATTR_ANGLE_BETWEEN_LEGS_MIN, ATTR_ANGLE_BETWEEN_LEGS_MAX = 0, 89
+ATTR_OFFSET_BETWEEN_LEG_WAVES_MIN, ATTR_OFFSET_BETWEEN_LEG_WAVES_MAX = 0, 180
 N_CYCLES = 1
-POPULATION_SIZE = 5
+POPULATION_SIZE = 3
 # CXPB  is the probability with which two individuals
 #       are crossed
 #
@@ -43,7 +43,7 @@ POPULATION_SIZE = 5
 CXPB = 0.5
 MUTPB = 0.2
 # IF YOU WANT CHANGE THE NUMBER OF GENERATIONS!
-NGEN = 5
+NGEN = 3
 
 
 def updateArgs(arg_defaults):
@@ -136,7 +136,10 @@ def fitness_function(individual):
     distance = individual[3]
     num_of_legs = individual[0]
     angle_btw_legs = individual[1]
-
+    print("distance in fitness func def: " +str(distance))
+    print("length in fitness func def: " + str(((num_of_legs - 1) * math.sin(math.radians(angle_btw_legs)))))
+    res = distance / ((num_of_legs - 1) * math.sin(math.radians(angle_btw_legs)))
+    print(res)
     return distance / ((num_of_legs - 1) * math.sin(math.radians(angle_btw_legs))),
 
 def crossover_function(ind1, ind2):
@@ -253,6 +256,7 @@ if __name__ == '__main__':
             offspring[cur_robot][3] = get_avg_dist_from_robot(offspring[cur_robot][0], offspring[cur_robot][1],
                                                               offspring[cur_robot][2])
             print("Leave func with value: " + str(offspring[cur_robot][3]))
+            print("fitness func for cur robot is: " + str(fitness_function(offspring[cur_robot])))
             time.sleep(10)
 
         # and analysing the output
@@ -289,6 +293,8 @@ if __name__ == '__main__':
 
         # Gather all the fitnesses in one list and print the stats
         fits = [ind.fitness.values[0] for ind in pop]
+        best_ind_gen = tools.selBest(pop, 1)[0]
+        print("Best individual is %s, %s" % (best_ind_gen, best_ind_gen.fitness.values))
 
         # length = len(pop)
         # mean = sum(fits) / length

@@ -1,9 +1,9 @@
 <launch>
  <!-- args for changing robot params -->
  <arg name="use_sim_time" default="true"/>
- <arg name="real_number_of_legs" default="19" />
- <arg name="angle_between_legs" default="60" /> <!-- in degree -->
- <arg name="offset_between_legs_waves" default="0" />
+ <arg name="real_number_of_legs" default="9" />
+ <arg name="angle_between_legs" default="42" /> <!-- in degree -->
+ <arg name="offset_between_legs_waves" default="127" />
 
  <!-- args for changing terrain params -->
  <arg name="cage_height_range_begin" default="0.1"/>
@@ -31,7 +31,7 @@
   <!-- запускаем комнату -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find strirus_gazebo)/worlds/testing_area.world"/>
-    <arg name="paused" value="false"/>
+    <arg name="paused" value="true"/>
     <arg name="physics" default="ode"/>
     <arg name="verbose" default="true"/>'
     <arg name="gui" value="true"/>
