@@ -10,7 +10,7 @@ def callback_clock(data):
 
 
 def callback_distance(data):
-    if Listener.clock != 0:
+    if Listener.clock >= 2:
         Listener.last_point = data.pose[2].position
 
 

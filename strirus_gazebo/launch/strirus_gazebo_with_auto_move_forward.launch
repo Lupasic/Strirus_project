@@ -1,9 +1,9 @@
 <launch>
  <!-- args for changing robot params -->
  <arg name="use_sim_time" default="true"/>
- <arg name="real_number_of_legs" default="9" />
+ <arg name="real_number_of_legs" default="13" />
  <arg name="angle_between_legs" default="42" /> <!-- in degree -->
- <arg name="offset_between_legs_waves" default="127" />
+ <arg name="offset_between_legs_waves" default="166" />
 
  <!-- args for changing terrain params -->
  <arg name="cage_height_range_begin" default="0.1"/>
@@ -39,7 +39,7 @@
   </include>
   
   <!-- Spawn a robot into Gazebo -->
-  <!--<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-file $(find plastun_description)/urdf/plastun.urdf -urdf -z 0.001 -model plastun" /> -->
+  <!--<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-file $(find plastun_description)/urdf/plastun.urdf -urdf -z 0.001 -model strirus" /> -->
   <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
    args="-urdf -model strirus -param robot_description"/>
 

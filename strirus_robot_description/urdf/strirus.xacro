@@ -11,7 +11,7 @@
 	<!-- Constants for simulating -->
 	<!-- number of legs need to be real number - 1 (it is from one side only)-->
 	<!-- Xacro arg provides xacro.py file.xacro real_number_of_legs:=12 -->
-	<xacro:arg name="real_number_of_legs" default="12" />
+	<xacro:arg name="real_number_of_legs" default="6" />
 	<xacro:arg name="angle_between_legs" default="60" />
 	<!-- in degree -->
 	<xacro:arg name="offset_between_legs_wave" default="0" />

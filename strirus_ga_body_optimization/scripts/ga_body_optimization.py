@@ -28,11 +28,11 @@ import sys
 # Structure initializers
 #                         define 'individual' to be an individual
 #                         consisting of 3 elements ('genes')
-ATTR_LEGS_NUM_MIN, ATTR_LEGS_NUM_MAX = 4, 40
-ATTR_ANGLE_BETWEEN_LEGS_MIN, ATTR_ANGLE_BETWEEN_LEGS_MAX = 0, 89
+ATTR_LEGS_NUM_MIN, ATTR_LEGS_NUM_MAX = 10, 20
+ATTR_ANGLE_BETWEEN_LEGS_MIN, ATTR_ANGLE_BETWEEN_LEGS_MAX = 1, 89
 ATTR_OFFSET_BETWEEN_LEG_WAVES_MIN, ATTR_OFFSET_BETWEEN_LEG_WAVES_MAX = 0, 180
 N_CYCLES = 1
-POPULATION_SIZE = 3
+POPULATION_SIZE = 8
 # CXPB  is the probability with which two individuals
 #       are crossed
 #
@@ -41,10 +41,24 @@ POPULATION_SIZE = 3
 # NGEN  is the number of generations for which the
 #       evolution runs
 CXPB = 0.5
-MUTPB = 0.2
+MUTPB = 0.5
+INDPB = 0.2
 # IF YOU WANT CHANGE THE NUMBER OF GENERATIONS!
-NGEN = 3
+NGEN = 1
 
+def write_in_file(array):
+    temp = args['results_path'].split("/")
+    temp = temp[-1]
+    if not os.path.exists(args['results_path'][:-(len(temp) + 1)]):
+        os.mkdir(args['results_path'][:-(len(temp) + 1)])
+    writeFile = open(args['results_path'], 'a')
+
+    str_array = []
+    for i in array:
+        str_array = str_array + [str(i)]
+    writeFile.write(" ".join(str_array))
+    writeFile.write("\n")
+    writeFile.close()
 
 def updateArgs(arg_defaults):
     '''Look up parameters starting in the driver's private parameter space, but
@@ -96,6 +110,7 @@ def get_avg_dist_and_vel(index, legs_num, angle_between_legs, offset_between_leg
 
     os.kill(roslaunch.pid, signal.SIGINT)
     print("Exit from getting distance from terrain " + str(index))
+    del cur_listener
 
     return data
 
@@ -158,11 +173,11 @@ def crossover_function(ind1, ind2):
 
 def mutation_function(individual, indpb):
     if random.random() < indpb:
-        individual[0] = random.randrange(4, 40)
+        individual[0] = random.randrange(ATTR_LEGS_NUM_MIN, ATTR_LEGS_NUM_MAX)
     if random.random() < indpb:
-        individual[1] = random.randrange(0, 360)
+        individual[1] = random.randrange(ATTR_ANGLE_BETWEEN_LEGS_MIN, ATTR_ANGLE_BETWEEN_LEGS_MAX)
     if random.random() < indpb:
-        individual[2] = random.randrange(0, 360)
+        individual[2] = random.randrange(ATTR_OFFSET_BETWEEN_LEG_WAVES_MIN, ATTR_OFFSET_BETWEEN_LEG_WAVES_MAX)
 
     return individual,
 
@@ -180,7 +195,8 @@ if __name__ == '__main__':
         'gazebo_first_port': '11345',
         'number_of_worlds': '4',
         'max_simultaneous_processes': '2',
-        'simulation_time': '10'
+        'simulation_time': '10',
+        'results_path' : ''
     }
     args = updateArgs(args_default)
     # Generate world
@@ -215,7 +231,7 @@ if __name__ == '__main__':
 
     # register a mutation operator with a probability to
     # flip each attribute/gene of 0.05
-    toolbox.register("mutate", mutation_function, indpb=0.05)
+    toolbox.register("mutate", mutation_function, indpb=INDPB)
 
     # operator for selecting individuals for breeding the next
     # generation: each individual of the current generation
@@ -226,7 +242,7 @@ if __name__ == '__main__':
     # MAIN FUNCTION
     random.seed()
 
-    # create an initial population of 10 individuals (where
+    # create an initial population of n individuals (where
     # each individual is a list of integers)
     pop = toolbox.population(n=POPULATION_SIZE)
 
@@ -257,7 +273,7 @@ if __name__ == '__main__':
                                                               offspring[cur_robot][2])
             print("Leave func with value: " + str(offspring[cur_robot][3]))
             print("fitness func for cur robot is: " + str(fitness_function(offspring[cur_robot])))
-            time.sleep(10)
+            time.sleep(11)
 
         # and analysing the output
 
@@ -284,6 +300,7 @@ if __name__ == '__main__':
         invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
         fitnesses = map(toolbox.evaluate, invalid_ind)
         for ind, fit in zip(invalid_ind, fitnesses):
+            print("Invalid fitness function\n")
             ind.fitness.values = fit
 
         print("  Evaluated %i individuals" % len(invalid_ind))
@@ -296,15 +313,18 @@ if __name__ == '__main__':
         best_ind_gen = tools.selBest(pop, 1)[0]
         print("Best individual is %s, %s" % (best_ind_gen, best_ind_gen.fitness.values))
 
-        # length = len(pop)
-        # mean = sum(fits) / length
-        # sum2 = sum(x * x for x in fits)
-        # std = abs(sum2 / length - mean ** 2) ** 0.5
 
-        # print("  Min %s" % min(fits))
+        length = len(pop)
+        mean = sum(fits) / length
+        sum2 = sum(x * x for x in fits)
+        std = abs(sum2 / length - mean ** 2) ** 0.5
+
+        print("  Min %s" % min(fits))
         print("  Max %s" % max(fits))
-        # print("  Avg %s" % mean)
-        # print("  Std %s" % std)
+        print("  Avg %s" % mean)
+        print("  Std %s" % std)
+        write_in_file(best_ind_gen + [best_ind_gen.fitness.values[0], min(fits), max(fits), mean, std])
+
 
     print("-- End of (successful) evolution --")
 
