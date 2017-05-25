@@ -32,7 +32,7 @@ ATTR_LEGS_NUM_MIN, ATTR_LEGS_NUM_MAX = 10, 20
 ATTR_ANGLE_BETWEEN_LEGS_MIN, ATTR_ANGLE_BETWEEN_LEGS_MAX = 1, 89
 ATTR_OFFSET_BETWEEN_LEG_WAVES_MIN, ATTR_OFFSET_BETWEEN_LEG_WAVES_MAX = 0, 180
 N_CYCLES = 1
-POPULATION_SIZE = 8
+POPULATION_SIZE = 4
 # CXPB  is the probability with which two individuals
 #       are crossed
 #
@@ -44,7 +44,7 @@ CXPB = 0.5
 MUTPB = 0.5
 INDPB = 0.2
 # IF YOU WANT CHANGE THE NUMBER OF GENERATIONS!
-NGEN = 1
+NGEN = 5
 
 def write_in_file(array):
     temp = args['results_path'].split("/")
@@ -266,6 +266,7 @@ if __name__ == '__main__':
         # Clone the selected individuals
         offspring = list(map(toolbox.clone, offspring))
 
+
         # HERE GAZEBO CODE
         for cur_robot in range(POPULATION_SIZE):
             print(str(cur_robot) + " individual try to cross through over the terrains")
@@ -275,7 +276,6 @@ if __name__ == '__main__':
             print("fitness func for cur robot is: " + str(fitness_function(offspring[cur_robot])))
             time.sleep(11)
 
-        # and analysing the output
 
         # Apply crossover and mutation on the offspring
         for child1, child2 in zip(offspring[::2], offspring[1::2]):
@@ -300,7 +300,7 @@ if __name__ == '__main__':
         invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
         fitnesses = map(toolbox.evaluate, invalid_ind)
         for ind, fit in zip(invalid_ind, fitnesses):
-            print("Invalid fitness function\n")
+            #print("Invalid fitness function\n")
             ind.fitness.values = fit
 
         print("  Evaluated %i individuals" % len(invalid_ind))

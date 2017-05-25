@@ -3,8 +3,8 @@
 	<arg name="world_file_path_without_extention" default="$(find strirus_ga_body_optimization)/worlds/testing_area"/>
 	<arg name="results_path" default="$(find strirus_ga_body_optimization)/results/all_data.txt"/>
 	<!-- need to divided without remainder -->
-	<arg name="number_of_worlds" default="4"/>
-	<arg name="max_simultaneous_processes" default="2"/>
+	<arg name="number_of_worlds" default="1"/>
+	<arg name="max_simultaneous_processes" default="1"/>
 	<!-- -->
 	<arg name="simulation_time" default="15"/>
 
