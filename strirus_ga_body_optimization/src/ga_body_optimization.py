@@ -1,41 +1,28 @@
 #!/usr/bin/env python
 
-import rospy.impl.init
+import roslib
+
+import rospy
+#import rospy.impl.init
 import os
 import math
 from multiprocessing import Pool
 from functools import partial
-import rospy
+
+import gc
+
 import rospy.exceptions
 from Listener_class import Listener
 import subprocess
 import signal
 import time
 import random
-from deap_lib import base
-from deap_lib import creator
-from deap_lib import tools
-from deap_lib import algorithms
+from deap import base
+from deap import creator
+from deap import tools
+from deap import algorithms
 import numpy
 
-
-ATTR_LEGS_NUM_MIN, ATTR_LEGS_NUM_MAX = 10, 20
-ATTR_ANGLE_BETWEEN_LEGS_MIN, ATTR_ANGLE_BETWEEN_LEGS_MAX = 1, 89
-ATTR_OFFSET_BETWEEN_LEG_WAVES_MIN, ATTR_OFFSET_BETWEEN_LEG_WAVES_MAX = 0, 180
-POPULATION_SIZE = 8
-TOURNAMENT_SIZE = 7
-# CXPB  is the probability with which two individuals
-#       are crossed
-#
-# MUTPB is the probability for mutating an individual
-#
-# NGEN  is the number of generations for which the
-#       evolution runs
-CXPB = 0.5
-MUTPB = 0.5
-INDPB = 0.2
-# IF YOU WANT CHANGE THE NUMBER OF GENERATIONS!
-NGEN = 5
 
 
 def write_in_file(array):
@@ -110,12 +97,9 @@ def get_avg_dist_and_vel(index, legs_num, angle_between_legs, offset_between_leg
 
 def world_generation():
     number_of_worlds = "number_of_worlds:=\"" + str(args['number_of_worlds']) + "\" "
-    cage_height_range_begin = "cage_height_range_begin:=\"0.1\" "
-    cage_height_range_end = "cage_height_range_end:=\"1.5\" "
-    cage_width_and_lengh = "cage_width_and_lengh:=\"1.0\""
-    all_args = number_of_worlds + cage_height_range_begin + cage_height_range_end + cage_width_and_lengh
+    all_args = number_of_worlds
 
-    os.system("roslaunch strirus_ga_body_optimization full_world_generation.launch " + all_args)
+    os.system("roslaunch strirus_ga_body_optimization whole_worlds_generation.launch " + all_args)
 
 
 def get_avg_dist_from_robot(legs_num, angle_between_legs, offset_between_leg_waves):
@@ -136,11 +120,12 @@ def get_avg_dist_from_robot(legs_num, angle_between_legs, offset_between_leg_wav
         temp_sum = temp_sum + temp['distance']
     avg_dist = temp_sum / len(all_data_from_cur_robot)
     time.sleep(5)
+    gc.collect()
+
     return avg_dist
 
 
 # the goal ('fitness') function to be maximized
-# TODO implement
 def fitness_function(individual):
     distance = get_avg_dist_from_robot(individual[0], individual[1], individual[2])
     num_of_legs = individual[0]
@@ -151,15 +136,17 @@ def fitness_function(individual):
     print(res)
     return distance / ((num_of_legs - 1) * math.sin(math.radians(angle_btw_legs))),
 
-def mutation_function(individual, indpb):
-    if random.random() < indpb:
-        individual[0] = random.randrange(ATTR_LEGS_NUM_MIN, ATTR_LEGS_NUM_MAX)
-    if random.random() < indpb:
-        individual[1] = random.randrange(ATTR_ANGLE_BETWEEN_LEGS_MIN, ATTR_ANGLE_BETWEEN_LEGS_MAX)
-    if random.random() < indpb:
-        individual[2] = random.randrange(ATTR_OFFSET_BETWEEN_LEG_WAVES_MIN, ATTR_OFFSET_BETWEEN_LEG_WAVES_MAX)
+
+def mutation_function(individual, mutpb):
+    if random.random() < mutpb:
+        individual[0] = random.randrange(args['legs_num_min'], args['legs_num_max'])
+    if random.random() < mutpb:
+        individual[1] = random.randrange(args['angle_between_legs_min'], args['angle_between_legs_max'])
+    if random.random() < mutpb:
+        individual[2] = random.randrange(args['offset_between_leg_waves_min'], args['offset_between_leg_waves_max'])
 
     return individual,
+
 
 def delete_worlds():
     # delete all world files after working
@@ -176,6 +163,17 @@ if __name__ == '__main__':
         'number_of_worlds': '4',
         'max_simultaneous_processes': '2',
         'simulation_time': '10',
+        'number_generations': '',
+        'population_size': '',
+        'tournament_size': '',
+        'crossover_probability': '',
+        'mutation_probability': '',
+        'legs_num_min': '',
+        'legs_num_max': '',
+        'angle_between_legs_min': '',
+        'angle_between_legs_max': '',
+        'offset_between_leg_waves_min': '',
+        'offset_between_leg_waves_max': '',
         'results_path': ''
     }
     args = updateArgs(args_default)
@@ -187,23 +185,24 @@ if __name__ == '__main__':
 
     toolbox = base.Toolbox()
 
-    toolbox.register("attr_legs_num", random.randint, ATTR_LEGS_NUM_MIN, ATTR_LEGS_NUM_MAX)
-    toolbox.register("attr_angle_between_legs", random.randint, ATTR_ANGLE_BETWEEN_LEGS_MIN,
-                     ATTR_ANGLE_BETWEEN_LEGS_MAX)
-    toolbox.register("attr_offset_between_leg_waves", random.randint, ATTR_OFFSET_BETWEEN_LEG_WAVES_MIN,
-                     ATTR_OFFSET_BETWEEN_LEG_WAVES_MAX)
+    toolbox.register("attr_legs_num", random.randint, args['legs_num_min'], args['legs_num_max'])
+    toolbox.register("attr_angle_between_legs", random.randint, args['angle_between_legs_min'],
+                     args['angle_between_legs_max'])
+    toolbox.register("attr_offset_between_leg_waves", random.randint, args['offset_between_leg_waves_min'],
+                     args['offset_between_leg_waves_max'])
 
     toolbox.register("individual", tools.initCycle, creator.Individual,
-                     (toolbox.attr_legs_num, toolbox.attr_angle_between_legs, toolbox.attr_offset_between_leg_waves), n=1)
+                     (toolbox.attr_legs_num, toolbox.attr_angle_between_legs, toolbox.attr_offset_between_leg_waves),
+                     n=1)
 
     toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
     toolbox.register("evaluate", fitness_function)
     toolbox.register("mate", tools.cxTwoPoint)
-    toolbox.register("mutate", mutation_function, indpb=0.1)
-    toolbox.register("select", tools.selTournament, tournsize=TOURNAMENT_SIZE)
+    toolbox.register("mutate", mutation_function, mutpb=args['mutation_probability'])
+    toolbox.register("select", tools.selTournament, tournsize=args['tournament_size'])
 
-    pop = toolbox.population(n=POPULATION_SIZE)
+    pop = toolbox.population(n=args['population_size'])
     hof = tools.HallOfFame(1)
     stats = tools.Statistics(lambda ind: ind.fitness.values)
     stats.register("avg", numpy.mean)
@@ -211,9 +210,9 @@ if __name__ == '__main__':
     stats.register("min", numpy.min)
     stats.register("max", numpy.max)
 
-    pop, log = algorithms.eaSimple(pop, toolbox, cxpb=CXPB, mutpb=MUTPB, ngen=NGEN,
+    pop, log = algorithms.eaSimple(pop, toolbox, cxpb=args['crossover_probability'], mutpb=args['mutation_probability'],
+                                   ngen=args['number_generations'],
                                    stats=stats, halloffame=hof, verbose=True)
-
 
     write_in_file([log])
     print(hof)

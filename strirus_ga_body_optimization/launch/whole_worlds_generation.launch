@@ -13,7 +13,6 @@
 	<!-- args for changing world params -->
 	<arg name="world_file_path_without_extention" default="$(find strirus_ga_body_optimization)/worlds/testing_area"/>
 	<arg name="physics_iter" default="400" />
-	<!--<arg name="real_time_update_rate" default="111.2"/> -->
 	<arg name="real_time_update_rate" default="311.2"/>
 	<arg name="max_step_size" default="0.009"/>
 	<arg name="package_name" default="strirus_ga_body_optimization"/>
@@ -22,7 +21,7 @@
 
 
 
-	<node name="full_world_generation" pkg="strirus_ga_body_optimization" type="full_world_generation.py" output="log" required="true">
+	<node name="whole_worlds_generation" pkg="strirus_ga_body_optimization" type="whole_worlds_generation.py" output="log" required="true">
 		<param name="number_of_worlds" value="$(arg number_of_worlds)"/>
 		
 		<param name="cage_height_range_begin" value="$(arg cage_height_range_begin)"/>

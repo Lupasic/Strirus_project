@@ -95,7 +95,7 @@ def generate_world(index):
     writeFile.close()
 
 
-nodename = "full_world_generation"
+nodename = "whole_worlds_generation"
 node = rospy.init_node(nodename)
 args_default = {
     'number_of_worlds': '2',

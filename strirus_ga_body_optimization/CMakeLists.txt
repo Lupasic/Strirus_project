@@ -8,6 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   geometry_msgs
 )
+
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES plastun_gazebo
@@ -19,3 +20,5 @@ find_package(gazebo REQUIRED)
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
+
+
