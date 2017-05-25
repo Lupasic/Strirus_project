@@ -15,24 +15,15 @@ import random
 from deap_lib import base
 from deap_lib import creator
 from deap_lib import tools
+from deap_lib import algorithms
+import numpy
 
-import sys
 
-# Attribute generator
-#                      define 'attr_bool' to be an attribute ('gene')
-#                      which corresponds to integers sampled uniformly
-#                      from the range [0,1] (i.e. 0 or 1 with equal
-#                      probability)
-# toolbox.register("attr_bool", random.randint, 0, 360)
-
-# Structure initializers
-#                         define 'individual' to be an individual
-#                         consisting of 3 elements ('genes')
 ATTR_LEGS_NUM_MIN, ATTR_LEGS_NUM_MAX = 10, 20
 ATTR_ANGLE_BETWEEN_LEGS_MIN, ATTR_ANGLE_BETWEEN_LEGS_MAX = 1, 89
 ATTR_OFFSET_BETWEEN_LEG_WAVES_MIN, ATTR_OFFSET_BETWEEN_LEG_WAVES_MAX = 0, 180
-N_CYCLES = 1
-POPULATION_SIZE = 4
+POPULATION_SIZE = 8
+TOURNAMENT_SIZE = 7
 # CXPB  is the probability with which two individuals
 #       are crossed
 #
@@ -45,6 +36,7 @@ MUTPB = 0.5
 INDPB = 0.2
 # IF YOU WANT CHANGE THE NUMBER OF GENERATIONS!
 NGEN = 5
+
 
 def write_in_file(array):
     temp = args['results_path'].split("/")
@@ -59,6 +51,7 @@ def write_in_file(array):
     writeFile.write(" ".join(str_array))
     writeFile.write("\n")
     writeFile.close()
+
 
 def updateArgs(arg_defaults):
     '''Look up parameters starting in the driver's private parameter space, but
@@ -129,7 +122,8 @@ def get_avg_dist_from_robot(legs_num, angle_between_legs, offset_between_leg_wav
     all_data_from_cur_robot = []
     p = Pool()
 
-    print("Number of legs and so on: " + str(legs_num) + " " + str(angle_between_legs) + " " + str(offset_between_leg_waves))
+    print("Number of legs and so on: " + str(legs_num) + " " + str(angle_between_legs) + " " + str(
+        offset_between_leg_waves))
     for i in range(int(args['number_of_worlds'] / args['max_simultaneous_processes'])):
         index_arr = range(i * args['max_simultaneous_processes'],
                           args['max_simultaneous_processes'] + i * args['max_simultaneous_processes'])
@@ -141,35 +135,21 @@ def get_avg_dist_from_robot(legs_num, angle_between_legs, offset_between_leg_wav
     for temp in all_data_from_cur_robot:
         temp_sum = temp_sum + temp['distance']
     avg_dist = temp_sum / len(all_data_from_cur_robot)
-
+    time.sleep(5)
     return avg_dist
 
 
 # the goal ('fitness') function to be maximized
 # TODO implement
 def fitness_function(individual):
-    distance = individual[3]
+    distance = get_avg_dist_from_robot(individual[0], individual[1], individual[2])
     num_of_legs = individual[0]
     angle_btw_legs = individual[1]
-    print("distance in fitness func def: " +str(distance))
+    print("distance in fitness func def: " + str(distance))
     print("length in fitness func def: " + str(((num_of_legs - 1) * math.sin(math.radians(angle_btw_legs)))))
     res = distance / ((num_of_legs - 1) * math.sin(math.radians(angle_btw_legs)))
     print(res)
     return distance / ((num_of_legs - 1) * math.sin(math.radians(angle_btw_legs))),
-
-def crossover_function(ind1, ind2):
-    size = len(ind1) - 1
-    cxpoint1 = random.randint(1, size)
-    cxpoint2 = random.randint(1, size - 1)
-    if cxpoint2 >= cxpoint1:
-        cxpoint2 += 1
-    else:  # Swap the two cx points
-        cxpoint1, cxpoint2 = cxpoint2, cxpoint1
-
-    ind1[cxpoint1:cxpoint2], ind2[cxpoint1:cxpoint2] \
-        = ind2[cxpoint1:cxpoint2], ind1[cxpoint1:cxpoint2]
-
-    return ind1, ind2
 
 def mutation_function(individual, indpb):
     if random.random() < indpb:
@@ -196,7 +176,7 @@ if __name__ == '__main__':
         'number_of_worlds': '4',
         'max_simultaneous_processes': '2',
         'simulation_time': '10',
-        'results_path' : ''
+        'results_path': ''
     }
     args = updateArgs(args_default)
     # Generate world
@@ -212,124 +192,30 @@ if __name__ == '__main__':
                      ATTR_ANGLE_BETWEEN_LEGS_MAX)
     toolbox.register("attr_offset_between_leg_waves", random.randint, ATTR_OFFSET_BETWEEN_LEG_WAVES_MIN,
                      ATTR_OFFSET_BETWEEN_LEG_WAVES_MAX)
-    toolbox.register("attr_avg_dist", random.uniform, -sys.maxsize, sys.maxsize)
-    toolbox.register("individual", tools.initCycle, creator.Individual,
-                     (toolbox.attr_legs_num, toolbox.attr_angle_between_legs, toolbox.attr_offset_between_leg_waves,
-                      toolbox.attr_avg_dist), n=N_CYCLES)
 
-    # define the population to be a list of individuals
+    toolbox.register("individual", tools.initCycle, creator.Individual,
+                     (toolbox.attr_legs_num, toolbox.attr_angle_between_legs, toolbox.attr_offset_between_leg_waves), n=1)
+
     toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
-    # ----------
-    # Operator registration
-    # ----------
-    # register the goal / fitness function
     toolbox.register("evaluate", fitness_function)
+    toolbox.register("mate", tools.cxTwoPoint)
+    toolbox.register("mutate", mutation_function, indpb=0.1)
+    toolbox.register("select", tools.selTournament, tournsize=TOURNAMENT_SIZE)
 
-    # register the crossover operator
-    toolbox.register("mate", crossover_function)
-
-    # register a mutation operator with a probability to
-    # flip each attribute/gene of 0.05
-    toolbox.register("mutate", mutation_function, indpb=INDPB)
-
-    # operator for selecting individuals for breeding the next
-    # generation: each individual of the current generation
-    # is replaced by the 'fittest' (best) of three individuals
-    # drawn randomly from the current generation.
-    toolbox.register("select", tools.selTournament, tournsize=3)
-
-    # MAIN FUNCTION
-    random.seed()
-
-    # create an initial population of n individuals (where
-    # each individual is a list of integers)
     pop = toolbox.population(n=POPULATION_SIZE)
+    hof = tools.HallOfFame(1)
+    stats = tools.Statistics(lambda ind: ind.fitness.values)
+    stats.register("avg", numpy.mean)
+    stats.register("std", numpy.std)
+    stats.register("min", numpy.min)
+    stats.register("max", numpy.max)
 
-    print("Start of evolution")
-
-    # Evaluate the entire population
-
-    # FISRT EVOLUTION
-    # fitnesses = list(map(toolbox.evaluate, pop))
-    # for ind, fit in zip(pop, fitnesses):
-    #    ind.fitness.values = fit
-
-    print("  Evaluated %i individuals" % len(pop))
-
-    # Begin the evolution
-    for g in range(NGEN):
-        print("-- Generation %i --" % g)
-
-        # Select the next generation individuals
-        offspring = toolbox.select(pop, len(pop))
-        # Clone the selected individuals
-        offspring = list(map(toolbox.clone, offspring))
+    pop, log = algorithms.eaSimple(pop, toolbox, cxpb=CXPB, mutpb=MUTPB, ngen=NGEN,
+                                   stats=stats, halloffame=hof, verbose=True)
 
 
-        # HERE GAZEBO CODE
-        for cur_robot in range(POPULATION_SIZE):
-            print(str(cur_robot) + " individual try to cross through over the terrains")
-            offspring[cur_robot][3] = get_avg_dist_from_robot(offspring[cur_robot][0], offspring[cur_robot][1],
-                                                              offspring[cur_robot][2])
-            print("Leave func with value: " + str(offspring[cur_robot][3]))
-            print("fitness func for cur robot is: " + str(fitness_function(offspring[cur_robot])))
-            time.sleep(11)
-
-
-        # Apply crossover and mutation on the offspring
-        for child1, child2 in zip(offspring[::2], offspring[1::2]):
-
-            # cross two individuals with probability CXPB
-            if random.random() < CXPB:
-                toolbox.mate(child1, child2)
-
-                # fitness values of the children
-                # must be recalculated later
-                del child1.fitness.values
-                del child2.fitness.values
-
-        for mutant in offspring:
-
-            # mutate an individual with probability MUTPB
-            if random.random() < MUTPB:
-                toolbox.mutate(mutant)
-                del mutant.fitness.values
-
-        # Evaluate the individuals with an invalid fitness
-        invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
-        fitnesses = map(toolbox.evaluate, invalid_ind)
-        for ind, fit in zip(invalid_ind, fitnesses):
-            #print("Invalid fitness function\n")
-            ind.fitness.values = fit
-
-        print("  Evaluated %i individuals" % len(invalid_ind))
-
-        # The population is entirely replaced by the offspring
-        pop[:] = offspring
-
-        # Gather all the fitnesses in one list and print the stats
-        fits = [ind.fitness.values[0] for ind in pop]
-        best_ind_gen = tools.selBest(pop, 1)[0]
-        print("Best individual is %s, %s" % (best_ind_gen, best_ind_gen.fitness.values))
-
-
-        length = len(pop)
-        mean = sum(fits) / length
-        sum2 = sum(x * x for x in fits)
-        std = abs(sum2 / length - mean ** 2) ** 0.5
-
-        print("  Min %s" % min(fits))
-        print("  Max %s" % max(fits))
-        print("  Avg %s" % mean)
-        print("  Std %s" % std)
-        write_in_file(best_ind_gen + [best_ind_gen.fitness.values[0], min(fits), max(fits), mean, std])
-
-
-    print("-- End of (successful) evolution --")
-
-    best_ind = tools.selBest(pop, 1)[0]
-    print("Best individual is %s, %s" % (best_ind, best_ind.fitness.values))
-
+    write_in_file([log])
+    print(hof)
     # delete generated worlds
     delete_worlds()
