@@ -52,7 +52,7 @@ def generate_terrain(index):
             writeFile.write("			<pose>" + str(first_point + i * args['cage_width_and_lengh']) + " " + str(
                 - j * args['cage_width_and_lengh']) + " " + str(cur_cage_height / 2) + " 0 0 0</pose>\n")
             writeFile.write(
-                "			<inertial>\n				<mass>1.0</mass>\n				<inertia>\n					<ixx>0.083</ixx>\n 					<ixy>0.0</ixy>\n   					<ixz>0.0</ixz>\n   					<iyy>0.083</iyy>\n 					<iyz>0.0</iyz>\n   					<izz>0.083</izz>\n 				</inertia>\n			</inertial>\n")
+                "			<inertial>\n				<mass>1.0</mass>\n				<inertia>\n					<ixx>0.0</ixx>\n 					<ixy>0.0</ixy>\n   					<ixz>0.0</ixz>\n   					<iyy>0.0</iyy>\n 					<iyz>0.0</iyz>\n   					<izz>0.0</izz>\n 				</inertia>\n			</inertial>\n")
             for nam in lis:
                 writeFile.write("			<" + nam + " name=\"" + nam + "\">\n")
                 writeFile.write("				<geometry>\n					<box>\n						")

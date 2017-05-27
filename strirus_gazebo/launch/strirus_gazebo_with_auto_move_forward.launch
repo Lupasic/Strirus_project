@@ -1,14 +1,14 @@
 <launch>
  <!-- args for changing robot params -->
  <arg name="use_sim_time" default="true"/>
- <arg name="real_number_of_legs" default="15" />
- <arg name="angle_between_legs" default="30" /> <!-- in degree -->
+ <arg name="real_number_of_legs" default="8" />
+ <arg name="angle_between_legs" default="60" /> <!-- in degree -->
  <arg name="offset_between_legs_waves" default="148" />
 
  <!-- args for changing terrain params -->
  <arg name="cage_height_range_begin" default="0.1"/>
- <arg name="cage_height_range_end" default="1.5" />
- <arg name="cage_width_and_lengh" default="1.0"/> <!-- need to be float type -->
+ <arg name="cage_height_range_end" default="0.3" />
+ <arg name="cage_width_and_lengh" default="0.5"/> <!-- need to be float type -->
  <arg name="cell_width_number" default="8"/>
  <arg name="cell_length_number" default="15" />
  <arg name="cage_height_param" default="rand"/>
