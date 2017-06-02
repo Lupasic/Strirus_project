@@ -55,8 +55,10 @@
 			<inertial>
 				<!-- was calcuclated in Siemens NX -->
 				<mass value="0.32"/>
-				<origin rpy="0  0  0" xyz="${leg_x_offset + 0.1} ${leg_y_offset -2.99e-7} ${leg_z_offset -0.04}"/>
+				<!-- <origin rpy="0  0  0" xyz="${leg_x_offset + 0.1} ${leg_y_offset -2.99e-7} ${leg_z_offset -0.04}"/> -->
+				<origin rpy="0  0  0" xyz="0 0 0"/>
 				<inertia ixx="0.0009" ixy="0" ixz="-0.0019" iyy="0.0053" iyz="0" izz="0.0044"/>
+				<!-- <inertia ixx="0.000" ixy="0" ixz="0.00" iyy="0.00" iyz="0" izz="0.00"/> -->
 			</inertial>
 			<collision >
 				<!-- legs wave offset change only on the left side -->
@@ -72,29 +74,17 @@
 
 				<gazebo>
 					<surface>
-						<friction>
-							<ode>
-								<mu>0.2000</mu>
-								<mu2>0.2000</mu2>
-								<fdir1>0.000000 0.000000 0.000000</fdir1>
-								<slip1>0.000000</slip1>
-								<slip2>0.000000</slip2>
-							</ode>
-						</friction>
 						<bounce>
-							<restitution_coefficient>0.000000</restitution_coefficient>
+							<restitution_coefficient>0.000000</restitution_coefficient> <!-- no bounce -->
 							<threshold>100000.000000</threshold>
 						</bounce>
-						<contact>
+
+						<friction>
 							<ode>
-								<soft_cfm>0.000000</soft_cfm>
-								<soft_erp>0.200000</soft_erp>
-								<kp>100000.000000</kp>
-								<kd>1.000000</kd>
-								<max_vel>100.000000</max_vel>
-								<min_depth>0.001000</min_depth>
+								<mu>1.6</mu>
+								<mu2>1.6</mu2>
 							</ode>
-						</contact>
+						</friction>
 					</surface>
 				</gazebo>
 
@@ -118,13 +108,13 @@
 			<child link="leg_${prefix}_${num}"/>
 			<origin rpy="0       0      0" xyz="${(body_width / 4 + leg_x_offset_in_body) * side} ${first_hole_x_offset + (num) * dist_between_legs}  ${body_z_offset}"/>
 			<axis xyz="1 0  0"/>
-			<limit effort="30" lower="-1e+100" upper="1e+100" velocity="10"/>
+			<limit effort="1" lower="-1e+100" upper="1e+100" velocity="1.0"/>
 			<joint_properties damping="0.0" friction="0.0" />
 
 		</joint>
 
 		<!-- /////////////// -->
-		<transmission name="leg_${prefix}_${num}_transmission">
+<!-- 		<transmission name="leg_${prefix}_${num}_transmission">
 			<type>transmission_interface/SimpleTransmission</type>
 			<joint name="leg_${prefix}_${num}_revolute_joint">
 				<hardwareInterface>VelocityJointInterface</hardwareInterface>
@@ -133,8 +123,11 @@
 				<hardwareInterface>VelocityJointInterface</hardwareInterface>
 				<mechanicalReduction>1</mechanicalReduction>
 			</actuator>
-		</transmission>
+		</transmission> -->
 
+	  <gazebo reference="leg_${prefix}_${num}">
+    <material>Gazebo/Gray</material>
+  </gazebo>
 
 	</xacro:macro>
 
@@ -172,6 +165,10 @@
 			</visual>
 		</link>
 
+		<gazebo reference="body">
+    		<material>Gazebo/DarkYellow</material>
+  		</gazebo>
+		
 		<!-- create needed number of legs (is implemented by recurcion) -->
 		<xacro:macro name="create_legs" params="prefix side number">
 			<xacro:leg prefix="${prefix}" num="${number}" side="${side}"/>
@@ -188,7 +185,7 @@
 		<gazebo>
 
 			<xacro:macro name="create_gearbox_joints_between_legs" params="prefix side number">
-				<joint name="legs_${prefix}_${number}_0_gearbox_joint" type="gearbox">
+				<joint name="legs_${prefix}_${number}_${number-1}_gearbox_joint" type="gearbox">
 					<parent>leg_${prefix}_0</parent>
 					<child>leg_${prefix}_${number}</child>
 					<gearbox_ratio>-1</gearbox_ratio>
