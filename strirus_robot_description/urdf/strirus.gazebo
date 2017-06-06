@@ -17,7 +17,7 @@
     <wheelSeparation>${body_width}</wheelSeparation>
     <wheelDiameter>${leg_height}</wheelDiameter>
     <legacyMode>false</legacyMode>
-    <torque>3000</torque>
+    <torque>300</torque>
     <commandTopic>cmd_vel</commandTopic>
     <odometryTopic>odom</odometryTopic>
     <odometryFrame>odom</odometryFrame>

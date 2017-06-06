@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
 <robot name="Strirus" xmlns:xacro="http://www.ros.org/wiki/xacro">
-
 	<!-- Import all Gazebo-customization elements, including Gazebo colors -->
 	<xacro:include filename="$(find strirus_robot_description)/urdf/strirus.gazebo" />
 	<!-- Import Rviz colors -->
@@ -8,6 +7,7 @@
 
 
 	<xacro:property name="deg2rad" value="${pi / 180}" />
+	<xacro:property name="scale" value="4" />
 	<!-- Constants for simulating -->
 	<!-- number of legs need to be real number - 1 (it is from one side only)-->
 	<!-- Xacro arg provides xacro.py file.xacro real_number_of_legs:=12 -->
@@ -27,22 +27,22 @@
 	<xacro:property name="body_x_offset" value="${0}" />
 	<xacro:property name="body_y_offset" value="${body_length / 2}" />
 	<xacro:property name="body_z_offset" value="${leg_width + leg_height}" />
-	<xacro:property name="first_hole_x_offset" value="${0.05}" />	
+	<xacro:property name="first_hole_x_offset" value="${0.05 * scale}" />	
 
-	<xacro:property name="body_width" value="${0.5}" />
-	<xacro:property name="body_height" value="${0.07}" />
+	<xacro:property name="body_width" value="${0.5  * scale}" />
+	<xacro:property name="body_height" value="${0.07  * scale}" />
 	<!-- consider that body is hollow-type , 1200 is plastic density-->
-	<xacro:property name="body_wall_thickness" value="0.01" />
+	<xacro:property name="body_wall_thickness" value="${0.01  * scale}" />
 	<xacro:property name="body_weight" value="${((body_width * body_length * body_height) - ((body_width - body_wall_thickness) * (body_length - body_wall_thickness) * (body_height - body_wall_thickness))) * 1200}"/>	
 
 	<xacro:property name="leg_x_offset" value="${0}" />
 	<xacro:property name="leg_y_offset" value="${0}" />
 	<xacro:property name="leg_z_offset" value="${0}" />
 
-	<xacro:property name="leg_x_offset_in_body" value="${-0.075}" />
-	<xacro:property name="leg_width" value="${0.02}" />
-	<xacro:property name="leg_height" value="${0.08}" />
-	<xacro:property name="fallibility_between_legs" value="${0.002 + 2 * leg_width}" />
+	<xacro:property name="leg_x_offset_in_body" value="${-0.075  * scale}" />
+	<xacro:property name="leg_width" value="${0.02  * scale}" />
+	<xacro:property name="leg_height" value="${0.08  * scale}" />
+	<xacro:property name="fallibility_between_legs" value="${0.002 * scale + 2 * leg_width}" />
 
 	<!-- Formulas -->
 	<xacro:property name="dist_between_legs" value="${leg_height * sin(angle_between_legs * deg2rad) + fallibility_between_legs}" />
@@ -53,18 +53,18 @@
 	<xacro:macro name="leg" params="prefix num side">
 	<xacro:property name="angle_coeff_left" value="${(offset_between_legs_wave + angle_between_legs * num) % 360 * deg2rad}" />
 	<xacro:property name="angle_coeff_right" value="${-(angle_between_legs * num) % 360 * deg2rad}" />
+
 		<link name="leg_${prefix}_${num}">
 			<inertial>
 				<!-- was calcuclated in Siemens NX -->
-				<mass value="0.36"/>
+				<mass value="${0.36 * pow(scale,3)}"/>
 				<xacro:if value="${prefix == 'left'}">
-					<origin rpy="${angle_coeff_left} 0 0" xyz="${leg_x_offset + (0.1)} ${leg_y_offset + ((-2.99e-7 * cos(angle_coeff_left)) - (-0.04 * sin(angle_coeff_left)))} ${leg_z_offset + ( - (-2.99e-7 * sin(angle_coeff_left)) + (-0.04 * cos(angle_coeff_left)))}"/>
+					<origin rpy="${angle_coeff_left} 0 0" xyz="${leg_x_offset + (0.1 * scale)} ${leg_y_offset + ((-2.99e-7 * cos(angle_coeff_left)  * scale) - (-0.04 * sin(angle_coeff_left) * scale))} ${leg_z_offset + ( - (-2.99e-7 * sin(angle_coeff_left)  * scale) + (-0.04 * cos(angle_coeff_left)  * scale))}"/>
 				</xacro:if>
 				<xacro:if value="${prefix == 'right'}">
-					<origin rpy="${angle_coeff_right} 0 0" xyz="-${leg_x_offset + (0.1)} ${-(leg_y_offset + ((-2.99e-7 * cos(angle_coeff_right)) - (-0.04 * sin(angle_coeff_right))))} ${leg_z_offset + ( - (-2.99e-7 * sin(angle_coeff_right)) + (-0.04 * cos(angle_coeff_right)))}"/>
+					<origin rpy="${angle_coeff_right} 0 0" xyz="-${leg_x_offset + (0.1 * scale)} ${-(leg_y_offset + ((-2.99e-7 * cos(angle_coeff_right) * scale) - (-0.04 * sin(angle_coeff_right) * scale)))} ${leg_z_offset + ( - (-2.99e-7 * sin(angle_coeff_right) * scale) + (-0.04 * cos(angle_coeff_right) * scale))}"/>
 				</xacro:if>
-				<inertia ixx="0.0009" ixy="0" ixz="-0.0019" iyy="0.0053" iyz="0" izz="0.0044"/>
-				<!-- <inertia ixx="0.000" ixy="0" ixz="0.00" iyy="0.00" iyz="0" izz="0.00"/> -->
+				<inertia ixx="${0.001041 * pow(scale,5)}" ixy="0" ixz="${-0.00213 * pow(scale,5)}" iyy="${0.006 * pow(scale,5)}" iyz="0" izz="${0.00497  * pow(scale,5)}"/>
 			</inertial>
 			<collision>
 				<!-- legs wave offset change only on the left side -->
@@ -75,21 +75,20 @@
 					<origin rpy="${angle_coeff_right} 0 ${pi}" xyz="${leg_x_offset} ${leg_y_offset} ${leg_z_offset}"/>
 				</xacro:if>
 				<geometry>
-					<mesh filename="package://strirus_robot_description/meshes/stl/leg_30_degree.stl" scale="1.0 1.0 1.0"/>
+					<mesh filename="package://strirus_robot_description/meshes/stl/leg_30_degree.stl" scale="${scale} ${scale} ${scale}"/>
 				</geometry>
-
 
 
 			</collision>
 			<visual>
 				<xacro:if value="${prefix == 'left'}">
-					<origin rpy="${(offset_between_legs_wave + angle_between_legs * num) % 360 * deg2rad} 0 0" xyz="${leg_x_offset} ${leg_y_offset} ${leg_z_offset}"/>
+					<origin rpy="${angle_coeff_left} 0 0" xyz="${leg_x_offset} ${leg_y_offset} ${leg_z_offset}"/>
 				</xacro:if>
 				<xacro:if value="${prefix == 'right'}">
-					<origin rpy="${-(angle_between_legs * num) % 360 * deg2rad} 0 ${pi}" xyz="${leg_x_offset} ${leg_y_offset} ${leg_z_offset}"/>
+					<origin rpy="${angle_coeff_right} 0 ${pi}" xyz="${leg_x_offset} ${leg_y_offset} ${leg_z_offset}"/>
 				</xacro:if>
 				<geometry>
-					<mesh filename="package://strirus_robot_description/meshes/stl/leg_30_degree.stl" scale="1.0 1.0 1.0"/>
+					<mesh filename="package://strirus_robot_description/meshes/stl/leg_30_degree.stl" scale="${scale} ${scale} ${scale}"/>
 				</geometry>
 				<material name="blue"/>
 			</visual>
@@ -100,22 +99,9 @@
 			<child link="leg_${prefix}_${num}"/>
 			<origin rpy="0       0      0" xyz="${(body_width / 4 + leg_x_offset_in_body) * side} ${first_hole_x_offset + (num) * dist_between_legs}  ${body_z_offset}"/>
 			<axis xyz="1 0  0"/>
-			<limit effort="-1" lower="-1e+100" upper="1e+100" velocity="-1"/>
+			<limit effort="30" lower="-1e+100" upper="1e+100" velocity="3.0"/>
 			<joint_properties damping="0.0" friction="0.0" />
-
 		</joint>
-
-		<!-- /////////////// -->
-<!-- 		<transmission name="leg_${prefix}_${num}_transmission">
-			<type>transmission_interface/SimpleTransmission</type>
-			<joint name="leg_${prefix}_${num}_revolute_joint">
-				<hardwareInterface>VelocityJointInterface</hardwareInterface>
-			</joint>
-			<actuator name="leg_${prefix}_0_actuator">
-				<hardwareInterface>VelocityJointInterface</hardwareInterface>
-				<mechanicalReduction>1</mechanicalReduction>
-			</actuator>
-		</transmission> -->
 
 	  <gazebo reference="leg_${prefix}_${num}">
     <material>Gazebo/Gray</material>
@@ -137,10 +123,9 @@
 			<origin rpy="0  0  0" xyz="${body_x_offset} ${body_y_offset}  ${body_z_offset}"/>
 			<!-- consider that box is hollow-type (inertia *1.2)-->
 			<inertia 
-				ixx="${1/12 * body_weight * (body_height * body_height + body_length * body_length) * 1.2}"  ixy="0"  ixz="0" 
-				iyy="${1/12 * body_weight * (body_height * body_height + body_width * body_width) * 1.2}" iyz="0" 
+				ixx="${1/12 * body_weight * (body_height * body_height + body_length * body_length) * 1.2 }"  ixy="0"  ixz="0" 
+				iyy="${1/12 * body_weight * (body_height * body_height + body_width * body_width) * 1.2 }" iyz="0" 
 				izz="${1/12 * body_weight * (body_length * body_length + body_width * body_width) * 1.2}" />
-<!--				<inertia ixx="0.000" ixy="0" ixz="0" iyy="0.000" iyz="0" izz="0.000"/> -->
 			</inertial>
 			<collision >
 				<origin rpy="0  0  0" xyz="${body_x_offset} ${body_y_offset}  ${body_z_offset}"/>
@@ -161,13 +146,21 @@
     		<material>Gazebo/DarkYellow</material>
   		</gazebo>
 		
-		<!-- create needed number of legs (is implemented by recurcion) -->
-		<xacro:macro name="create_legs" params="prefix side number">
-			<xacro:leg prefix="${prefix}" num="${number}" side="${side}"/>
-			<xacro:if value="${number}">
-				<xacro:create_legs number="${number-1}" prefix="${prefix}" side="${side}"/>
-			</xacro:if>
-		</xacro:macro>
+  		<!-- create needed number of legs (is implemented by recurcion) -->
+  		<xacro:macro name="create_legs" params="prefix side number">
+  			<xacro:leg prefix="${prefix}" num="${number}" side="${side}"/>
+  			<xacro:if value="${number}">
+  				<xacro:create_legs number="${number-1}" prefix="${prefix}" side="${side}"/>
+  				<gazebo reference="leg_${prefix}_${number-1}">
+  					<mu1>0.2</mu1>
+  					<mu2>0.2</mu2>
+  				</gazebo>
+  			</xacro:if>
+  			<gazebo reference="leg_${prefix}_${number}">
+  				<mu1>0.2</mu1>
+  				<mu2>0.2</mu2>
+  			</gazebo>
+  		</xacro:macro>
 
 
 		<xacro:create_legs prefix="left" side="1" number="${number_of_legs}" />
@@ -175,7 +168,6 @@
 
 
 		<gazebo>
-
 			<xacro:macro name="create_gearbox_joints_between_legs" params="prefix side number">
 				<joint name="legs_${prefix}_0_${number}_gearbox_joint" type="gearbox">
 					<parent>leg_${prefix}_0</parent>
@@ -200,6 +192,6 @@
 			<xacro:create_gearbox_joints_between_legs prefix="left" side="1" number="${number_of_legs}" />
 			<xacro:create_gearbox_joints_between_legs prefix="right" side="-1" number="${number_of_legs}" />
 		</gazebo>
-
 		
+
 </robot>

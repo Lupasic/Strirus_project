@@ -6,7 +6,7 @@ pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
 rospy.init_node('move_forward')
 r = rospy.Rate(10)
 msg = Twist()
-msg.linear.x = 1.0
+msg.linear.x = 0.7
 while not rospy.is_shutdown():
    pub.publish(msg)
    r.sleep()
