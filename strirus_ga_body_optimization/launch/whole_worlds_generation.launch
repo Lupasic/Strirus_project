@@ -2,19 +2,20 @@
 
 	<arg name="number_of_worlds" default="4"/>
 	<!-- args for changing terrain params -->
-	<arg name="cage_height_range_begin" default="0.1"/>
-	<arg name="cage_height_range_end" default="1.2" />
-	<arg name="cage_width_and_lengh" default="1.0"/> <!-- need to be float type -->
-	<arg name="cell_width_number" default="8"/>
+	<arg name="cage_height_range_begin" default="0.01"/>
+	<arg name="cage_height_range_end" default="0.17" />
+	<arg name="cage_width_and_lengh" default="0.2"/> <!-- need to be float type -->
+	<arg name="cell_width_number" default="10"/>
 	<arg name="cell_length_number" default="15" />
 	<arg name="cage_height_param" default="rand"/>
 	<arg name="terrain_file_path_without_file_name" default="$(find strirus_ga_body_optimization)/maps/Generated_terrain"/>
 
 	<!-- args for changing world params -->
 	<arg name="world_file_path_without_extention" default="$(find strirus_ga_body_optimization)/worlds/testing_area"/>
-	<arg name="physics_iter" default="400" />
-	<arg name="real_time_update_rate" default="311.2"/>
-	<arg name="max_step_size" default="0.009"/>
+	<arg name="physics_iter" default="800" />
+	<arg name="sor" default="0.9" />
+	<arg name="real_time_update_rate" default="1000"/>
+	<arg name="max_step_size" default="0.001"/>
 	<arg name="package_name" default="strirus_ga_body_optimization"/>
 	<arg name="terrain_path" default="maps/Generated_terrain" /> <!-- without first '/' -->
 
@@ -34,6 +35,7 @@
 
 		<param name="world_file_path_without_extention" value="$(arg world_file_path_without_extention)"/>
 		<param name="physics_iter" value="$(arg physics_iter)" />
+		<param name="sor" value="$(arg sor)" />
 		<param name="real_time_update_rate" value="$(arg real_time_update_rate)"/> 
 		<param name="max_step_size" value="$(arg max_step_size)"/>
 		<param name="package_name" value="$(arg package_name)"/>

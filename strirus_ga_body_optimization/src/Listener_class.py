@@ -10,7 +10,10 @@ def callback_clock(data):
 
 
 def callback_distance(data):
-    if Listener.clock >= 2:
+    # Both robot and terrain need to be spawned
+    if len(data.pose) < 3:
+        pass
+    else:
         Listener.last_point = data.pose[2].position
 
 

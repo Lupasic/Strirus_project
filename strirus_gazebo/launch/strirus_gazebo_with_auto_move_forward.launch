@@ -2,7 +2,7 @@
  <!-- args for changing robot params -->
  <arg name="use_sim_time" default="true"/>
  <arg name="real_number_of_legs" default="10" />
- <arg name="angle_between_legs" default="45" /> <!-- in degree -->
+ <arg name="angle_between_legs" default="2" /> <!-- in degree -->
  <arg name="offset_between_legs_waves" default="0" />
 
  <!-- args for changing terrain params -->

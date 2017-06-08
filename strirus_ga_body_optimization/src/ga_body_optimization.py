@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 
-import roslib
-
 import rospy
-#import rospy.impl.init
 import os
 import math
 from multiprocessing import Pool
@@ -15,14 +12,12 @@ import rospy.exceptions
 from Listener_class import Listener
 import subprocess
 import signal
-import time
 import random
 from deap import base
 from deap import creator
 from deap import tools
 from deap import algorithms
 import numpy
-
 
 
 def write_in_file(array):
@@ -82,44 +77,42 @@ def get_avg_dist_and_vel(index, legs_num, angle_between_legs, offset_between_leg
 
     cur_listener = Listener()
     while not rospy.is_shutdown():
-        if Listener.clock > args['simulation_time']:
+        if cur_listener.clock > args['simulation_time']:
             data['distance'] = math.sqrt(
                 math.pow(cur_listener.last_point.x, 2) + math.pow(cur_listener.last_point.y, 2) + math.pow(
                     cur_listener.last_point.z, 2))
             rospy.signal_shutdown("Sim time is out")
+            del cur_listener
 
     os.kill(roslaunch.pid, signal.SIGINT)
-    print("Exit from getting distance from terrain " + str(index))
-    del cur_listener
-
+    print("!!!!!!!!Exit from getting distance from terrain " + str(index) + " with distnace := " + str(
+        data['distance']) + " !!!!!!!!!!!!!!")
     return data
 
 
 def world_generation():
     number_of_worlds = "number_of_worlds:=\"" + str(args['number_of_worlds']) + "\" "
     all_args = number_of_worlds
-
     os.system("roslaunch strirus_ga_body_optimization whole_worlds_generation.launch " + all_args)
 
 
 def get_avg_dist_from_robot(legs_num, angle_between_legs, offset_between_leg_waves):
     all_data_from_cur_robot = []
-    p = Pool()
 
     print("Number of legs and so on: " + str(legs_num) + " " + str(angle_between_legs) + " " + str(
         offset_between_leg_waves))
     for i in range(int(args['number_of_worlds'] / args['max_simultaneous_processes'])):
+        p = Pool()
         index_arr = range(i * args['max_simultaneous_processes'],
                           args['max_simultaneous_processes'] + i * args['max_simultaneous_processes'])
         result = p.map(partial(get_avg_dist_and_vel, legs_num=legs_num, angle_between_legs=angle_between_legs,
                                offset_between_leg_waves=offset_between_leg_waves), index_arr)
         all_data_from_cur_robot = all_data_from_cur_robot + result
-
+        del p
     temp_sum = 0
     for temp in all_data_from_cur_robot:
         temp_sum = temp_sum + temp['distance']
     avg_dist = temp_sum / len(all_data_from_cur_robot)
-    time.sleep(5)
     gc.collect()
 
     return avg_dist

@@ -3,22 +3,22 @@
 	<arg name="world_file_path_without_extention" default="$(find strirus_ga_body_optimization)/worlds/testing_area"/>
 	<arg name="results_path" default="$(find strirus_ga_body_optimization)/results/all_data.txt"/>
 	<!-- need to divided without remainder -->
-	<arg name="number_of_worlds" default="2"/>
+	<arg name="number_of_worlds" default="20"/>
 	<arg name="max_simultaneous_processes" default="2"/>
 	<!-- -->
-	<arg name="simulation_time" default="15"/>
+	<arg name="simulation_time" default="10"/>
 
 	<!-- GA params -->
-	<arg name="number_generations" default="1"/>
-	<arg name="population_size" default="1"/>
+	<arg name="number_generations" default="12"/>
+	<arg name="population_size" default="16"/>
 	<!-- Ga local params -->
 	<arg name="tournament_size" default="1"/>
 	<arg name="crossover_probability" default="0.5"/>
-	<arg name="mutation_probability" default="0.4"/>
+	<arg name="mutation_probability" default="0.3"/>
 
 	<!-- min and max values for robot -->
-	<arg name="legs_num_min" default="10"/>
-	<arg name="legs_num_max" default="20"/>
+	<arg name="legs_num_min" default="3"/>
+	<arg name="legs_num_max" default="15"/>
 	<arg name="angle_between_legs_min" default="1"/>
 	<arg name="angle_between_legs_max" default="89"/>
 	<arg name="offset_between_leg_waves_min" default="0"/>
