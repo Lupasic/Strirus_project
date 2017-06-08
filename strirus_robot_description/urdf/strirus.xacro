@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <robot name="Strirus" xmlns:xacro="http://www.ros.org/wiki/xacro">
 	<!-- Import all Gazebo-customization elements, including Gazebo colors -->
-	<xacro:include filename="$(find strirus_robot_description)/urdf/strirus.gazebo" />
+	<xacro:include filename="$(find strirus_robot_description)/urdf/strirus_plugins.gazebo" />
 	<!-- Import Rviz colors -->
 	<xacro:include filename="$(find strirus_robot_description)/urdf/materials.xacro" />
 
 
 	<xacro:property name="deg2rad" value="${pi / 180}" />
-	<xacro:property name="scale" value="4" />
+	<xacro:property name="scale" value="1" />
 	<!-- Constants for simulating -->
 	<!-- number of legs need to be real number - 1 (it is from one side only)-->
 	<!-- Xacro arg provides xacro.py file.xacro real_number_of_legs:=12 -->
@@ -29,7 +29,7 @@
 	<xacro:property name="body_z_offset" value="${leg_width + leg_height}" />
 	<xacro:property name="first_hole_x_offset" value="${0.05 * scale}" />	
 
-	<xacro:property name="body_width" value="${0.5  * scale}" />
+	<xacro:property name="body_width" value="${0.3  * scale}" />
 	<xacro:property name="body_height" value="${0.07  * scale}" />
 	<!-- consider that body is hollow-type , 1200 is plastic density-->
 	<xacro:property name="body_wall_thickness" value="${0.01  * scale}" />
@@ -42,7 +42,7 @@
 	<xacro:property name="leg_x_offset_in_body" value="${-0.075  * scale}" />
 	<xacro:property name="leg_width" value="${0.02  * scale}" />
 	<xacro:property name="leg_height" value="${0.08  * scale}" />
-	<xacro:property name="fallibility_between_legs" value="${0.002 * scale + 2 * leg_width}" />
+	<xacro:property name="fallibility_between_legs" value="${0.001 * scale + 2 * leg_width}" />
 
 	<!-- Formulas -->
 	<xacro:property name="dist_between_legs" value="${leg_height * sin(angle_between_legs * deg2rad) + fallibility_between_legs}" />
@@ -51,8 +51,8 @@
 
 	<!-- Leg description -->
 	<xacro:macro name="leg" params="prefix num side">
-	<xacro:property name="angle_coeff_left" value="${(offset_between_legs_wave + angle_between_legs * num) % 360 * deg2rad}" />
-	<xacro:property name="angle_coeff_right" value="${-(angle_between_legs * num) % 360 * deg2rad}" />
+		<xacro:property name="angle_coeff_left" value="${(offset_between_legs_wave + angle_between_legs * num) % 360 * deg2rad}" />
+		<xacro:property name="angle_coeff_right" value="${-(angle_between_legs * num) % 360 * deg2rad}" />
 
 		<link name="leg_${prefix}_${num}">
 			<inertial>
@@ -64,6 +64,7 @@
 				<xacro:if value="${prefix == 'right'}">
 					<origin rpy="${angle_coeff_right} 0 0" xyz="-${leg_x_offset + (0.1 * scale)} ${-(leg_y_offset + ((-2.99e-7 * cos(angle_coeff_right) * scale) - (-0.04 * sin(angle_coeff_right) * scale)))} ${leg_z_offset + ( - (-2.99e-7 * sin(angle_coeff_right) * scale) + (-0.04 * cos(angle_coeff_right) * scale))}"/>
 				</xacro:if>
+
 				<inertia ixx="${0.001041 * pow(scale,5)}" ixy="0" ixz="${-0.00213 * pow(scale,5)}" iyy="${0.006 * pow(scale,5)}" iyz="0" izz="${0.00497  * pow(scale,5)}"/>
 			</inertial>
 			<collision>
@@ -77,9 +78,8 @@
 				<geometry>
 					<mesh filename="package://strirus_robot_description/meshes/stl/leg_30_degree.stl" scale="${scale} ${scale} ${scale}"/>
 				</geometry>
-
-
 			</collision>
+
 			<visual>
 				<xacro:if value="${prefix == 'left'}">
 					<origin rpy="${angle_coeff_left} 0 0" xyz="${leg_x_offset} ${leg_y_offset} ${leg_z_offset}"/>
@@ -103,10 +103,69 @@
 			<joint_properties damping="0.0" friction="0.0" />
 		</joint>
 
-	  <gazebo reference="leg_${prefix}_${num}">
-    <material>Gazebo/Gray</material>
-  </gazebo>
+		<gazebo reference="leg_${prefix}_${num}">
+			<material>Gazebo/Gray</material>
+		</gazebo>
 
+		<gazebo reference="leg_${prefix}_${num}">
+			<collision>
+				<surface>
+					<bounce>
+						<restitution_coefficient>0</restitution_coefficient>
+						<threshold>100000</threshold>
+					</bounce>
+					<friction>
+						<ode>
+							<mu>0.5</mu>
+							<mu2>0.5</mu2>
+							<!-- <fdir1>1 0 0 </fdir1> -->
+							<slip1>0.5 </slip1>
+							<slip2>0.5 </slip2>
+						</ode>
+					</friction>
+<!-- 					<contact>
+						<ode>
+							<kp>1e+12</kp>
+							<kd>1</kd>
+							<max_vel>0.01</max_vel>
+							<soft_erp>0.2</soft_erp>
+							<soft_cfm>0</soft_cfm>
+						</ode>
+					</contact> -->
+				</surface>
+			</collision>
+		</gazebo>
+		<!-- This part for changing friction in first part of legs -->
+		<xacro:if value="${num == 0}">
+			<gazebo reference="leg_${prefix}_${num}">
+				<collision>
+					<surface>
+						<bounce>
+							<restitution_coefficient>0</restitution_coefficient>
+							<threshold>100000</threshold>
+						</bounce>
+						<friction>
+							<ode>
+								<mu>0.5</mu>
+								<mu2>0.5</mu2>
+								<!-- <fdir1>1 0 0 </fdir1> -->
+								<slip1>0.5 </slip1>
+								<slip2>0.5 </slip2>
+							</ode>
+						</friction>
+<!-- 					<contact>
+						<ode>
+							<kp>1e+12</kp>
+							<kd>1</kd>
+							<max_vel>0.01</max_vel>
+							<soft_erp>0.2</soft_erp>
+							<soft_cfm>0</soft_cfm>
+						</ode>
+					</contact> -->
+					</surface>
+				</collision>
+			</gazebo>
+		</xacro:if>
 	</xacro:macro>
 
 	<!-- Body description -->
@@ -126,72 +185,74 @@
 				ixx="${1/12 * body_weight * (body_height * body_height + body_length * body_length) * 1.2 }"  ixy="0"  ixz="0" 
 				iyy="${1/12 * body_weight * (body_height * body_height + body_width * body_width) * 1.2 }" iyz="0" 
 				izz="${1/12 * body_weight * (body_length * body_length + body_width * body_width) * 1.2}" />
-			</inertial>
-			<collision >
-				<origin rpy="0  0  0" xyz="${body_x_offset} ${body_y_offset}  ${body_z_offset}"/>
-				<geometry>
-					<box size="${body_width / 2} ${body_length} ${body_height / 2}"/>
-				</geometry>
-			</collision>
-			<visual >
-				<origin rpy="0  0  0" xyz="${body_x_offset} ${body_y_offset}  ${body_z_offset}"/>
-				<geometry>
-					<box size="${body_width / 2} ${body_length} ${body_height / 2}"/>
-				</geometry>
-				<material name="green"/>
-			</visual>
-		</link>
+		</inertial>
+		<collision >
+			<origin rpy="0  0  0" xyz="${body_x_offset} ${body_y_offset}  ${body_z_offset}"/>
+			<geometry>
+				<box size="${body_width / 2} ${body_length} ${body_height / 2}"/>
+			</geometry>
+		</collision>
+		<visual >
+			<origin rpy="0  0  0" xyz="${body_x_offset} ${body_y_offset}  ${body_z_offset}"/>
+			<geometry>
+				<box size="${body_width / 2} ${body_length} ${body_height / 2}"/>
+			</geometry>
+			<material name="green"/>
+		</visual>
+	</link>
 
-		<gazebo reference="body">
-    		<material>Gazebo/DarkYellow</material>
-  		</gazebo>
-		
-  		<!-- create needed number of legs (is implemented by recurcion) -->
-  		<xacro:macro name="create_legs" params="prefix side number">
-  			<xacro:leg prefix="${prefix}" num="${number}" side="${side}"/>
-  			<xacro:if value="${number}">
-  				<xacro:create_legs number="${number-1}" prefix="${prefix}" side="${side}"/>
-  				<gazebo reference="leg_${prefix}_${number-1}">
-  					<mu1>0.2</mu1>
-  					<mu2>0.2</mu2>
-  				</gazebo>
-  			</xacro:if>
-  			<gazebo reference="leg_${prefix}_${number}">
-  				<mu1>0.2</mu1>
-  				<mu2>0.2</mu2>
-  			</gazebo>
-  		</xacro:macro>
+	<gazebo reference="body">
+		<collision>
+			<surface>
+				<friction>
+					<ode>
+						<mu>1</mu>
+						<mu2>1</mu2>
+					</ode>
+				</friction>
+			</surface>
+		</collision>
+		<material>Gazebo/DarkYellow</material>
+	</gazebo>
 
-
-		<xacro:create_legs prefix="left" side="1" number="${number_of_legs}" />
-		<xacro:create_legs prefix="right" side="-1" number="${number_of_legs}" />
+	<!-- create needed number of legs (is implemented by recurcion) -->
+	<xacro:macro name="create_legs" params="prefix side number">
+		<xacro:leg prefix="${prefix}" num="${number}" side="${side}"/>
+		<xacro:if value="${number}">
+			<xacro:create_legs number="${number-1}" prefix="${prefix}" side="${side}"/>
+		</xacro:if>
+	</xacro:macro>
 
 
-		<gazebo>
-			<xacro:macro name="create_gearbox_joints_between_legs" params="prefix side number">
-				<joint name="legs_${prefix}_0_${number}_gearbox_joint" type="gearbox">
-					<parent>leg_${prefix}_0</parent>
-					<child>leg_${prefix}_${number}</child>
-					<gearbox_ratio>-1</gearbox_ratio>
-					<gearbox_reference_body>base_link</gearbox_reference_body>
-					<axis>
-						<xyz>1.000000 0.000000 0.000000</xyz>
-						<use_parent_model_frame>true</use_parent_model_frame>
-					</axis>
-					<axis2>
-						<xyz>1.000000 0.000000 0.000000</xyz>
-						<use_parent_model_frame>true</use_parent_model_frame>
-					</axis2>
-				</joint>
+	<xacro:create_legs prefix="left" side="1" number="${number_of_legs}" />
+	<xacro:create_legs prefix="right" side="-1" number="${number_of_legs}" />
 
-				<xacro:if value="${number - 1}">
-					<xacro:create_gearbox_joints_between_legs number="${number-1}" prefix="${prefix}" side="${side}"/>
-				</xacro:if>
-			</xacro:macro>
 
-			<xacro:create_gearbox_joints_between_legs prefix="left" side="1" number="${number_of_legs}" />
-			<xacro:create_gearbox_joints_between_legs prefix="right" side="-1" number="${number_of_legs}" />
-		</gazebo>
-		
+	<gazebo>
+		<xacro:macro name="create_gearbox_joints_between_legs" params="prefix side number">
+			<joint name="legs_${prefix}_0_${number}_gearbox_joint" type="gearbox">
+				<parent>leg_${prefix}_${number-1}</parent>
+				<child>leg_${prefix}_${number}</child>
+				<gearbox_ratio>-1</gearbox_ratio>
+				<gearbox_reference_body>base_link</gearbox_reference_body>
+				<axis>
+					<xyz>1.000000 0.000000 0.000000</xyz>
+					<use_parent_model_frame>true</use_parent_model_frame>
+				</axis>
+				<axis2>
+					<xyz>1.000000 0.000000 0.000000</xyz>
+					<use_parent_model_frame>true</use_parent_model_frame>
+				</axis2>
+			</joint>
+			<!-- num -1, because gearbox joint with 0 to 0 relation is unsatisfactory --> 
+			<xacro:if value="${number - 1}">
+				<xacro:create_gearbox_joints_between_legs number="${number-1}" prefix="${prefix}" side="${side}"/>
+			</xacro:if>
+		</xacro:macro>
+
+		<xacro:create_gearbox_joints_between_legs prefix="left" side="1" number="${number_of_legs}" />
+		<xacro:create_gearbox_joints_between_legs prefix="right" side="-1" number="${number_of_legs}" />
+	</gazebo>
+
 
 </robot>

@@ -1,13 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <!-- plugins -->
-<!--   <gazebo>
-    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so" >
-      <robotNamespace>/strirus</robotNamespace>
-    </plugin>
-  </gazebo>
--->
   <gazebo>
   <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
     <alwaysOn>true</alwaysOn>
@@ -17,7 +10,7 @@
     <wheelSeparation>${body_width}</wheelSeparation>
     <wheelDiameter>${leg_height}</wheelDiameter>
     <legacyMode>false</legacyMode>
-    <torque>300</torque>
+    <torque>500</torque>
     <commandTopic>cmd_vel</commandTopic>
     <odometryTopic>odom</odometryTopic>
     <odometryFrame>odom</odometryFrame>
