@@ -48,7 +48,9 @@
 	<xacro:property name="dist_between_legs" value="${leg_height * sin(angle_between_legs * deg2rad) + fallibility_between_legs}" />
 	<xacro:property name="body_length" value="${2 * first_hole_x_offset + (real_number_of_legs -1) * dist_between_legs}" />
 
-
+	<gazebo>
+		<self_collide> 1 </self_collide>
+	</gazebo>
 	<!-- Leg description -->
 	<xacro:macro name="leg" params="prefix num side">
 		<xacro:property name="angle_coeff_left" value="${(offset_between_legs_wave + angle_between_legs * num) % 360 * deg2rad}" />

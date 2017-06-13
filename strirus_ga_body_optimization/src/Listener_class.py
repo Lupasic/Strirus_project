@@ -23,5 +23,9 @@ class Listener:
 
     def __init__(self):
         # subscribers
+        try:
+            rospy.init_node("Listener")
+        except rospy.exceptions.ROSInitExeption:
+            print("It cannot be init\n")
         rospy.Subscriber("/clock", Clock, callback_clock)
         rospy.Subscriber("/gazebo/model_states", ModelStates, callback_distance)

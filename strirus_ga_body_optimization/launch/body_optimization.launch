@@ -2,18 +2,19 @@
 	<arg name="terrain_file_path_without_file_name" default="$(find strirus_ga_body_optimization)/maps/Generated_terrain"/>
 	<arg name="world_file_path_without_extention" default="$(find strirus_ga_body_optimization)/worlds/testing_area"/>
 	<arg name="results_path" default="$(find strirus_ga_body_optimization)/results/all_data.txt"/>
+	<arg name="logging_path" default="$(find strirus_ga_body_optimization)/results/log_data.txt"/>
 	<!-- need to divided without remainder -->
-	<arg name="number_of_worlds" default="20"/>
-	<arg name="max_simultaneous_processes" default="2"/>
+	<arg name="number_of_worlds" default="16"/>
+	<arg name="max_simultaneous_processes" default="4"/>
 	<!-- -->
-	<arg name="simulation_time" default="10"/>
+	<arg name="simulation_time" default="11"/>
 
 	<!-- GA params -->
-	<arg name="number_generations" default="12"/>
+	<arg name="number_generations" default="7"/>
 	<arg name="population_size" default="16"/>
 	<!-- Ga local params -->
 	<arg name="tournament_size" default="1"/>
-	<arg name="crossover_probability" default="0.5"/>
+	<arg name="crossover_probability" default="0.4"/>
 	<arg name="mutation_probability" default="0.3"/>
 
 	<!-- min and max values for robot -->
@@ -22,14 +23,15 @@
 	<arg name="angle_between_legs_min" default="1"/>
 	<arg name="angle_between_legs_max" default="89"/>
 	<arg name="offset_between_leg_waves_min" default="0"/>
-	<arg name="offset_between_leg_waves_max" default="180"/>	
+	<arg name="offset_between_leg_waves_max" default="180"/>
 	
 
 	<param name="terrain_file_path_without_file_name" value="$(arg terrain_file_path_without_file_name)"/>
 	<param name="results_path" value="$(arg results_path)"/>
+	<param name="logging_path" value="$(arg logging_path)"/>
 	<param name="world_file_path_without_extention" value="$(arg world_file_path_without_extention)"/>
-	<param name="rosmaster_first_port" value="1234"/>
-	<param name="gazebo_first_port" value="11345"/>
+	<param name="rosmaster_first_port" value="42930"/>
+	<param name="gazebo_first_port" value="11350"/>
 
 	<param name="number_of_worlds" value="$(arg number_of_worlds)"/>
 	<param name="max_simultaneous_processes" value="$(arg max_simultaneous_processes)"/>
@@ -49,5 +51,5 @@
 	<param name="offset_between_leg_waves_max" value="$(arg offset_between_leg_waves_max)"/>
 
 
-	<node name="ga_body_optimization" pkg="strirus_ga_body_optimization" type="ga_body_optimization.py" output="screen" required="true"/>
+	<node name="ga_body_optimization" pkg="strirus_ga_body_optimization" type="ga_body_optimization.py" output="screen" required="true" respawn="false"/>
 </launch>

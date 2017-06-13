@@ -5,9 +5,10 @@ import os
 import math
 from multiprocessing import Pool
 from functools import partial
-
 import gc
-
+import time
+import logging
+import datetime
 import rospy.exceptions
 from Listener_class import Listener
 import subprocess
@@ -19,6 +20,7 @@ from deap import tools
 from deap import algorithms
 import numpy
 
+robo_index = 0
 
 def write_in_file(array):
     temp = args['results_path'].split("/")
@@ -61,32 +63,38 @@ def get_avg_dist_and_vel(index, legs_num, angle_between_legs, offset_between_leg
     cur_index = "cur_index:=\"" + str(index) + "\""
 
     neended_env = os.environ
-    neended_env['GAZEBO_MASTER_URI'] = "http://localhost:" + str(cur_gazebo_port)
+    neended_env['GAZEBO_MASTER_URI'] = "http://lupasic-computer:" + str(cur_gazebo_port)
     roslaunch = subprocess.Popen(
         ['roslaunch', '-p', str(cur_ros_port), 'strirus_ga_body_optimization',
          'strirus_gazebo_with_auto_move_forward.launch', real_number_of_legs, angle_between_legs,
          offset_between_legs_waves, cur_index], env=neended_env)
     # change ROS_MASTER_URI for Listener node
     os.environ['ROS_MASTER_URI'] = "http://localhost:" + str(cur_ros_port)
-
     # subscribers
-    try:
-        rospy.init_node("Listener")
-    except rospy.exceptions.ROSInitExeption:
-        print("It cannot be init\n")
+    rospy.logdebug('The PID of child: %d', roslaunch.pid)
+    rospy.logdebug('Terrain number is:= %d', index)
 
     cur_listener = Listener()
+
     while not rospy.is_shutdown():
         if cur_listener.clock > args['simulation_time']:
-            data['distance'] = math.sqrt(
-                math.pow(cur_listener.last_point.x, 2) + math.pow(cur_listener.last_point.y, 2) + math.pow(
-                    cur_listener.last_point.z, 2))
-            rospy.signal_shutdown("Sim time is out")
-            del cur_listener
+            try:
+                data['distance'] = math.sqrt(
+                    math.pow(cur_listener.last_point.x, 2) + math.pow(cur_listener.last_point.y, 2) + math.pow(
+                        cur_listener.last_point.z, 2))
+                rospy.signal_shutdown("Sim time is out")
+                del cur_listener
+            except AttributeError:
+                data['distance'] = 0
+                rospy.logwarn("cur_listener is empty, distance = 0")
+                rospy.signal_shutdown("Sim time is out")
+                break
 
-    os.kill(roslaunch.pid, signal.SIGINT)
-    print("!!!!!!!!Exit from getting distance from terrain " + str(index) + " with distnace := " + str(
-        data['distance']) + " !!!!!!!!!!!!!!")
+    rospy.loginfo("Distance:= %f for %d terrain" %(data['distance'], index))
+    roslaunch.send_signal(signal.SIGINT)
+    # for avoidng zombie processes
+    roslaunch.wait()
+    del roslaunch
     return data
 
 
@@ -98,23 +106,25 @@ def world_generation():
 
 def get_avg_dist_from_robot(legs_num, angle_between_legs, offset_between_leg_waves):
     all_data_from_cur_robot = []
+    global robo_index
+    rospy.loginfo("Robot_number:= %d has num_of_legs:= %d , angle_between_legs:= %d , offset_between_leg_waves:= %d", robo_index % args['population_size'], legs_num, angle_between_legs, offset_between_leg_waves)
+    robo_index+= 1
 
-    print("Number of legs and so on: " + str(legs_num) + " " + str(angle_between_legs) + " " + str(
-        offset_between_leg_waves))
     for i in range(int(args['number_of_worlds'] / args['max_simultaneous_processes'])):
         p = Pool()
         index_arr = range(i * args['max_simultaneous_processes'],
                           args['max_simultaneous_processes'] + i * args['max_simultaneous_processes'])
+        rospy.loginfo('Terrain range is:= %d - %d', index_arr[0],index_arr[-1])
         result = p.map(partial(get_avg_dist_and_vel, legs_num=legs_num, angle_between_legs=angle_between_legs,
                                offset_between_leg_waves=offset_between_leg_waves), index_arr)
         all_data_from_cur_robot = all_data_from_cur_robot + result
+        p.terminate()
         del p
     temp_sum = 0
     for temp in all_data_from_cur_robot:
         temp_sum = temp_sum + temp['distance']
     avg_dist = temp_sum / len(all_data_from_cur_robot)
     gc.collect()
-
     return avg_dist
 
 
@@ -123,11 +133,10 @@ def fitness_function(individual):
     distance = get_avg_dist_from_robot(individual[0], individual[1], individual[2])
     num_of_legs = individual[0]
     angle_btw_legs = individual[1]
-    print("distance in fitness func def: " + str(distance))
-    print("length in fitness func def: " + str(((num_of_legs - 1) * math.sin(math.radians(angle_btw_legs)))))
-    res = distance / ((num_of_legs - 1) * math.sin(math.radians(angle_btw_legs)))
-    print(res)
-    return distance / ((num_of_legs - 1) * math.sin(math.radians(angle_btw_legs))),
+    length = ((num_of_legs - 1) * math.sin(math.radians(angle_btw_legs)))
+    res = distance / length
+    rospy.loginfo("AVG_dist is:= %f , length is %f , and the result is %f", distance, length, res)
+    return res,
 
 
 def mutation_function(individual, mutpb):
@@ -167,11 +176,22 @@ if __name__ == '__main__':
         'angle_between_legs_max': '',
         'offset_between_leg_waves_min': '',
         'offset_between_leg_waves_max': '',
-        'results_path': ''
+        'results_path': '',
+        'logging_path': ''
     }
     args = updateArgs(args_default)
     # Generate world
     world_generation()
+    #activate logging
+    temp = args['logging_path'].split("/")
+    temp = temp[-1]
+    if not os.path.exists(args['logging_path'][:-(len(temp) + 1)]):
+        os.mkdir(args['logging_path'][:-(len(temp) + 1)])
+    logging.basicConfig(format=u'%(levelname)-3s [%(asctime)s] %(message)s', level=logging.INFO,
+                        filename=args['logging_path'])
+
+    rospy.loginfo("START program")
+
     # minimazing number of legs
     creator.create("FitnessMax", base.Fitness, weights=(1.0,))
     creator.create("Individual", list, fitness=creator.FitnessMax)
@@ -208,6 +228,9 @@ if __name__ == '__main__':
                                    stats=stats, halloffame=hof, verbose=True)
 
     write_in_file([log])
+    write_in_file([hof])
+    write_in_file([stats])
     print(hof)
+    rospy.loginfo("FINISH program")
     # delete generated worlds
     delete_worlds()

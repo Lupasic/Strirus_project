@@ -1,0 +1,72 @@
+INFO [2017-06-12 19:16:55,014] START program
+INFO [2017-06-12 19:16:55,015] Robot_number:= 0 has num_of_legs:= 8 , angle_between_legs:= 17 , offset_between_leg_waves:= 177
+INFO [2017-06-12 19:16:55,056] Terrain range is:= 0 - 3
+INFO [2017-06-12 19:17:39,587] Terrain range is:= 4 - 7
+INFO [2017-06-12 19:18:20,639] Terrain range is:= 8 - 11
+INFO [2017-06-12 19:19:01,436] Terrain range is:= 12 - 15
+INFO [2017-06-12 19:19:42,709] AVG_dist is:= 0.762142 , length is 2.046602 , and the result is 0.372394
+INFO [2017-06-12 19:19:42,710] Robot_number:= 1 has num_of_legs:= 5 , angle_between_legs:= 9 , offset_between_leg_waves:= 22
+INFO [2017-06-12 19:19:42,724] Terrain range is:= 0 - 3
+INFO [2017-06-12 19:20:11,120] Terrain range is:= 4 - 7
+INFO [2017-06-12 19:20:38,833] Terrain range is:= 8 - 11
+INFO [2017-06-12 19:21:06,789] Terrain range is:= 12 - 15
+INFO [2017-06-12 19:21:32,229] AVG_dist is:= 1.569368 , length is 0.625738 , and the result is 2.508027
+INFO [2017-06-12 19:21:32,229] Robot_number:= 2 has num_of_legs:= 6 , angle_between_legs:= 80 , offset_between_leg_waves:= 170
+INFO [2017-06-12 19:21:32,250] Terrain range is:= 0 - 3
+INFO [2017-06-12 19:22:07,188] Terrain range is:= 4 - 7
+INFO [2017-06-12 19:22:39,244] Terrain range is:= 8 - 11
+INFO [2017-06-12 19:23:14,043] Terrain range is:= 12 - 15
+INFO [2017-06-12 19:23:49,033] AVG_dist is:= 3.749654 , length is 4.924039 , and the result is 0.761500
+INFO [2017-06-12 19:23:49,033] Robot_number:= 3 has num_of_legs:= 7 , angle_between_legs:= 10 , offset_between_leg_waves:= 164
+INFO [2017-06-12 19:23:49,045] Terrain range is:= 0 - 3
+INFO [2017-06-12 19:24:28,321] Terrain range is:= 4 - 7
+INFO [2017-06-12 19:25:05,456] Terrain range is:= 8 - 11
+INFO [2017-06-12 19:25:43,781] Terrain range is:= 12 - 15
+INFO [2017-06-12 19:26:21,969] AVG_dist is:= 0.427964 , length is 1.041889 , and the result is 0.410758
+INFO [2017-06-12 19:26:21,969] Robot_number:= 4 has num_of_legs:= 15 , angle_between_legs:= 86 , offset_between_leg_waves:= 11
+INFO [2017-06-12 19:26:21,981] Terrain range is:= 0 - 3
+INFO [2017-06-12 19:27:29,342] Terrain range is:= 4 - 7
+INFO [2017-06-12 19:28:35,544] Terrain range is:= 8 - 11
+INFO [2017-06-12 19:29:42,630] Terrain range is:= 12 - 15
+INFO [2017-06-12 19:30:51,063] AVG_dist is:= 1.544468 , length is 13.965897 , and the result is 0.110589
+INFO [2017-06-12 19:30:51,064] Robot_number:= 5 has num_of_legs:= 11 , angle_between_legs:= 40 , offset_between_leg_waves:= 4
+INFO [2017-06-12 19:30:51,076] Terrain range is:= 0 - 3
+INFO [2017-06-12 19:31:40,831] Terrain range is:= 4 - 7
+INFO [2017-06-12 19:32:32,063] Terrain range is:= 8 - 11
+INFO [2017-06-12 19:33:25,993] Terrain range is:= 12 - 15
+INFO [2017-06-12 19:34:15,937] AVG_dist is:= 3.193506 , length is 6.427876 , and the result is 0.496821
+INFO [2017-06-12 19:34:15,937] Robot_number:= 6 has num_of_legs:= 6 , angle_between_legs:= 9 , offset_between_leg_waves:= 42
+INFO [2017-06-12 19:34:15,957] Terrain range is:= 0 - 3
+INFO [2017-06-12 19:34:46,750] Terrain range is:= 4 - 7
+INFO [2017-06-12 19:35:15,939] Terrain range is:= 8 - 11
+INFO [2017-06-12 19:35:47,682] Terrain range is:= 12 - 15
+INFO [2017-06-12 19:36:19,142] AVG_dist is:= 1.431421 , length is 0.782172 , and the result is 1.830058
+INFO [2017-06-12 19:36:19,142] Robot_number:= 7 has num_of_legs:= 11 , angle_between_legs:= 52 , offset_between_leg_waves:= 113
+INFO [2017-06-12 19:36:19,154] Terrain range is:= 0 - 3
+INFO [2017-06-12 19:37:10,707] Terrain range is:= 4 - 7
+INFO [2017-06-12 19:38:02,077] Terrain range is:= 8 - 11
+INFO [2017-06-12 19:38:54,057] Terrain range is:= 12 - 15
+INFO [2017-06-12 19:39:45,017] AVG_dist is:= 4.515699 , length is 7.880108 , and the result is 0.573050
+INFO [2017-06-12 19:39:45,017] Robot_number:= 8 has num_of_legs:= 12 , angle_between_legs:= 14 , offset_between_leg_waves:= 134
+INFO [2017-06-12 19:39:45,038] Terrain range is:= 0 - 3
+INFO [2017-06-12 19:40:41,248] Terrain range is:= 4 - 7
+INFO [2017-06-12 19:41:35,769] Terrain range is:= 8 - 11
+INFO [2017-06-12 19:42:31,839] Terrain range is:= 12 - 15
+INFO [2017-06-12 19:43:32,164] AVG_dist is:= 1.044094 , length is 2.661141 , and the result is 0.392348
+INFO [2017-06-12 19:43:32,165] Robot_number:= 9 has num_of_legs:= 6 , angle_between_legs:= 85 , offset_between_leg_waves:= 153
+INFO [2017-06-12 19:43:32,176] Terrain range is:= 0 - 3
+INFO [2017-06-12 19:44:06,654] Terrain range is:= 4 - 7
+INFO [2017-06-12 19:44:40,166] Terrain range is:= 8 - 11
+INFO [2017-06-13 10:15:30,054] START program
+INFO [2017-06-13 10:15:30,064] Robot_number:= 0 has num_of_legs:= 4 , angle_between_legs:= 86 , offset_between_leg_waves:= 164
+INFO [2017-06-13 10:15:30,134] Terrain range is:= 0 - 3
+INFO [2017-06-13 10:16:00,767] START program
+INFO [2017-06-13 10:16:00,767] Robot_number:= 0 has num_of_legs:= 7 , angle_between_legs:= 84 , offset_between_leg_waves:= 65
+INFO [2017-06-13 10:16:00,856] Terrain range is:= 0 - 3
+INFO [2017-06-13 10:16:27,570] START program
+INFO [2017-06-13 10:16:27,570] Robot_number:= 0 has num_of_legs:= 3 , angle_between_legs:= 85 , offset_between_leg_waves:= 171
+INFO [2017-06-13 10:16:27,592] Terrain range is:= 0 - 3
+INFO [2017-06-13 10:16:51,596] Terrain range is:= 4 - 7
+INFO [2017-06-13 10:17:16,750] Terrain range is:= 8 - 11
+INFO [2017-06-13 10:17:42,778] Terrain range is:= 12 - 15
+INFO [2017-06-13 10:17:57,384] signal_shutdown [atexit]
