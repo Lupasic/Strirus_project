@@ -9,8 +9,14 @@
     <rightJoint>leg_right_0_revolute_joint</rightJoint>
     <wheelSeparation>${body_width}</wheelSeparation>
     <wheelDiameter>${leg_height}</wheelDiameter>
+    <wheelTorque>30</wheelTorque>
+    <wheelAcceleration>0</wheelAcceleration>
+    <publishWheelJointState>false</publishWheelJointState>
+    <publishWheelTF>false</publishWheelTF>
+    <rosDebugLevel>false</rosDebugLevel>
     <legacyMode>false</legacyMode>
-    <torque>500</torque>
+    <odometrySource>1</odometrySource>
+    <publishTf>1</publishTf>
     <commandTopic>cmd_vel</commandTopic>
     <odometryTopic>odom</odometryTopic>
     <odometryFrame>odom</odometryFrame>

@@ -1,10 +1,5 @@
 <?xml version="1.0"?>
 <robot name="Strirus" xmlns:xacro="http://www.ros.org/wiki/xacro">
-	<!-- Import all Gazebo-customization elements, including Gazebo colors -->
-	<xacro:include filename="$(find strirus_robot_description)/urdf/strirus_plugins.gazebo" />
-	<!-- Import Rviz colors -->
-	<xacro:include filename="$(find strirus_robot_description)/urdf/materials.xacro" />
-
 
 	<xacro:property name="deg2rad" value="${pi / 180}" />
 	<xacro:property name="scale" value="1" />
@@ -48,6 +43,10 @@
 	<xacro:property name="dist_between_legs" value="${leg_height * sin(angle_between_legs * deg2rad) + fallibility_between_legs}" />
 	<xacro:property name="body_length" value="${2 * first_hole_x_offset + (real_number_of_legs -1) * dist_between_legs}" />
 
+	<!-- Import all Gazebo-customization elements, including Gazebo colors -->
+	<xacro:include filename="$(find strirus_robot_description)/urdf/strirus_plugins.gazebo" />
+	<!-- Import Rviz colors -->
+	<xacro:include filename="$(find strirus_robot_description)/urdf/materials.xacro" />
 	<gazebo>
 		<self_collide> 1 </self_collide>
 	</gazebo>
@@ -118,11 +117,11 @@
 					</bounce>
 					<friction>
 						<ode>
-							<mu>0.5</mu>
-							<mu2>0.5</mu2>
+							<mu>0.8</mu>
+							<mu2>0.8</mu2>
 							<!-- <fdir1>1 0 0 </fdir1> -->
-							<slip1>0.5 </slip1>
-							<slip2>0.5 </slip2>
+							<slip1>0.2 </slip1>
+							<slip2>0.2 </slip2>
 						</ode>
 					</friction>
 <!-- 					<contact>
