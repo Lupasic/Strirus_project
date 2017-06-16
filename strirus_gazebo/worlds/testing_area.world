@@ -6,7 +6,7 @@
     <!-- the combination of 2 params below provides real time factor speed for simulation -->
     <!-- max_real_time_factor = real_time_update_rate * max_step_size -->
     <!-- min_real_time_factor depends only from max_step_size --> 
-    <real_time_update_rate>500</real_time_update_rate>
+    <real_time_update_rate>1000</real_time_update_rate>
     <max_step_size>0.002</max_step_size>
       <ode>
         <solver>
