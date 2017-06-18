@@ -3,6 +3,7 @@
 
   <gazebo>
   <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+    <!--     <robotNamespace>/</robotNamespace> -->
     <alwaysOn>true</alwaysOn>
     <updateRate>30</updateRate>
     <leftJoint>leg_left_0_revolute_joint</leftJoint>

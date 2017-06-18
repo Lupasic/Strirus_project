@@ -8,9 +8,8 @@ from functools import partial
 import gc
 import time
 import logging
-import datetime
 import rospy.exceptions
-from Listener_class import Listener
+from clock_dist_listener import Clock_dist_listener
 import subprocess
 import signal
 import random
@@ -21,6 +20,7 @@ from deap import algorithms
 import numpy
 
 robo_index = 0
+
 
 def write_in_file(array):
     temp = args['results_path'].split("/")
@@ -50,7 +50,7 @@ def updateArgs(arg_defaults):
             args[name] = val
         else:
             args[name] = rospy.get_param(full_name, val)
-    return (args)
+    return args
 
 
 def get_avg_dist_and_vel(index, legs_num, angle_between_legs, offset_between_leg_waves):
@@ -63,7 +63,7 @@ def get_avg_dist_and_vel(index, legs_num, angle_between_legs, offset_between_leg
     cur_index = "cur_index:=\"" + str(index) + "\""
 
     neended_env = os.environ
-    neended_env['GAZEBO_MASTER_URI'] = "http://lupasic-computer:" + str(cur_gazebo_port)
+    neended_env['GAZEBO_MASTER_URI'] = "http://localhost:" + str(cur_gazebo_port)
     roslaunch = subprocess.Popen(
         ['roslaunch', '-p', str(cur_ros_port), 'strirus_ga_body_optimization',
          'strirus_gazebo_with_auto_move_forward.launch', real_number_of_legs, angle_between_legs,
@@ -73,8 +73,11 @@ def get_avg_dist_and_vel(index, legs_num, angle_between_legs, offset_between_leg
     # subscribers
     rospy.logdebug('The PID of child: %d', roslaunch.pid)
     rospy.logdebug('Terrain number is:= %d', index)
-
-    cur_listener = Listener()
+    try:
+        rospy.init_node("ga_body_optimization")
+    except rospy.exceptions.ROSInitExeption:
+        print("It cannot be init\n")
+    cur_listener = Clock_dist_listener()
 
     while not rospy.is_shutdown():
         if cur_listener.clock > args['simulation_time']:
@@ -90,11 +93,10 @@ def get_avg_dist_and_vel(index, legs_num, angle_between_legs, offset_between_leg
                 rospy.signal_shutdown("Sim time is out")
                 break
 
-    rospy.loginfo("Distance:= %f for %d terrain" %(data['distance'], index))
+    rospy.loginfo("Distance:= %f for %d terrain" % (data['distance'], index))
     roslaunch.send_signal(signal.SIGINT)
     # for avoidng zombie processes
     roslaunch.wait()
-    del roslaunch
     return data
 
 
@@ -107,19 +109,20 @@ def world_generation():
 def get_avg_dist_from_robot(legs_num, angle_between_legs, offset_between_leg_waves):
     all_data_from_cur_robot = []
     global robo_index
-    rospy.loginfo("Robot_number:= %d has num_of_legs:= %d , angle_between_legs:= %d , offset_between_leg_waves:= %d", robo_index % args['population_size'], legs_num, angle_between_legs, offset_between_leg_waves)
-    robo_index+= 1
+    rospy.loginfo("Robot_number:= %d has num_of_legs:= %d , angle_between_legs:= %d , offset_between_leg_waves:= %d",
+                  robo_index % args['population_size'], legs_num, angle_between_legs, offset_between_leg_waves)
+    robo_index += 1
 
     for i in range(int(args['number_of_worlds'] / args['max_simultaneous_processes'])):
-        p = Pool()
         index_arr = range(i * args['max_simultaneous_processes'],
                           args['max_simultaneous_processes'] + i * args['max_simultaneous_processes'])
-        rospy.loginfo('Terrain range is:= %d - %d', index_arr[0],index_arr[-1])
+        rospy.loginfo('Terrain range is:= %d - %d', index_arr[0], index_arr[-1])
+        p = Pool()
         result = p.map(partial(get_avg_dist_and_vel, legs_num=legs_num, angle_between_legs=angle_between_legs,
                                offset_between_leg_waves=offset_between_leg_waves), index_arr)
         all_data_from_cur_robot = all_data_from_cur_robot + result
-        p.terminate()
-        del p
+        p.close()
+        p.join()
     temp_sum = 0
     for temp in all_data_from_cur_robot:
         temp_sum = temp_sum + temp['distance']
@@ -146,7 +149,6 @@ def mutation_function(individual, mutpb):
         individual[1] = random.randrange(args['angle_between_legs_min'], args['angle_between_legs_max'])
     if random.random() < mutpb:
         individual[2] = random.randrange(args['offset_between_leg_waves_min'], args['offset_between_leg_waves_max'])
-
     return individual,
 
 
@@ -182,7 +184,7 @@ if __name__ == '__main__':
     args = updateArgs(args_default)
     # Generate world
     world_generation()
-    #activate logging
+    # activate logging
     temp = args['logging_path'].split("/")
     temp = temp[-1]
     if not os.path.exists(args['logging_path'][:-(len(temp) + 1)]):

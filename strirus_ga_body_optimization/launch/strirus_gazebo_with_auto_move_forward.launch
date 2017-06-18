@@ -1,31 +1,35 @@
 <launch>
+
+	<arg name="velocity" default="0.4" />
 	<!-- args for changing robot params -->
 	<arg name="cur_index" default="0"/>
-	<arg name="use_sim_time" default="true"/>
 	<arg name="real_number_of_legs" default="10" />
 	<arg name="angle_between_legs" default="45" /> <!-- in degree -->
 	<arg name="offset_between_legs_waves" default="0" />
 
 	<param name="robot_description"
-		command="$(find xacro)/xacro --inorder'$(find strirus_robot_description)/urdf/strirus.xacro'  real_number_of_legs:=$(arg real_number_of_legs) angle_between_legs:=$(arg angle_between_legs) offset_between_legs_wave:=$(arg offset_between_legs_waves)" /> 
-
-		<!-- Spawn a robot into Gazebo -->
-	<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-		args="-urdf -model strirus -param robot_description"/>
+		command="$(find xacro)/xacro --inorder '$(find strirus_robot_description)/urdf/strirus.xacro'  real_number_of_legs:=$(arg real_number_of_legs) angle_between_legs:=$(arg angle_between_legs) offset_between_legs_wave:=$(arg offset_between_legs_waves)" /> 
 
 
-	<!-- запускаем комнату -->
+	<!-- Launch room -->
 	<include file="$(find strirus_ga_body_optimization)/launch/empty_world.launch">
 		<arg name="world_name" value="$(find strirus_ga_body_optimization)/worlds/testing_area_$(arg cur_index).world"/>
 		<arg name="paused" value="false"/>
 		<arg name="physics" default="ode"/>
+  		<arg name="headless" default="true"/>
 		<arg name="verbose" default="false"/>'
 		<arg name="gui" value="false"/>
-		<arg name="use_sim_time" value="$(arg use_sim_time)"/>
+		<arg name="use_sim_time" value="true"/>
 	</include>
 
-	<node name="move_forward" pkg="strirus_gazebo" type="move_forward.py" respawn="false" output="screen"/>
-	
+	<!-- Spawn a robot into Gazebo -->
+	<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+			args="-urdf -model strirus -param robot_description"/>
+
+	<node name="move_forward" pkg="strirus_gazebo" type="move_forward.py" output="screen">
+		<param name="velocity" value="$(arg velocity)"/> 
+	</node>
+
 
 
 </launch>

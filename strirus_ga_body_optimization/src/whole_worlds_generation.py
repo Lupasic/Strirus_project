@@ -67,7 +67,8 @@ def generate_terrain(index):
 
     # also it is needed to generate model.sdf
     writeFile = open(args['terrain_file_path_without_file_name'] + "_" + str(index) + "/model.config", 'w')
-    writeFile.write("<?xml version=\"1.0\" ?>\n<model>\n    <name>Terrain</name>\n    <version>1.0</version>\n    <sdf version=\"1.6\">model.sdf</sdf>\n<author>\n        <name>Bulichev Oleg</name>\n        <email>obulichev@yandex.ru</email>\n    </author>\n    <description>Terrain for testing robot's passability</description>\n</model>")
+    writeFile.write(
+        "<?xml version=\"1.0\" ?>\n<model>\n    <name>Terrain</name>\n    <version>1.0</version>\n    <sdf version=\"1.6\">model.sdf</sdf>\n<author>\n        <name>Bulichev Oleg</name>\n        <email>obulichev@yandex.ru</email>\n    </author>\n    <description>Terrain for testing robot's passability</description>\n</model>")
     writeFile.close()
 
 
@@ -84,12 +85,14 @@ def generate_world(index):
     writeFile.write("    <real_time_update_rate>" + str(
         args['real_time_update_rate']) + "</real_time_update_rate>\n    <max_step_size>" + str(args[
                                                                                                    'max_step_size']) + " </max_step_size>\n      <ode>\n        <solver>\n          <type>quick</type>\n          <iters>" + str(
-        args['physics_iter']) + "</iters>\n        <sor>" + str(args['sor']) + "</sor>\n        </solver>\n      </ode>\n    </physics>\n")
+        args['physics_iter']) + "</iters>\n        <sor>" + str(
+        args['sor']) + "</sor>\n        </solver>\n      </ode>\n    </physics>\n")
 
     writeFile.write(
         "      <include>\n      <uri>model://ground_plane</uri>\n    </include>\n    <include>\n      <uri>model://sun</uri>\n    </include>\n")
     writeFile.write("        <include>\n		<uri>model://" + str(args['package_name']) + "/" + str(
-        args['terrain_path']) +"_"+str(index)+ "</uri>\n      <name>Terrain</name>\n      <pose>0 -0.5 0 0 0 0</pose>\n    </include>\n")
+        args['terrain_path']) + "_" + str(
+        index) + "</uri>\n      <name>Terrain</name>\n      <pose>0 -0.5 0 0 0 0</pose>\n    </include>\n")
 
     writeFile.write("  </world>\n</sdf>")
     writeFile.close()
@@ -108,7 +111,7 @@ args_default = {
     'terrain_file_path_without_file_name': '../maps/Generated_terrain',
     'world_file_path_without_extention': '../worlds/Generated_terrain/testing_area',
     'physics_iter': '400',
-    'sor' : '0.9',
+    'sor': '0.9',
     'real_time_update_rate': '111.2',
     'max_step_size': '0.009',
     'package_name': 'strirus_ga_body_optimization',

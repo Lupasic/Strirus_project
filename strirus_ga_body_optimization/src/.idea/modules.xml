@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/scripts.iml" filepath="$PROJECT_DIR$/.idea/scripts.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../../../python_ws/test_multiprocessing/.idea/test_multiprocessing.iml" filepath="$PROJECT_DIR$/../../../../../python_ws/test_multiprocessing/.idea/test_multiprocessing.iml" />
     </modules>
   </component>
 </project>
