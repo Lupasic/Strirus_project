@@ -20,8 +20,6 @@
 	<arg name="terrain_path" default="maps/Generated_terrain" /> <!-- without first '/' -->
 
 
-
-
 	<node name="whole_worlds_generation" pkg="strirus_ga_body_optimization" type="whole_worlds_generation.py" output="screen" required="false">
 		<param name="number_of_worlds" value="$(arg number_of_worlds)"/>
 		
@@ -40,9 +38,6 @@
 		<param name="max_step_size" value="$(arg max_step_size)"/>
 		<param name="package_name" value="$(arg package_name)"/>
 		<param name="terrain_path" value="$(arg terrain_path)" />
-
-
 	</node>
-
 
 </launch>

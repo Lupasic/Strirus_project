@@ -4,18 +4,17 @@
 	<arg name="results_path" default="$(find strirus_ga_body_optimization)/results/all_data.txt"/>
 	<arg name="logging_path" default="$(find strirus_ga_body_optimization)/results/log_data.txt"/>
 	<!-- need to divided without remainder -->
-	<arg name="number_of_worlds" default="16"/>
-	<arg name="max_simultaneous_processes" default="2"/>
+	<arg name="number_of_worlds" default="15"/>
 	<!-- -->
-	<arg name="simulation_time" default="11"/>
+	<arg name="simulation_time" default="12"/>
 
 	<!-- GA params -->
 	<arg name="number_generations" default="7"/>
-	<arg name="population_size" default="16"/>
+	<arg name="population_size" default="15"/>
 	<!-- Ga local params -->
 	<arg name="tournament_size" default="1"/>
-	<arg name="crossover_probability" default="0.4"/>
-	<arg name="mutation_probability" default="0.3"/>
+	<arg name="crossover_probability" default="0.3"/>
+	<arg name="mutation_probability" default="0.2"/>
 
 	<!-- min and max values for robot -->
 	<arg name="legs_num_min" default="3"/>
@@ -30,10 +29,8 @@
 	<param name="results_path" value="$(arg results_path)"/>
 	<param name="logging_path" value="$(arg logging_path)"/>
 	<param name="world_file_path_without_extention" value="$(arg world_file_path_without_extention)"/>
-	<param name="gazebo_first_port" value="11350"/>
 
 	<param name="number_of_worlds" value="$(arg number_of_worlds)"/>
-	<param name="max_simultaneous_processes" value="$(arg max_simultaneous_processes)"/>
 	<param name="simulation_time" value="$(arg simulation_time)"/>
 
 	<param name="number_generations" value="$(arg number_generations)"/>
@@ -49,6 +46,6 @@
 	<param name="offset_between_leg_waves_min" value="$(arg offset_between_leg_waves_min)"/>
 	<param name="offset_between_leg_waves_max" value="$(arg offset_between_leg_waves_max)"/>
 
-
 	<node name="ga_body_optimization" pkg="strirus_ga_body_optimization" type="ga_body_optimization.py" output="screen" required="true" respawn="false"/>
+
 </launch>

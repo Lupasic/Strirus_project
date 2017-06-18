@@ -3,14 +3,11 @@
 import rospy
 import os
 import math
-from multiprocessing import Pool, Manager, Process
-from functools import partial
 import gc
 import time
 import logging
-import datetime
 import rospy.exceptions
-from listener_class import Listener
+from clock_dist_listener import Clock_dist_listener
 import subprocess
 import signal
 import random
@@ -19,9 +16,7 @@ from deap import creator
 from deap import tools
 from deap import algorithms
 import numpy
-from rosgraph_msgs.msg import Clock
-from gazebo_msgs.msg import ModelStates
-from multiprocessing.sharedctypes import Value, Array
+
 
 robo_index = 0
 
@@ -61,73 +56,39 @@ def get_avg_dist_and_vel(index, legs_num, angle_between_legs, offset_between_leg
     data = {}
 
     namespace = "individual" + str(index)
-    cur_gazebo_port = args['gazebo_first_port'] + index
     ros_namespace = "namespace:=" + namespace + " "
     real_number_of_legs = "real_number_of_legs:=\"" + str(legs_num) + "\" "
     angle_between_legs = "angle_between_legs:=\"" + str(angle_between_legs) + "\" "
     offset_between_legs_waves = "offset_between_legs_waves:=\"" + str(offset_between_leg_waves) + "\" "
     cur_index = "cur_index:=\"" + str(index) + "\""
 
-    neended_env = os.environ
-    neended_env['GAZEBO_MASTER_URI'] = "http://lupasic-computer:" + str(cur_gazebo_port)
     roslaunch = subprocess.Popen(
         ['roslaunch', 'strirus_ga_body_optimization',
          'strirus_gazebo_with_auto_move_forward.launch', ros_namespace, real_number_of_legs, angle_between_legs,
-         offset_between_legs_waves, cur_index], env=neended_env)
+         offset_between_legs_waves, cur_index])
+
+    cur_listener = Clock_dist_listener(namespace)
     # subscribers
-    # rospy.logdebug('The PID of child: %d', roslaunch.pid)
-    # rospy.logdebug('Terrain number is:= %d', index)
-    #
-    # neended_env['ROS_NAMESPACE']="individual"+str(index)
-    # print("dich")
-    # cur_listener = Listener("individual" + str(index))
-    #
-    # while not True:
-    #     time.sleep(2)
-    #     print(str(cur_listener.clock) + " individual" + str(index))
-    #     if cur_listener.clock > args['simulation_time']:
-    #         try:
-    #             data['distance'] = math.sqrt(
-    #                 math.pow(cur_listener.last_point.x, 2) + math.pow(cur_listener.last_point.y, 2) + math.pow(
-    #                     cur_listener.last_point.z, 2))
-    #             break
-    #             # rospy.signal_shutdown("Sim time is out")
-    #         except AttributeError:
-    #             data['distance'] = 0
-    #             rospy.logwarn("cur_listener is empty, distance = 0")
-    #             # rospy.signal_shutdown("Sim time is out")
-    #             break
-    # del cur_listener
-    # rospy.loginfo("Distance:= %f for %d terrain" %(data['distance'], index))
-    # roslaunch.send_signal(signal.SIGINT)
-    # # for avoidng zombie processes
-    # roslaunch.wait()
-    # del roslaunch
-    # cur_listener = Listener("individual"+ str(index))
-    i = 0
-    while i == 5:
-        time.sleep(2)
-        # print(cur_listener.clock)
-        # print(all_listeners[0].clock)
-        i += 1
-        # if cur_listener.clock > args['simulation_time']:
-        #     try:
-        #         data['distance'] = math.sqrt(
-        #             math.pow(cur_listener.last_point.x, 2) + math.pow(cur_listener.last_point.y, 2) + math.pow(
-        #                 cur_listener.last_point.z, 2))
-        #         break
-        #         # rospy.signal_shutdown("Sim time is out")
-        #     except AttributeError:
-        #         data['distance'] = 0
-        #         rospy.logwarn("cur_listener is empty, distance = 0")
-        #         # rospy.signal_shutdown("Sim time is out")
-        #         break
-    data['distance'] = 0
+    rospy.logdebug('The PID of child: %d', roslaunch.pid)
+
+    while True:
+        if cur_listener.clock > args['simulation_time']:
+            try:
+                data['distance'] = math.sqrt(
+                    math.pow(cur_listener.last_point.x, 2) + math.pow(cur_listener.last_point.y, 2) + math.pow(
+                        cur_listener.last_point.z, 2))
+                break
+            except AttributeError:
+                data['distance'] = 0
+                rospy.logwarn("cur_listener is empty, distance = 0")
+                break
+    del cur_listener
     rospy.loginfo("Distance:= %f for %d terrain" % (data['distance'], index))
     roslaunch.send_signal(signal.SIGINT)
     # for avoidng zombie processes
     roslaunch.wait()
     del roslaunch
+
     return data
 
 
@@ -143,18 +104,10 @@ def get_avg_dist_from_robot(legs_num, angle_between_legs, offset_between_leg_wav
     rospy.loginfo("Robot_number:= %d has num_of_legs:= %d , angle_between_legs:= %d , offset_between_leg_waves:= %d",
                   robo_index % args['population_size'], legs_num, angle_between_legs, offset_between_leg_waves)
     robo_index += 1
-
-    for i in range(int(args['number_of_worlds'] / args['max_simultaneous_processes'])):
-        index_arr = range(i * args['max_simultaneous_processes'],
-                          args['max_simultaneous_processes'] + i * args['max_simultaneous_processes'])
-        p = Pool()
-        rospy.loginfo('Terrain range is:= %d - %d', index_arr[0], index_arr[-1])
-        result = p.map(partial(get_avg_dist_and_vel, legs_num=legs_num, angle_between_legs=angle_between_legs,
-                               offset_between_leg_waves=offset_between_leg_waves), index_arr)
-        print(all_listeners[0].clock)
-        all_data_from_cur_robot = all_data_from_cur_robot + result
-        p.terminate()
-        del p
+    for i in range(int(args['number_of_worlds'])):
+        rospy.loginfo('Terrain number:= %d', i)
+        result = get_avg_dist_and_vel(i, legs_num, angle_between_legs, offset_between_leg_waves)
+        all_data_from_cur_robot += [result]
     temp_sum = 0
     for temp in all_data_from_cur_robot:
         temp_sum = temp_sum + temp['distance']
@@ -191,20 +144,11 @@ def delete_worlds():
     os.system("rm " + args['world_file_path_without_extention'] + "_*")
 
 
-def init_ga_body_optimization_node():
-    global all_listeners
-    rospy.init_node("ga_body_optimization")
-    for i in range(args['max_simultaneous_processes']):
-        all_listeners.append(Listener("individual" + str(i)))
-
-
 if __name__ == '__main__':
     args_default = {
         'terrain_file_path_without_file_name': '../maps/Generated_terrain',
         'world_file_path_without_extention': '../worlds/Generated_terrain/testing_area',
-        'gazebo_first_port': '11345',
         'number_of_worlds': '4',
-        'max_simultaneous_processes': '2',
         'simulation_time': '10',
         'number_generations': '',
         'population_size': '',
@@ -222,12 +166,10 @@ if __name__ == '__main__':
     }
 
     args = updateArgs(args_default)
-    all_listeners = []
     # Generate world
     world_generation()
     # activate logging
-    init_ga_body_optimization_node()
-
+    rospy.init_node("ga_body_optimization")
     temp = args['logging_path'].split("/")
     temp = temp[-1]
     if not os.path.exists(args['logging_path'][:-(len(temp) + 1)]):
@@ -274,7 +216,6 @@ if __name__ == '__main__':
 
     write_in_file([log])
     write_in_file([hof])
-    write_in_file([stats])
     print(hof)
     rospy.loginfo("FINISH program")
     rospy.signal_shutdown("finish program")

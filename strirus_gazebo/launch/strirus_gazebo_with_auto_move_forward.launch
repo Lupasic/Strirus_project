@@ -1,56 +1,56 @@
 <launch>
+  <arg name="namespace" default="/"/>
+  <arg name="velocity" default="0.4" />
 
- <arg name="namespace" default="/"/>
+  <group ns="$(arg namespace)">
 
-<group ns="$(arg namespace)">
+    <remap from="/clock" to="/$(arg namespace)/clock"/>
+    <!-- args for changing robot params -->
+    <arg name="real_number_of_legs" default="8" />
+    <arg name="angle_between_legs" default="43" /> <!-- in degree -->
+    <arg name="offset_between_legs_waves" default="144" />
 
-<remap from="/clock" to="/$(arg namespace)/clock"/>
- <!-- args for changing robot params -->
- <arg name="real_number_of_legs" default="8" />
- <arg name="angle_between_legs" default="43" /> <!-- in degree -->
- <arg name="offset_between_legs_waves" default="144" />
+    <!-- args for changing terrain params -->
+    <arg name="cage_height_range_begin" default="0.02"/>
+    <arg name="cage_height_range_end" default="0.2" />
+    <arg name="cage_width_and_lengh" default="0.2"/> <!-- need to be float type -->
+    <arg name="cell_width_number" default="10"/>
+    <arg name="cell_length_number" default="15" />
+    <arg name="cage_height_param" default="rand"/>
+    <param name="robot_description"
+      command="$(find xacro)/xacro --inorder '$(find strirus_robot_description)/urdf/strirus.xacro'  real_number_of_legs:=$(arg real_number_of_legs) angle_between_legs:=$(arg angle_between_legs) offset_between_legs_wave:=$(arg offset_between_legs_waves)" /> 
 
- <!-- args for changing terrain params -->
- <arg name="cage_height_range_begin" default="0.02"/>
- <arg name="cage_height_range_end" default="0.2" />
- <arg name="cage_width_and_lengh" default="0.2"/> <!-- need to be float type -->
- <arg name="cell_width_number" default="10"/>
- <arg name="cell_length_number" default="15" />
- <arg name="cage_height_param" default="rand"/>
- <param name="robot_description"
-  command="$(find xacro)/xacro --inorder '$(find strirus_robot_description)/urdf/strirus.xacro'  real_number_of_legs:=$(arg real_number_of_legs) angle_between_legs:=$(arg angle_between_legs) offset_between_legs_wave:=$(arg offset_between_legs_waves)" /> 
+    <node name="generating_terrain" pkg="strirus_gazebo" type="generating_terrain.py" output="screen">
+      <param name="cage_height_range_begin" value="$(arg cage_height_range_begin)"/>
+      <param name="cage_height_range_end" value="$(arg cage_height_range_end)" />
+      <param name="cage_width_and_lengh" value="$(arg cage_width_and_lengh)"/> 
+      <param name="cell_width_number" value="$(arg cell_width_number)"/>
+      <param name="cell_length_number" value="$(arg cell_length_number)" />
+      <param name="cage_height_param" value="$(arg cage_height_param)"/>
+      <param name="file_path" value="$(find strirus_gazebo)/maps/Generated_terrain/model.sdf"/>
+    </node>
 
-  <node name="generating_terrain" pkg="strirus_gazebo" type="generating_terrain.py" output="screen">
-    <param name="cage_height_range_begin" value="$(arg cage_height_range_begin)"/>
-    <param name="cage_height_range_end" value="$(arg cage_height_range_end)" />
-    <param name="cage_width_and_lengh" value="$(arg cage_width_and_lengh)"/> 
-    <param name="cell_width_number" value="$(arg cell_width_number)"/>
-    <param name="cell_length_number" value="$(arg cell_length_number)" />
-    <param name="cage_height_param" value="$(arg cage_height_param)"/>
-    <param name="file_path" value="$(find strirus_gazebo)/maps/Generated_terrain/model.sdf"/>
-  </node>
+    <node name="move_forward" pkg="strirus_gazebo" type="move_forward.py" output="screen">
+      <param name="velocity" value="$(arg velocity)"/> 
+    </node>
 
-  <node name="move_forward" pkg="strirus_gazebo" type="move_forward.py" output="screen"/>
+    <!-- запускаем комнату -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+      <arg name="world_name" value="$(find strirus_gazebo)/worlds/testing_area.world"/>
+      <arg name="paused" value="true"/>
+      <arg name="physics" default="ode"/>
+      <arg name="verbose" default="true"/>'
+      <arg name="gui" value="true"/>
+      <arg name="use_sim_time" value="true"/>
+    </include>
 
-  <!-- запускаем комнату -->
-  <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find strirus_gazebo)/worlds/testing_area.world"/>
-    <arg name="paused" value="true"/>
-    <arg name="physics" default="ode"/>
-    <arg name="verbose" default="true"/>'
-    <arg name="gui" value="true"/>
-    <arg name="use_sim_time" value="true"/>
-  </include>
-  
-  <!-- Spawn a robot into Gazebo -->
-  <!--<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-file $(find plastun_description)/urdf/plastun.urdf -urdf -z 0.001 -model strirus" /> -->
-  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-   args="-urdf -model strirus -param robot_description">
-<remap from="/gazebo/spawn_urdf_model" to="/$(arg namespace)/gazebo/spawn_urdf_model"/>
-</node>
+    <!-- Spawn a robot into Gazebo -->
+    <!--<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-file $(find plastun_description)/urdf/plastun.urdf -urdf -z 0.001 -model strirus" /> -->
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+     args="-urdf -model strirus -param robot_description">
+     <remap from="/gazebo/spawn_urdf_model" to="/$(arg namespace)/gazebo/spawn_urdf_model"/>
+   </node>
 
-</group>
-   <!-- ros_control rorbot launch file -->
-   <!-- <include file="$(find plastun_control)/launch/plastun_control.launch"/> -->
-
- </launch>
+  </group>
+ 
+</launch>
