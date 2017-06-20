@@ -20,7 +20,7 @@
 			<!-- запускаем комнату -->
 		<include file="$(find strirus_ga_body_optimization)/launch/empty_world.launch">
 			<arg name="world_name" value="$(find strirus_ga_body_optimization)/worlds/testing_area_$(arg cur_index).world"/>
-			<arg name="paused" value="false"/>
+			<arg name="paused" value="true"/>
 			<arg name="physics" default="ode"/>
 			<arg name="verbose" default="false"/>'
 			<arg name="gui" value="false"/>
@@ -29,8 +29,8 @@
 
 
 			<!-- Spawn a robot into Gazebo -->
-		<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model strirus -param robot_description">
-			<remap from="/gazebo/spawn_urdf_model" to="/$(arg namespace)/gazebo/spawn_urdf_model"/>
+		<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model strirus -param robot_description -unpause -gazebo_namespace /$(arg namespace)/gazebo ">
+			 <!--<remap from="/gazebo/spawn_urdf_model" to="/$(arg namespace)/gazebo/spawn_urdf_model"/> -->
 		</node>
 	</group>
 

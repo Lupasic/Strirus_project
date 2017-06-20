@@ -4,10 +4,9 @@ import rospy
 import os
 import math
 import gc
-import time
-import logging
+from logger import Logger
 import rospy.exceptions
-from clock_dist_listener import Clock_dist_listener
+from clock_dist_listener import ClockDistListener
 import subprocess
 import signal
 import random
@@ -17,8 +16,7 @@ from deap import tools
 from deap import algorithms
 import numpy
 
-
-robo_index = 0
+_robo_index = 0
 
 
 def write_in_file(array):
@@ -36,7 +34,7 @@ def write_in_file(array):
     writeFile.close()
 
 
-def updateArgs(arg_defaults):
+def update_args(arg_defaults):
     '''Look up parameters starting in the driver's private parameter space, but
     also searching outer namespaces.  Defining them in a higher namespace allows
     the axis_ptz.py script to share parameters with the driver.'''
@@ -54,22 +52,22 @@ def updateArgs(arg_defaults):
 
 def get_avg_dist_and_vel(index, legs_num, angle_between_legs, offset_between_leg_waves):
     data = {}
-
-    namespace = "individual" + str(index)
+    namespace = "terrain" + str(index)
+    # namespace = "/"
     ros_namespace = "namespace:=" + namespace + " "
     real_number_of_legs = "real_number_of_legs:=\"" + str(legs_num) + "\" "
     angle_between_legs = "angle_between_legs:=\"" + str(angle_between_legs) + "\" "
     offset_between_legs_waves = "offset_between_legs_waves:=\"" + str(offset_between_leg_waves) + "\" "
     cur_index = "cur_index:=\"" + str(index) + "\""
-
     roslaunch = subprocess.Popen(
         ['roslaunch', 'strirus_ga_body_optimization',
          'strirus_gazebo_with_auto_move_forward.launch', ros_namespace, real_number_of_legs, angle_between_legs,
          offset_between_legs_waves, cur_index])
-
-    cur_listener = Clock_dist_listener(namespace)
     # subscribers
+
     rospy.logdebug('The PID of child: %d', roslaunch.pid)
+    rospy.init_node("ga_body_optimization")
+    cur_listener = ClockDistListener(namespace)
 
     while True:
         if cur_listener.clock > args['simulation_time']:
@@ -80,10 +78,13 @@ def get_avg_dist_and_vel(index, legs_num, angle_between_legs, offset_between_leg
                 break
             except AttributeError:
                 data['distance'] = 0
+                cur_logger.logWarn("cur_listener is empty, distance = 0")
                 rospy.logwarn("cur_listener is empty, distance = 0")
                 break
+    rospy.signal_shutdown("End of subscribe")
     del cur_listener
     rospy.loginfo("Distance:= %f for %d terrain" % (data['distance'], index))
+    cur_logger.logInfo("Distance:= " + str(data['distance']) + " for " + str(index) + " terrain")
     roslaunch.send_signal(signal.SIGINT)
     # for avoidng zombie processes
     roslaunch.wait()
@@ -100,10 +101,15 @@ def world_generation():
 
 def get_avg_dist_from_robot(legs_num, angle_between_legs, offset_between_leg_waves):
     all_data_from_cur_robot = []
-    global robo_index
+    global _robo_index
+
+    cur_logger.logInfo("Robot_number:= " + str(_robo_index % args['population_size']) + " has num_of_legs:= " + str(
+        legs_num) + " , angle_between_legs:= " + str(angle_between_legs) + " , offset_between_leg_waves:= " + str(
+        offset_between_leg_waves))
+
     rospy.loginfo("Robot_number:= %d has num_of_legs:= %d , angle_between_legs:= %d , offset_between_leg_waves:= %d",
-                  robo_index % args['population_size'], legs_num, angle_between_legs, offset_between_leg_waves)
-    robo_index += 1
+                  _robo_index % args['population_size'], legs_num, angle_between_legs, offset_between_leg_waves)
+    _robo_index += 1
     for i in range(int(args['number_of_worlds'])):
         rospy.loginfo('Terrain number:= %d', i)
         result = get_avg_dist_and_vel(i, legs_num, angle_between_legs, offset_between_leg_waves)
@@ -124,6 +130,7 @@ def fitness_function(individual):
     length = ((num_of_legs - 1) * math.sin(math.radians(angle_btw_legs)))
     res = distance / length
     rospy.loginfo("AVG_dist is:= %f , length is %f , and the result is %f", distance, length, res)
+    cur_logger.logInfo("AVG_dist is:= " + str(distance) + " , length is " + str(length) + " , and the result is " + str(res))
     return res,
 
 
@@ -165,20 +172,14 @@ if __name__ == '__main__':
         'logging_path': ''
     }
 
-    args = updateArgs(args_default)
+    args = update_args(args_default)
     # Generate world
     world_generation()
     # activate logging
-    rospy.init_node("ga_body_optimization")
-    temp = args['logging_path'].split("/")
-    temp = temp[-1]
-    if not os.path.exists(args['logging_path'][:-(len(temp) + 1)]):
-        os.mkdir(args['logging_path'][:-(len(temp) + 1)])
-    logging.basicConfig(format=u'%(levelname)-3s [%(asctime)s] %(message)s', level=logging.INFO,
-                        filename=args['logging_path'])
+    cur_logger = Logger(args['logging_path'])
 
+    cur_logger.logInfo("START program")
     rospy.loginfo("START program")
-
     # minimazing number of legs
     creator.create("FitnessMax", base.Fitness, weights=(1.0,))
     creator.create("Individual", list, fitness=creator.FitnessMax)
@@ -218,6 +219,9 @@ if __name__ == '__main__':
     write_in_file([hof])
     print(hof)
     rospy.loginfo("FINISH program")
+    cur_logger.logInfo("FINISH program")
+    del cur_logger
     rospy.signal_shutdown("finish program")
+
     # delete generated worlds
     delete_worlds()

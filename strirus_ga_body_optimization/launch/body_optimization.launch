@@ -6,10 +6,10 @@
 	<!-- need to divided without remainder -->
 	<arg name="number_of_worlds" default="15"/>
 	<!-- -->
-	<arg name="simulation_time" default="12"/>
+	<arg name="simulation_time" default="11"/>
 
 	<!-- GA params -->
-	<arg name="number_generations" default="7"/>
+	<arg name="number_generations" default="6"/>
 	<arg name="population_size" default="15"/>
 	<!-- Ga local params -->
 	<arg name="tournament_size" default="1"/>

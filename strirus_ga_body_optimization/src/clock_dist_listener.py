@@ -4,14 +4,14 @@ from rosgraph_msgs.msg import Clock
 from gazebo_msgs.msg import ModelStates
 
 
-class Clock_dist_listener:
+class ClockDistListener:
     clock = 0
     last_point = 0
 
     def __init__(self, namespace=None):
         # subscribers
         self.namespace = namespace
-        if namespace == None:
+        if namespace == None or namespace == "/":
             rospy.Subscriber("/clock", Clock, self.callback_clock)
             rospy.Subscriber("/gazebo/model_states", ModelStates, self.callback_distance)
         else:
@@ -28,11 +28,11 @@ class Clock_dist_listener:
         else:
             self.last_point = data.pose[2].position
 
-
-if __name__ == '__main__':
-    try:
-        rospy.init_node("clock_dist_listener")
-    except rospy.exceptions.ROSInitExeption:
-        print("It cannot be init\n")
-    cur_listener = Clock_dist_listener()
-    rospy.spin()
+#
+# if __name__ == '__main__':
+#     try:
+#         rospy.init_node("clock_dist_listener")
+#     except rospy.exceptions.ROSInitExeption:
+#         print("It cannot be init\n")
+#     cur_listener = Clock_dist_listener()
+#     rospy.spin()

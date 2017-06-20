@@ -47,7 +47,7 @@
     <!-- Spawn a robot into Gazebo -->
     <!--<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-file $(find plastun_description)/urdf/plastun.urdf -urdf -z 0.001 -model strirus" /> -->
     <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-     args="-urdf -model strirus -param robot_description">
+     args="-urdf -model strirus -param robot_description -unpause">
      <remap from="/gazebo/spawn_urdf_model" to="/$(arg namespace)/gazebo/spawn_urdf_model"/>
    </node>
 
