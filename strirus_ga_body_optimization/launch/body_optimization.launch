@@ -1,4 +1,8 @@
 <launch>
+
+	<arg name="namespace" default="terrain"/>
+	<arg name="velocity" default="0.4" />
+	
 	<arg name="terrain_file_path_without_file_name" default="$(find strirus_ga_body_optimization)/maps/Generated_terrain"/>
 	<arg name="world_file_path_without_extention" default="$(find strirus_ga_body_optimization)/worlds/testing_area"/>
 	<arg name="results_path" default="$(find strirus_ga_body_optimization)/results/all_data.txt"/>
@@ -13,13 +17,16 @@
 	<arg name="population_size" default="15"/>
 	<!-- Ga local params -->
 	<arg name="tournament_size" default="1"/>
-	<arg name="crossover_probability" default="0.3"/>
-	<arg name="mutation_probability" default="0.2"/>
+	<arg name="crossover_probability" default="0.1"/>
+	<arg name="mutation_probability" default="0.1"/>
+	<!-- Fitness params -->
+	<arg name="dist_coeff" default="1"/>
+	<arg name="length_coeff" default="1.5"/>
 
 	<!-- min and max values for robot -->
 	<arg name="legs_num_min" default="3"/>
 	<arg name="legs_num_max" default="15"/>
-	<arg name="angle_between_legs_min" default="1"/>
+	<arg name="angle_between_legs_min" default="12"/>
 	<arg name="angle_between_legs_max" default="89"/>
 	<arg name="offset_between_leg_waves_min" default="0"/>
 	<arg name="offset_between_leg_waves_max" default="180"/>
@@ -38,6 +45,8 @@
 	<param name="tournament_size" value="$(arg tournament_size)"/>
 	<param name="crossover_probability" value="$(arg crossover_probability)"/>
 	<param name="mutation_probability" value="$(arg mutation_probability)"/>
+	<param name="dist_coeff" value="$(arg dist_coeff)"/>
+	<param name="length_coeff" value="$(arg length_coeff)"/>
 
 	<param name="legs_num_min" value="$(arg legs_num_min)"/>
 	<param name="legs_num_max" value="$(arg legs_num_max)"/>
@@ -47,5 +56,11 @@
 	<param name="offset_between_leg_waves_max" value="$(arg offset_between_leg_waves_max)"/>
 
 	<node name="ga_body_optimization" pkg="strirus_ga_body_optimization" type="ga_body_optimization.py" output="screen" required="true" respawn="false"/>
+
+	<group ns="$(arg namespace)">
+		<node name="move_forward" pkg="strirus_ga_body_optimization" type="move_forward.py" output="screen">
+			<param name="velocity" value="$(arg velocity)"/> 
+		</node>
+	</group>
 
 </launch>

@@ -1,6 +1,5 @@
 <launch>
-	<arg name="namespace" default="/"/>
-	<arg name="velocity" default="0.4" />
+	<arg name="namespace" default="terrain"/>
 	<group ns="$(arg namespace)">
 		<remap from="/clock" to="/$(arg namespace)/clock"/>
 		<!-- args for changing robot params -->
@@ -12,10 +11,6 @@
 		<param name="robot_description"
 			command="$(find xacro)/xacro --inorder '$(find strirus_robot_description)/urdf/strirus.xacro'  real_number_of_legs:=$(arg real_number_of_legs) angle_between_legs:=$(arg angle_between_legs) offset_between_legs_wave:=$(arg offset_between_legs_waves)" /> 
 
-
-		<node name="move_forward" pkg="strirus_gazebo" type="move_forward.py" output="screen">
-			<param name="velocity" value="$(arg velocity)"/> 
-		</node>
 
 			<!-- запускаем комнату -->
 		<include file="$(find strirus_ga_body_optimization)/launch/empty_world.launch">
@@ -29,8 +24,7 @@
 
 
 			<!-- Spawn a robot into Gazebo -->
-		<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model strirus -param robot_description -unpause -gazebo_namespace /$(arg namespace)/gazebo ">
-			 <!--<remap from="/gazebo/spawn_urdf_model" to="/$(arg namespace)/gazebo/spawn_urdf_model"/> -->
+		<node name="spawn_robot" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model strirus -param robot_description -unpause -gazebo_namespace /$(arg namespace)/gazebo ">
 		</node>
 	</group>
 

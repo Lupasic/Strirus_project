@@ -52,23 +52,21 @@ def update_args(arg_defaults):
 
 def get_avg_dist_and_vel(index, legs_num, angle_between_legs, offset_between_leg_waves):
     data = {}
-    namespace = "terrain" + str(index)
-    # namespace = "/"
-    ros_namespace = "namespace:=" + namespace + " "
+    # namespace = "terrain" + str(index)
+    # # namespace = "/"
+    # ros_namespace = "namespace:=" + namespace + " "
     real_number_of_legs = "real_number_of_legs:=\"" + str(legs_num) + "\" "
     angle_between_legs = "angle_between_legs:=\"" + str(angle_between_legs) + "\" "
     offset_between_legs_waves = "offset_between_legs_waves:=\"" + str(offset_between_leg_waves) + "\" "
     cur_index = "cur_index:=\"" + str(index) + "\""
     roslaunch = subprocess.Popen(
         ['roslaunch', 'strirus_ga_body_optimization',
-         'strirus_gazebo_with_auto_move_forward.launch', ros_namespace, real_number_of_legs, angle_between_legs,
+         'strirus_gazebo_with_auto_move_forward.launch', real_number_of_legs, angle_between_legs,
          offset_between_legs_waves, cur_index])
     # subscribers
 
     rospy.logdebug('The PID of child: %d', roslaunch.pid)
-    rospy.init_node("ga_body_optimization")
-    cur_listener = ClockDistListener(namespace)
-
+    cur_listener.set_clock(0)
     while True:
         if cur_listener.clock > args['simulation_time']:
             try:
@@ -81,8 +79,6 @@ def get_avg_dist_and_vel(index, legs_num, angle_between_legs, offset_between_leg
                 cur_logger.logWarn("cur_listener is empty, distance = 0")
                 rospy.logwarn("cur_listener is empty, distance = 0")
                 break
-    rospy.signal_shutdown("End of subscribe")
-    del cur_listener
     rospy.loginfo("Distance:= %f for %d terrain" % (data['distance'], index))
     cur_logger.logInfo("Distance:= " + str(data['distance']) + " for " + str(index) + " terrain")
     roslaunch.send_signal(signal.SIGINT)
@@ -128,7 +124,7 @@ def fitness_function(individual):
     num_of_legs = individual[0]
     angle_btw_legs = individual[1]
     length = ((num_of_legs - 1) * math.sin(math.radians(angle_btw_legs)))
-    res = distance / length
+    res = (args['dist_coeff'] * distance) / (args['length_coeff'] * length)
     rospy.loginfo("AVG_dist is:= %f , length is %f , and the result is %f", distance, length, res)
     cur_logger.logInfo("AVG_dist is:= " + str(distance) + " , length is " + str(length) + " , and the result is " + str(res))
     return res,
@@ -169,12 +165,16 @@ if __name__ == '__main__':
         'offset_between_leg_waves_min': '',
         'offset_between_leg_waves_max': '',
         'results_path': '',
-        'logging_path': ''
+        'logging_path': '',
+        'dist_coeff': '1',
+        'length_coeff': '1'
     }
 
     args = update_args(args_default)
     # Generate world
     world_generation()
+    rospy.init_node("ga_body_optimization")
+    cur_listener = ClockDistListener("terrain")
     # activate logging
     cur_logger = Logger(args['logging_path'])
 

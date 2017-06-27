@@ -5,15 +5,18 @@ from gazebo_msgs.msg import ModelStates
 
 
 class ClockDistListener:
-    clock = 0
-    last_point = 0
 
     def __init__(self, namespace=None):
         # subscribers
+        self.clock = 0
+        self.last_point = None
         self.namespace = namespace
         if namespace == None or namespace == "/":
             rospy.Subscriber("/clock", Clock, self.callback_clock)
             rospy.Subscriber("/gazebo/model_states", ModelStates, self.callback_distance)
+            #just for avoid error messages
+            pub =rospy.Publisher(self.namespace + "/clock", Clock, queue_size=10)
+            pub.publish(0)
         else:
             rospy.Subscriber(self.namespace + "/clock", Clock, self.callback_clock)
             rospy.Subscriber(self.namespace + "/gazebo/model_states", ModelStates, self.callback_distance)
@@ -28,6 +31,8 @@ class ClockDistListener:
         else:
             self.last_point = data.pose[2].position
 
+    def set_clock(self,time):
+        self.clock = time
 #
 # if __name__ == '__main__':
 #     try:

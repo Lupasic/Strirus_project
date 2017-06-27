@@ -7,8 +7,13 @@
 	<arg name="cage_width_and_lengh" default="0.2"/> <!-- need to be float type -->
 	<arg name="cell_width_number" default="18"/>
 	<arg name="cell_length_number" default="18" />
-	<arg name="cage_height_param" default="rand"/>
+	<arg name="cage_height_param" default="rand"/> <!-- rand gauss_terrain each_cage_gauss -->
 	<arg name="terrain_file_path_without_file_name" default="$(find strirus_ga_body_optimization)/maps/Generated_terrain"/>
+	<!-- args for gauss distribution -->	
+	<arg name="std_deviation" default="0.4"/>
+	<arg name="scale_coeff" default="0"/> <!-- how many cage sets will have max height, 0 - 1 set -->
+
+
 
 	<!-- args for changing world params -->
 	<arg name="world_file_path_without_extention" default="$(find strirus_ga_body_optimization)/worlds/testing_area"/>
@@ -30,6 +35,9 @@
 		<param name="cell_length_number" value="$(arg cell_length_number)" />
 		<param name="cage_height_param" value="$(arg cage_height_param)"/>
 		<param name="terrain_file_path_without_file_name" value="$(arg terrain_file_path_without_file_name)"/>
+
+		<param name="std_deviation" value="$(arg std_deviation)"/>
+		<param name="scale_coeff" value="$(arg scale_coeff)"/>
 
 		<param name="world_file_path_without_extention" value="$(arg world_file_path_without_extention)"/>
 		<param name="physics_iter" value="$(arg physics_iter)" />

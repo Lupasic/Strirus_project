@@ -6,9 +6,10 @@
 
     <remap from="/clock" to="/$(arg namespace)/clock"/>
     <!-- args for changing robot params -->
-    <arg name="real_number_of_legs" default="8" />
-    <arg name="angle_between_legs" default="43" /> <!-- in degree -->
-    <arg name="offset_between_legs_waves" default="144" />
+    <arg name="use_sim_time" default="true"/>
+    <arg name="real_number_of_legs" default="5" />
+    <arg name="angle_between_legs" default="15" /> <!-- in degree -->
+    <arg name="offset_between_legs_waves" default="80" />
 
     <!-- args for changing terrain params -->
     <arg name="cage_height_range_begin" default="0.02"/>
@@ -16,7 +17,11 @@
     <arg name="cage_width_and_lengh" default="0.2"/> <!-- need to be float type -->
     <arg name="cell_width_number" default="10"/>
     <arg name="cell_length_number" default="15" />
-    <arg name="cage_height_param" default="rand"/>
+    <arg name="cage_height_param" default="gauss_terrain"/> <!-- rand gauss_terrain each_cage_gauss -->
+    <!-- args for gauss distribution -->	
+    <arg name="std_deviation" default="0.01"/>
+    <arg name="scale_coeff" default="0"/> <!-- how many cage sets will have max height, 0 - 1 set -->
+
     <param name="robot_description"
       command="$(find xacro)/xacro --inorder '$(find strirus_robot_description)/urdf/strirus.xacro'  real_number_of_legs:=$(arg real_number_of_legs) angle_between_legs:=$(arg angle_between_legs) offset_between_legs_wave:=$(arg offset_between_legs_waves)" /> 
 
@@ -28,6 +33,8 @@
       <param name="cell_length_number" value="$(arg cell_length_number)" />
       <param name="cage_height_param" value="$(arg cage_height_param)"/>
       <param name="file_path" value="$(find strirus_gazebo)/maps/Generated_terrain/model.sdf"/>
+      <param name="std_deviation" value="$(arg std_deviation)"/>
+      <param name="scale_coeff" value="$(arg scale_coeff)"/>
     </node>
 
     <node name="move_forward" pkg="strirus_gazebo" type="move_forward.py" output="screen">
@@ -45,9 +52,8 @@
     </include>
 
     <!-- Spawn a robot into Gazebo -->
-    <!--<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-file $(find plastun_description)/urdf/plastun.urdf -urdf -z 0.001 -model strirus" /> -->
-    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-     args="-urdf -model strirus -param robot_description -unpause">
+    <node name="spawn_robot" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+     args="-urdf -model strirus -param robot_description">
      <remap from="/gazebo/spawn_urdf_model" to="/$(arg namespace)/gazebo/spawn_urdf_model"/>
    </node>
 

@@ -21,9 +21,13 @@ def updateArgs(arg_defaults):
     return (args)
 
 
-def cage_height(param):
+def cage_height(param, ex_args = None):
     if (param == "rand"):
         return random.uniform(args['cage_height_range_begin'], args['cage_height_range_end'])
+    if (param == "each_cage_gauss"):
+        return random.gauss((args['cage_height_range_end'] - args['cage_height_range_begin'])/2 , args['std_deviation'])
+    if (param == "gauss_terrain"):
+        return random.gauss(ex_args , args['std_deviation'])
 
 
 def generate_terrain(index):
@@ -44,10 +48,25 @@ def generate_terrain(index):
     writeFile.write(
         "<?xml version='1.0'?>\n<sdf version='1.6'>\n	<model name='Terrain'>\n		<static>true</static>")
 
+    if args["cage_height_param"] == "gauss_terrain":
+        scale = (args['cage_height_range_end'] - args['cage_height_range_begin']) / (
+            (args['cell_width_number'] // 2) - args['scale_coeff'])
+        temp = (args['cell_width_number'] // 2) - args['scale_coeff']
+        scale_seq = []
+        for i in range(args['cell_width_number'] // 2):
+            if i > temp:
+                scale_seq.append(temp)
+            else:
+                scale_seq.append(i)
+        scale_seq += list(reversed(scale_seq))
+
     lis = ["collision", "visual"]
     for i in range(args['cell_width_number']):
         for j in range(args['cell_length_number']):
-            cur_cage_height = cage_height("rand")
+            if (args["cage_height_param"] == "gauss_terrain"):
+                cur_cage_height = cage_height(args["cage_height_param"], ex_args=args['cage_height_range_begin'] + scale_seq[i] * scale)
+            else:
+                cur_cage_height = cage_height(args["cage_height_param"])
             writeFile.write("\n		<link name=\"box_" + str(i) + "_" + str(j) + "\">\n")
             writeFile.write("			<pose>" + str(first_point + i * args['cage_width_and_lengh']) + " " + str(
                 - j * args['cage_width_and_lengh']) + " " + str(cur_cage_height / 2) + " 0 0 0</pose>\n")
@@ -115,7 +134,9 @@ args_default = {
     'real_time_update_rate': '111.2',
     'max_step_size': '0.009',
     'package_name': 'strirus_ga_body_optimization',
-    'terrain_path': '/maps/Generated_terrain/model.sdf'
+    'terrain_path': '/maps/Generated_terrain/model.sdf',
+    'scale_coeff' : '0',
+    'std_deviation' : '0.4'
 
 }
 

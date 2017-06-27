@@ -36,8 +36,8 @@
       <file leaf-file-name="clock_dist_listener.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/clock_dist_listener.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="37" column="18" lean-forward="false" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="18" />
+            <state relative-caret-position="390">
+              <caret line="28" column="30" lean-forward="false" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
               <folding>
                 <element signature="e#22#34#0" expanded="true" />
               </folding>
@@ -45,16 +45,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ga_body_optimization.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ga_body_optimization.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ga_body_optimization.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="885">
-              <caret line="72" column="56" lean-forward="true" selection-start-line="72" selection-start-column="56" selection-end-line="72" selection-end-column="56" />
+            <state relative-caret-position="-300">
+              <caret line="28" column="18" lean-forward="true" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
               <folding>
                 <element signature="e#23#35#0" expanded="true" />
                 <element signature="e#814#1434#0" expanded="false" />
-                <element signature="e#4757#5246#0" expanded="false" />
-                <element signature="e#5295#5717#0" expanded="false" />
+                <element signature="e#5204#5626#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -63,7 +62,7 @@
       <file leaf-file-name="logger.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logger.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
+            <state relative-caret-position="105">
               <caret line="7" column="22" lean-forward="false" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
@@ -75,11 +74,21 @@
       <file leaf-file-name="whole_worlds_generation.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/whole_worlds_generation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="23" column="23" lean-forward="false" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
+            <state relative-caret-position="510">
+              <caret line="60" column="46" lean-forward="false" selection-start-line="60" selection-start-column="46" selection-end-line="60" selection-end-column="46" />
               <folding>
                 <element signature="e#22#35#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="generating_terrain.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../../strirus_gazebo/scripts/generating_terrain.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="59" column="20" lean-forward="true" selection-start-line="59" selection-start-column="20" selection-end-line="59" selection-end-column="20" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -118,6 +127,7 @@
       <find>:=</find>
       <find>AVG</find>
       <find>logInfo</find>
+      <find>cage_height</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -131,12 +141,13 @@
         <option value="$PROJECT_DIR$/full_world_generation.py" />
         <option value="$PROJECT_DIR$/Listener_class.py" />
         <option value="$PROJECT_DIR$/move_forward.py" />
-        <option value="$PROJECT_DIR$/whole_worlds_generation.py" />
         <option value="$PROJECT_DIR$/listener_class.py" />
         <option value="$PROJECT_DIR$/Logger.py" />
         <option value="$PROJECT_DIR$/logger.py" />
         <option value="$PROJECT_DIR$/clock_dist_listener.py" />
         <option value="$PROJECT_DIR$/ga_body_optimization.py" />
+        <option value="$PROJECT_DIR$/whole_worlds_generation.py" />
+        <option value="$PROJECT_DIR$/../../strirus_gazebo/scripts/generating_terrain.py" />
       </list>
     </option>
   </component>
@@ -147,10 +158,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1985" />
+    <option name="x" value="65" />
     <option name="y" value="24" />
     <option name="width" value="1855" />
-    <option name="height" value="1176" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -189,7 +200,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="settings.editor.selected.configurable" value="configurable.group.build" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../strirus_gazebo/scripts/generating_terrain.py" />
   </component>
   <component name="RunManager" selected="Python.body_ga_optimiziation (1)">
     <configuration default="false" name="move_forward" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -507,8 +518,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1985" y="24" width="1855" height="1176" extended-state="6" />
-    <editor active="true" />
+    <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15849057" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -545,24 +556,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="8" />
+      <option name="time" value="9" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ga_body_optimization.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="15" column="25" lean-forward="false" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
-          <folding>
-            <element signature="e#23#35#0" expanded="true" />
-            <element signature="e#814#1434#0" expanded="false" />
-            <element signature="e#4757#5246#0" expanded="false" />
-            <element signature="e#5295#5717#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/move_forward.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -591,8 +589,7 @@
           <folding>
             <element signature="e#23#35#0" expanded="true" />
             <element signature="e#814#1434#0" expanded="false" />
-            <element signature="e#4757#5246#0" expanded="false" />
-            <element signature="e#5295#5717#0" expanded="false" />
+            <element signature="e#5204#5626#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -625,8 +622,7 @@
           <folding>
             <element signature="e#23#35#0" expanded="true" />
             <element signature="e#814#1434#0" expanded="false" />
-            <element signature="e#4757#5246#0" expanded="false" />
-            <element signature="e#5295#5717#0" expanded="false" />
+            <element signature="e#5204#5626#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -639,8 +635,7 @@
           <folding>
             <element signature="e#23#35#0" expanded="true" />
             <element signature="e#814#1434#0" expanded="false" />
-            <element signature="e#4757#5246#0" expanded="false" />
-            <element signature="e#5295#5717#0" expanded="false" />
+            <element signature="e#5204#5626#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -653,8 +648,7 @@
           <folding>
             <element signature="e#23#35#0" expanded="true" />
             <element signature="e#814#1434#0" expanded="false" />
-            <element signature="e#4757#5246#0" expanded="false" />
-            <element signature="e#5295#5717#0" expanded="false" />
+            <element signature="e#5204#5626#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -667,8 +661,7 @@
           <folding>
             <element signature="e#23#35#0" expanded="true" />
             <element signature="e#814#1434#0" expanded="false" />
-            <element signature="e#4757#5246#0" expanded="false" />
-            <element signature="e#5295#5717#0" expanded="false" />
+            <element signature="e#5204#5626#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -688,8 +681,7 @@
           <folding>
             <element signature="e#23#35#0" expanded="true" />
             <element signature="e#814#1434#0" expanded="false" />
-            <element signature="e#4757#5246#0" expanded="false" />
-            <element signature="e#5295#5717#0" expanded="false" />
+            <element signature="e#5204#5626#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -716,8 +708,7 @@
           <folding>
             <element signature="e#23#35#0" expanded="true" />
             <element signature="e#814#1434#0" expanded="false" />
-            <element signature="e#4757#5246#0" expanded="false" />
-            <element signature="e#5295#5717#0" expanded="false" />
+            <element signature="e#5204#5626#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -743,8 +734,7 @@
           <folding>
             <element signature="e#23#35#0" expanded="true" />
             <element signature="e#814#1434#0" expanded="false" />
-            <element signature="e#4757#5246#0" expanded="false" />
-            <element signature="e#5295#5717#0" expanded="false" />
+            <element signature="e#5204#5626#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -770,8 +760,7 @@
           <folding>
             <element signature="e#23#35#0" expanded="true" />
             <element signature="e#814#1434#0" expanded="false" />
-            <element signature="e#4757#5246#0" expanded="false" />
-            <element signature="e#5295#5717#0" expanded="false" />
+            <element signature="e#5204#5626#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -797,8 +786,7 @@
           <folding>
             <element signature="e#23#35#0" expanded="true" />
             <element signature="e#814#1434#0" expanded="false" />
-            <element signature="e#4757#5246#0" expanded="false" />
-            <element signature="e#5295#5717#0" expanded="false" />
+            <element signature="e#5204#5626#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -825,8 +813,7 @@
           <folding>
             <element signature="e#23#35#0" expanded="true" />
             <element signature="e#814#1434#0" expanded="false" />
-            <element signature="e#4757#5246#0" expanded="false" />
-            <element signature="e#5295#5717#0" expanded="false" />
+            <element signature="e#5204#5626#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -878,36 +865,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Listener_class.py" />
-    <entry file="file://$PROJECT_DIR$/whole_worlds_generation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="23" column="23" lean-forward="false" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
-          <folding>
-            <element signature="e#22#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logger.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="7" column="22" lean-forward="false" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/clock_dist_listener.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="37" column="18" lean-forward="false" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="18" />
-          <folding>
-            <element signature="e#22#34#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/move_forward.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -918,16 +875,53 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/clock_dist_listener.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="28" column="30" lean-forward="false" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
+          <folding>
+            <element signature="e#22#34#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ga_body_optimization.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="885">
-          <caret line="72" column="56" lean-forward="true" selection-start-line="72" selection-start-column="56" selection-end-line="72" selection-end-column="56" />
+        <state relative-caret-position="-300">
+          <caret line="28" column="18" lean-forward="true" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
           <folding>
             <element signature="e#23#35#0" expanded="true" />
             <element signature="e#814#1434#0" expanded="false" />
-            <element signature="e#4757#5246#0" expanded="false" />
-            <element signature="e#5295#5717#0" expanded="false" />
+            <element signature="e#5204#5626#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logger.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="22" lean-forward="false" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/whole_worlds_generation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="60" column="46" lean-forward="false" selection-start-line="60" selection-start-column="46" selection-end-line="60" selection-end-column="46" />
+          <folding>
+            <element signature="e#22#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../strirus_gazebo/scripts/generating_terrain.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="59" column="20" lean-forward="true" selection-start-line="59" selection-start-column="20" selection-end-line="59" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>
