@@ -21,13 +21,14 @@ def updateArgs(arg_defaults):
     return (args)
 
 
-def cage_height(param, ex_args = None):
+def cage_height(param, ex_args=None):
     if (param == "rand"):
         return random.uniform(args['cage_height_range_begin'], args['cage_height_range_end'])
-    if (param == "each_cage_gauss"):
-        return random.gauss((args['cage_height_range_end'] - args['cage_height_range_begin'])/2 , args['std_deviation'])
+    if (param == "each_cage_normalvariate"):
+        return random.normalvariate((args['cage_height_range_end'] - args['cage_height_range_begin']) / 2,
+                                    args['std_deviation'])
     if (param == "gauss_terrain"):
-        return random.gauss(ex_args , args['std_deviation'])
+        return random.gauss(ex_args, args['std_deviation'])
 
 
 def generate_terrain(index):
@@ -50,28 +51,43 @@ def generate_terrain(index):
 
     if args["cage_height_param"] == "gauss_terrain":
         scale = (args['cage_height_range_end'] - args['cage_height_range_begin']) / (
-            (args['cell_width_number'] // 2) - args['scale_coeff'])
-        temp = (args['cell_width_number'] // 2) - args['scale_coeff']
+            (args['cell_length_number'] // 2) - args['scale_coeff'])
+        temp = (args['cell_length_number'] // 2) - args['scale_coeff']
         scale_seq = []
-        for i in range(args['cell_width_number'] // 2):
+        for i in range(args['cell_length_number'] // 2):
             if i > temp:
                 scale_seq.append(temp)
             else:
                 scale_seq.append(i)
         scale_seq += list(reversed(scale_seq))
+        if (args['cell_length_number'] % 2 == 1):
+            scale_seq.insert(len(scale_seq) / 2, temp)
 
     lis = ["collision", "visual"]
-    for i in range(args['cell_width_number']):
-        for j in range(args['cell_length_number']):
-            if (args["cage_height_param"] == "gauss_terrain"):
-                cur_cage_height = cage_height(args["cage_height_param"], ex_args=args['cage_height_range_begin'] + scale_seq[i] * scale)
+    for i in range(args['cell_length_number']):
+        cur_cage_height = 0
+        if args["two_dimension_terrain"] == True:
+            if args['cage_height_param'] == "gauss_terrain":
+                cur_cage_height = cage_height(args['cage_height_param'],
+                                              ex_args=args['cage_height_range_begin'] + scale_seq[i] * scale)
             else:
                 cur_cage_height = cage_height(args["cage_height_param"])
+
+        for j in range(args['cell_width_number']):
+            if args["two_dimension_terrain"] == False:
+                if args['cage_height_param'] == "gauss_terrain":
+                    cur_cage_height = cage_height(args['cage_height_param'],
+                                                  ex_args=args['cage_height_range_begin'] + scale_seq[i] * scale)
+                else:
+                    cur_cage_height = cage_height(args["cage_height_param"])
             writeFile.write("\n		<link name=\"box_" + str(i) + "_" + str(j) + "\">\n")
-            writeFile.write("			<pose>" + str(first_point + i * args['cage_width_and_lengh']) + " " + str(
-                - j * args['cage_width_and_lengh']) + " " + str(cur_cage_height / 2) + " 0 0 0</pose>\n")
+            writeFile.write("			<pose>" + str(first_point + j * args['cage_width_and_lengh']) + " " + str(
+                -i * args['cage_width_and_lengh']) + " " + str(cur_cage_height / 2) + " 0 0 0</pose>\n")
             writeFile.write(
-                "			<inertial>\n				<mass>1.0</mass>\n				<inertia>\n					<ixx>0.0</ixx>\n 					<ixy>0.0</ixy>\n   					<ixz>0.0</ixz>\n   					<iyy>0.0</iyy>\n 					<iyz>0.0</iyz>\n   					<izz>0.0</izz>\n 				</inertia>\n			</inertial>\n")
+                "			<inertial>\n				<mass>1.0</mass>\n"
+                "				<inertia>\n					<ixx>0.0</ixx>\n 					<ixy>0.0</ixy>\n"
+                "   					<ixz>0.0</ixz>\n   					<iyy>0.0</iyy>\n 					<iyz>0.0</iyz>\n"
+                "   					<izz>0.0</izz>\n 				</inertia>\n			</inertial>\n")
             for nam in lis:
                 writeFile.write("			<" + nam + " name=\"" + nam + "\">\n")
                 writeFile.write("				<geometry>\n					<box>\n						")
@@ -82,6 +98,7 @@ def generate_terrain(index):
             writeFile.write("		</link>\n")
 
     writeFile.write("	</model>\n</sdf>")
+
     writeFile.close()
 
     # also it is needed to generate model.sdf
@@ -111,7 +128,8 @@ def generate_world(index):
         "      <include>\n      <uri>model://ground_plane</uri>\n    </include>\n    <include>\n      <uri>model://sun</uri>\n    </include>\n")
     writeFile.write("        <include>\n		<uri>model://" + str(args['package_name']) + "/" + str(
         args['terrain_path']) + "_" + str(
-        index) + "</uri>\n      <name>Terrain</name>\n      <pose>0 -0.5 0 0 0 0</pose>\n    </include>\n")
+        index) + "</uri>\n      <name>Terrain</name>\n      <pose>0 " + str(
+        -(args['cage_width_and_lengh'] + 0.15)) + " 0 0 0 0</pose>\n    </include>\n")
 
     writeFile.write("  </world>\n</sdf>")
     writeFile.close()
@@ -135,8 +153,9 @@ args_default = {
     'max_step_size': '0.009',
     'package_name': 'strirus_ga_body_optimization',
     'terrain_path': '/maps/Generated_terrain/model.sdf',
-    'scale_coeff' : '0',
-    'std_deviation' : '0.4'
+    'scale_coeff': '0',
+    'std_deviation': '0.4',
+    'two_dimension_terrain': '1'
 
 }
 

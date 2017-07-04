@@ -32,7 +32,7 @@
         <include>
 		<uri>model://strirus_gazebo/maps/Generated_terrain</uri>
       <name>Terrain</name>
-      <pose>0 -1.0 0 0 0 0</pose>
+      <pose>0 -0.35 0 0 0 0</pose>
     </include>
   </world>
 </sdf>

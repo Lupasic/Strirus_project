@@ -7,14 +7,17 @@
 	<arg name="world_file_path_without_extention" default="$(find strirus_ga_body_optimization)/worlds/testing_area"/>
 	<arg name="results_path" default="$(find strirus_ga_body_optimization)/results/all_data.txt"/>
 	<arg name="logging_path" default="$(find strirus_ga_body_optimization)/results/log_data.txt"/>
-	<!-- need to divided without remainder -->
-	<arg name="number_of_worlds" default="15"/>
+	<arg name="dist_path" default="$(find strirus_ga_body_optimization)/results/dist_set.txt"/>
+	<arg name="extra_dist_log" default="true"/> <!-- need to set number_generations in 1 value -->
+
+	<arg name="generate_worlds" default="false"/>
+	<arg name="number_of_worlds" default="5"/>
 	<!-- -->
-	<arg name="simulation_time" default="11"/>
+	<arg name="simulation_time" default="4"/>
 
 	<!-- GA params -->
-	<arg name="number_generations" default="6"/>
-	<arg name="population_size" default="15"/>
+	<arg name="number_generations" default="0"/>
+	<arg name="population_size" default="3"/>
 	<!-- Ga local params -->
 	<arg name="tournament_size" default="1"/>
 	<arg name="crossover_probability" default="0.1"/>
@@ -35,8 +38,11 @@
 	<param name="terrain_file_path_without_file_name" value="$(arg terrain_file_path_without_file_name)"/>
 	<param name="results_path" value="$(arg results_path)"/>
 	<param name="logging_path" value="$(arg logging_path)"/>
+	<param name="dist_path" value="$(arg dist_path)"/>
 	<param name="world_file_path_without_extention" value="$(arg world_file_path_without_extention)"/>
 
+	<param name="extra_dist_log" value="$(arg extra_dist_log)"/>
+	<param name="generate_worlds" value="$(arg generate_worlds)"/>
 	<param name="number_of_worlds" value="$(arg number_of_worlds)"/>
 	<param name="simulation_time" value="$(arg simulation_time)"/>
 

@@ -34,6 +34,23 @@ def write_in_file(array):
     writeFile.close()
 
 
+def dist_log(dist):
+    temp = args['dist_path'].split("/")
+    temp = temp[-1]
+    if not os.path.exists(args['dist_path'][:-(len(temp) + 1)]):
+        os.mkdir(args['dist_path'][:-(len(temp) + 1)])
+    dist_file = open(args['dist_path'], 'a')
+    # For finding first iteration
+    if _robo_index == 0:
+        dist_file.write("Start \n")
+
+    dist_file.write(str(dist))
+    if dist > 0.25:
+        dist_file.write(" +")
+    dist_file.write("\n")
+    dist_file.close()
+
+
 def update_args(arg_defaults):
     '''Look up parameters starting in the driver's private parameter space, but
     also searching outer namespaces.  Defining them in a higher namespace allows
@@ -81,6 +98,10 @@ def get_avg_dist_and_vel(index, legs_num, angle_between_legs, offset_between_leg
                 break
     rospy.loginfo("Distance:= %f for %d terrain" % (data['distance'], index))
     cur_logger.logInfo("Distance:= " + str(data['distance']) + " for " + str(index) + " terrain")
+
+    if args['extra_dist_log'] == True:
+        dist_log(data['distance'])
+
     roslaunch.send_signal(signal.SIGINT)
     # for avoidng zombie processes
     roslaunch.wait()
@@ -126,7 +147,8 @@ def fitness_function(individual):
     length = ((num_of_legs - 1) * math.sin(math.radians(angle_btw_legs)))
     res = (args['dist_coeff'] * distance) / (args['length_coeff'] * length)
     rospy.loginfo("AVG_dist is:= %f , length is %f , and the result is %f", distance, length, res)
-    cur_logger.logInfo("AVG_dist is:= " + str(distance) + " , length is " + str(length) + " , and the result is " + str(res))
+    cur_logger.logInfo(
+        "AVG_dist is:= " + str(distance) + " , length is " + str(length) + " , and the result is " + str(res))
     return res,
 
 
@@ -167,12 +189,16 @@ if __name__ == '__main__':
         'results_path': '',
         'logging_path': '',
         'dist_coeff': '1',
-        'length_coeff': '1'
+        'length_coeff': '1',
+        'generate_worlds': 'False',
+        'dist_path': '',
+        'extra_dist_log': 'True'
     }
 
     args = update_args(args_default)
     # Generate world
-    world_generation()
+    if args['generate_worlds'] == True or not os.path.exists(args['terrain_file_path_without_file_name'] + "_0"):
+        world_generation()
     rospy.init_node("ga_body_optimization")
     cur_listener = ClockDistListener("terrain")
     # activate logging
