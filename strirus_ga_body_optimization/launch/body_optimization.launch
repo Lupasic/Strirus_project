@@ -8,20 +8,21 @@
 	<arg name="results_path" default="$(find strirus_ga_body_optimization)/results/all_data.txt"/>
 	<arg name="logging_path" default="$(find strirus_ga_body_optimization)/results/log_data.txt"/>
 	<arg name="dist_path" default="$(find strirus_ga_body_optimization)/results/dist_set.txt"/>
-	<arg name="extra_dist_log" default="true"/> <!-- need to set number_generations in 1 value -->
+	<arg name="extra_dist_log" default="false"/> <!-- need to set number_generations in 0 value -->
 
+	<arg name="ga_repetition_num" default="2"/>
 	<arg name="generate_worlds" default="false"/>
-	<arg name="number_of_worlds" default="5"/>
+	<arg name="number_of_worlds" default="1"/>
 	<!-- -->
-	<arg name="simulation_time" default="4"/>
+	<arg name="simulation_time" default="3"/>
 
 	<!-- GA params -->
 	<arg name="number_generations" default="0"/>
-	<arg name="population_size" default="3"/>
+	<arg name="population_size" default="1"/>
 	<!-- Ga local params -->
-	<arg name="tournament_size" default="1"/>
-	<arg name="crossover_probability" default="0.1"/>
-	<arg name="mutation_probability" default="0.1"/>
+	<arg name="tournament_size" default="3"/>
+	<arg name="crossover_probability" default="0.4"/>
+	<arg name="mutation_probability" default="0.2"/>
 	<!-- Fitness params -->
 	<arg name="dist_coeff" default="1"/>
 	<arg name="length_coeff" default="1.5"/>
@@ -42,6 +43,7 @@
 	<param name="world_file_path_without_extention" value="$(arg world_file_path_without_extention)"/>
 
 	<param name="extra_dist_log" value="$(arg extra_dist_log)"/>
+	<param name="ga_repetition_num" value="$(arg ga_repetition_num)"/>
 	<param name="generate_worlds" value="$(arg generate_worlds)"/>
 	<param name="number_of_worlds" value="$(arg number_of_worlds)"/>
 	<param name="simulation_time" value="$(arg simulation_time)"/>

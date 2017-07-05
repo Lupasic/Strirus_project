@@ -192,7 +192,8 @@ if __name__ == '__main__':
         'length_coeff': '1',
         'generate_worlds': 'False',
         'dist_path': '',
-        'extra_dist_log': 'True'
+        'extra_dist_log': 'True',
+        'ga_repetition_num': '5'
     }
 
     args = update_args(args_default)
@@ -204,50 +205,52 @@ if __name__ == '__main__':
     # activate logging
     cur_logger = Logger(args['logging_path'])
 
-    cur_logger.logInfo("START program")
-    rospy.loginfo("START program")
-    # minimazing number of legs
-    creator.create("FitnessMax", base.Fitness, weights=(1.0,))
-    creator.create("Individual", list, fitness=creator.FitnessMax)
+    for i in range(args['ga_repetition_num']):
+        cur_logger.logInfo("START program")
+        rospy.loginfo("START program")
+        # minimazing number of legs
+        creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+        creator.create("Individual", list, fitness=creator.FitnessMax)
 
-    toolbox = base.Toolbox()
+        toolbox = base.Toolbox()
 
-    toolbox.register("attr_legs_num", random.randint, args['legs_num_min'], args['legs_num_max'])
-    toolbox.register("attr_angle_between_legs", random.randint, args['angle_between_legs_min'],
-                     args['angle_between_legs_max'])
-    toolbox.register("attr_offset_between_leg_waves", random.randint, args['offset_between_leg_waves_min'],
-                     args['offset_between_leg_waves_max'])
+        toolbox.register("attr_legs_num", random.randint, args['legs_num_min'], args['legs_num_max'])
+        toolbox.register("attr_angle_between_legs", random.randint, args['angle_between_legs_min'],
+                         args['angle_between_legs_max'])
+        toolbox.register("attr_offset_between_leg_waves", random.randint, args['offset_between_leg_waves_min'],
+                         args['offset_between_leg_waves_max'])
 
-    toolbox.register("individual", tools.initCycle, creator.Individual,
-                     (toolbox.attr_legs_num, toolbox.attr_angle_between_legs, toolbox.attr_offset_between_leg_waves),
-                     n=1)
+        toolbox.register("individual", tools.initCycle, creator.Individual,
+                         (toolbox.attr_legs_num, toolbox.attr_angle_between_legs, toolbox.attr_offset_between_leg_waves),
+                         n=1)
 
-    toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+        toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
-    toolbox.register("evaluate", fitness_function)
-    toolbox.register("mate", tools.cxTwoPoint)
-    toolbox.register("mutate", mutation_function, mutpb=args['mutation_probability'])
-    toolbox.register("select", tools.selTournament, tournsize=args['tournament_size'])
+        toolbox.register("evaluate", fitness_function)
+        toolbox.register("mate", tools.cxTwoPoint)
+        toolbox.register("mutate", mutation_function, mutpb=args['mutation_probability'])
+        toolbox.register("select", tools.selTournament, tournsize=args['tournament_size'])
 
-    pop = toolbox.population(n=args['population_size'])
-    hof = tools.HallOfFame(1)
-    stats = tools.Statistics(lambda ind: ind.fitness.values)
-    stats.register("avg", numpy.mean)
-    stats.register("std", numpy.std)
-    stats.register("min", numpy.min)
-    stats.register("max", numpy.max)
+        pop = toolbox.population(n=args['population_size'])
+        hof = tools.HallOfFame(1)
+        stats = tools.Statistics(lambda ind: ind.fitness.values)
+        stats.register("avg", numpy.mean)
+        stats.register("std", numpy.std)
+        stats.register("min", numpy.min)
+        stats.register("max", numpy.max)
 
-    pop, log = algorithms.eaSimple(pop, toolbox, cxpb=args['crossover_probability'], mutpb=args['mutation_probability'],
-                                   ngen=args['number_generations'],
-                                   stats=stats, halloffame=hof, verbose=True)
+        pop, log = algorithms.eaSimple(pop, toolbox, cxpb=args['crossover_probability'], mutpb=args['mutation_probability'],
+                                       ngen=args['number_generations'],
+                                       stats=stats, halloffame=hof, verbose=True)
 
-    write_in_file([log])
-    write_in_file([hof])
-    print(hof)
-    rospy.loginfo("FINISH program")
-    cur_logger.logInfo("FINISH program")
+        write_in_file([log])
+        write_in_file([hof])
+        print(hof)
+        rospy.loginfo("FINISH program")
+        cur_logger.logInfo("FINISH program")
     del cur_logger
     rospy.signal_shutdown("finish program")
 
     # delete generated worlds
-    delete_worlds()
+    if args['generate_worlds'] == True:
+        delete_worlds()
