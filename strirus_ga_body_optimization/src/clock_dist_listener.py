@@ -5,8 +5,16 @@ from gazebo_msgs.msg import ModelStates
 
 
 class ClockDistListener:
+    '''
+    Class, which subscribe on clock and distance and storage this info in itself
+    '''
 
     def __init__(self, namespace=None):
+        '''
+        Subscribe on clock and distance topics
+        :param namespace: provide remapping on other topics
+        :type namespace: str
+        '''
         # subscribers
         self.clock = 0
         self.last_point = None
@@ -14,8 +22,8 @@ class ClockDistListener:
         if namespace == None or namespace == "/":
             rospy.Subscriber("/clock", Clock, self.callback_clock)
             rospy.Subscriber("/gazebo/model_states", ModelStates, self.callback_distance)
-            #just for avoid error messages
-            pub =rospy.Publisher(self.namespace + "/clock", Clock, queue_size=10)
+            # just for avoid error messages
+            pub = rospy.Publisher(self.namespace + "/clock", Clock, queue_size=10)
             pub.publish(0)
         else:
             rospy.Subscriber(self.namespace + "/clock", Clock, self.callback_clock)
@@ -31,13 +39,5 @@ class ClockDistListener:
         else:
             self.last_point = data.pose[2].position
 
-    def set_clock(self,time):
+    def set_clock(self, time):
         self.clock = time
-#
-# if __name__ == '__main__':
-#     try:
-#         rospy.init_node("clock_dist_listener")
-#     except rospy.exceptions.ROSInitExeption:
-#         print("It cannot be init\n")
-#     cur_listener = Clock_dist_listener()
-#     rospy.spin()

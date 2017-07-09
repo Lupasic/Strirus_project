@@ -10,22 +10,22 @@
 	<arg name="dist_path" default="$(find strirus_ga_body_optimization)/results/dist_set.txt"/>
 	<arg name="extra_dist_log" default="false"/> <!-- need to set number_generations in 0 value -->
 
-	<arg name="ga_repetition_num" default="2"/>
+	<arg name="ga_repetition_num" default="5"/>
 	<arg name="generate_worlds" default="false"/>
-	<arg name="number_of_worlds" default="1"/>
+	<arg name="number_of_worlds" default="12"/>
 	<!-- -->
-	<arg name="simulation_time" default="3"/>
+	<arg name="simulation_time" default="9"/>
 
 	<!-- GA params -->
-	<arg name="number_generations" default="0"/>
-	<arg name="population_size" default="1"/>
+	<arg name="number_generations" default="9"/>
+	<arg name="population_size" default="15"/>
 	<!-- Ga local params -->
 	<arg name="tournament_size" default="3"/>
 	<arg name="crossover_probability" default="0.4"/>
 	<arg name="mutation_probability" default="0.2"/>
 	<!-- Fitness params -->
 	<arg name="dist_coeff" default="1"/>
-	<arg name="length_coeff" default="1.5"/>
+	<arg name="length_coeff" default="2.5"/>
 
 	<!-- min and max values for robot -->
 	<arg name="legs_num_min" default="3"/>

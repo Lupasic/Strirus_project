@@ -6,9 +6,14 @@ from os import path
 
 
 def updateArgs(arg_defaults):
-    '''Look up parameters starting in the driver's private parameter space, but
+    '''
+    Look up parameters starting in the driver's private parameter space, but
     also searching outer namespaces.  Defining them in a higher namespace allows
-    the axis_ptz.py script to share parameters with the driver.'''
+    the axis_ptz.py script to share parameters with the driver
+
+    :return: available args from roslaunch files
+    :rtype: dict
+    '''
     args = {}
     for name, val in arg_defaults.iteritems():
         full_name = rospy.search_param(name)  # search without postfix
@@ -22,25 +27,61 @@ def updateArgs(arg_defaults):
 
 
 def cage_height(param, ex_args=None):
+    '''
+    Generate height of the cage. Function of generation depends from distribution, which can be chosen
+
+    :param param: the name of distribution, like rand, gauss_terrain and etc
+    :type param: str
+    :param ex_args: by default it is none, otherwise it can handle some data for the distribution
+    :return: cage height value
+    '''
     if (param == "rand"):
         return random.uniform(args['cage_height_range_begin'], args['cage_height_range_end'])
     if (param == "each_cage_normalvariate"):
         return random.normalvariate((args['cage_height_range_end'] - args['cage_height_range_begin']) / 2,
                                     args['std_deviation'])
     if (param == "gauss_terrain"):
-        return random.gauss(ex_args, args['std_deviation'])
+        return random.normalvariate(ex_args, args['std_deviation'])
+
+
+def get_gauss_terrain_height_seq():
+    '''
+    Func calculate the shape for terrain, which will be look like gauss graph
+
+    :return: sequence of the values for gauss graph look-like
+    :rtype: list
+    '''
+    scale = (args['cage_height_range_end'] - args['cage_height_range_begin']) / (
+        (args['cell_length_number'] // 2) - args['scale_coeff'])
+    temp = (args['cell_length_number'] // 2) - args['scale_coeff']
+    scale_seq = []
+    for i in range(args['cell_length_number'] // 2):
+        if i > temp:
+            scale_seq.append(temp)
+        else:
+            scale_seq.append(i)
+    scale_seq += list(reversed(scale_seq))
+    if (args['cell_length_number'] % 2 == 1):
+        scale_seq.insert(len(scale_seq) / 2, temp)
+
+    return [i * scale for i in scale_seq]
 
 
 def generate_terrain(index):
+    '''
+    Generate dir and 2 XML files in it. One of them is terrain, other - specification for Gazebo
+    '''
+
+    # Try to put the terrain in the center and it does not matter, even or odd nuber of blocks
     if args['cell_width_number'] % 2 == 1:
         first_point = - ((args['cell_width_number'] - 1) / 2 * args['cage_width_and_lengh'])
     else:
         first_point = - (
             (args['cage_width_and_lengh'] / 2) + ((args['cell_width_number'] / 2 - 1) * args['cage_width_and_lengh']))
 
+    # Create dir (if not) and file
     temp = args['terrain_file_path_without_file_name'].split("/")
     temp = temp[-1]
-
     if not path.exists(args['terrain_file_path_without_file_name'][:-(len(temp) + 1)]):
         mkdir(args['terrain_file_path_without_file_name'][:-(len(temp) + 1)])
     if not path.exists(args['terrain_file_path_without_file_name'] + "_" + str(index)):
@@ -49,19 +90,9 @@ def generate_terrain(index):
     writeFile.write(
         "<?xml version='1.0'?>\n<sdf version='1.6'>\n	<model name='Terrain'>\n		<static>true</static>")
 
+    # get scale sequence if is needed
     if args["cage_height_param"] == "gauss_terrain":
-        scale = (args['cage_height_range_end'] - args['cage_height_range_begin']) / (
-            (args['cell_length_number'] // 2) - args['scale_coeff'])
-        temp = (args['cell_length_number'] // 2) - args['scale_coeff']
-        scale_seq = []
-        for i in range(args['cell_length_number'] // 2):
-            if i > temp:
-                scale_seq.append(temp)
-            else:
-                scale_seq.append(i)
-        scale_seq += list(reversed(scale_seq))
-        if (args['cell_length_number'] % 2 == 1):
-            scale_seq.insert(len(scale_seq) / 2, temp)
+        scale_seq = get_gauss_terrain_height_seq()
 
     lis = ["collision", "visual"]
     for i in range(args['cell_length_number']):
@@ -69,7 +100,7 @@ def generate_terrain(index):
         if args["two_dimension_terrain"] == True:
             if args['cage_height_param'] == "gauss_terrain":
                 cur_cage_height = cage_height(args['cage_height_param'],
-                                              ex_args=args['cage_height_range_begin'] + scale_seq[i] * scale)
+                                              ex_args=args['cage_height_range_begin'] + scale_seq[i])
             else:
                 cur_cage_height = cage_height(args["cage_height_param"])
 
@@ -77,7 +108,7 @@ def generate_terrain(index):
             if args["two_dimension_terrain"] == False:
                 if args['cage_height_param'] == "gauss_terrain":
                     cur_cage_height = cage_height(args['cage_height_param'],
-                                                  ex_args=args['cage_height_range_begin'] + scale_seq[i] * scale)
+                                                  ex_args=args['cage_height_range_begin'] + scale_seq[i])
                 else:
                     cur_cage_height = cage_height(args["cage_height_param"])
             writeFile.write("\n		<link name=\"box_" + str(i) + "_" + str(j) + "\">\n")
@@ -109,6 +140,9 @@ def generate_terrain(index):
 
 
 def generate_world(index):
+    '''
+    Generate world file for Gazebo. All args params can be specified in roslaunch file - whole_worlds_generation.launch
+    '''
     temp = args['world_file_path_without_extention'].split("/")
     temp = temp[-1]
     if not path.exists(args['world_file_path_without_extention'][:-(len(temp) + 1)]):

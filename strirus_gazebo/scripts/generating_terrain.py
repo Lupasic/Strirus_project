@@ -4,9 +4,14 @@ import rospy
 
 
 def updateArgs(arg_defaults):
-    '''Look up parameters starting in the driver's private parameter space, but
+    '''
+    Look up parameters starting in the driver's private parameter space, but
     also searching outer namespaces.  Defining them in a higher namespace allows
-    the axis_ptz.py script to share parameters with the driver.'''
+    the axis_ptz.py script to share parameters with the driver
+
+    :return: available args from roslaunch files
+    :rtype: dict
+    '''
     args = {}
     for name, val in arg_defaults.iteritems():
         full_name = rospy.search_param(name)  # search without postfix
@@ -20,13 +25,44 @@ def updateArgs(arg_defaults):
 
 
 def cage_height(param, ex_args=None):
+    '''
+    Generate height of the cage. Function of generation depends from distribution, which can be chosen
+
+    :param param: the name of distribution, like rand, gauss_terrain and etc
+    :type param: str
+    :param ex_args: by default it is none, otherwise it can handle some data for the distribution
+    :return: cage height value
+    '''
     if (param == "rand"):
         return random.uniform(args['cage_height_range_begin'], args['cage_height_range_end'])
     if (param == "each_cage_normalvariate"):
         return random.normalvariate((args['cage_height_range_end'] - args['cage_height_range_begin']) / 2,
                                     args['std_deviation'])
     if (param == "gauss_terrain"):
-        return random.gauss(ex_args, args['std_deviation'])
+        return random.normalvariate(ex_args, args['std_deviation'])
+
+
+def get_gauss_terrain_height_seq():
+    '''
+    Func calculate the shape for terrain, which will be look like gauss graph
+    
+    :return: sequence of the values for gauss graph look-like
+    :rtype: list
+    '''
+    scale = (args['cage_height_range_end'] - args['cage_height_range_begin']) / (
+        (args['cell_length_number'] // 2) - args['scale_coeff'])
+    temp = (args['cell_length_number'] // 2) - args['scale_coeff']
+    scale_seq = []
+    for i in range(args['cell_length_number'] // 2):
+        if i > temp:
+            scale_seq.append(temp)
+        else:
+            scale_seq.append(i)
+    scale_seq += list(reversed(scale_seq))
+    if (args['cell_length_number'] % 2 == 1):
+        scale_seq.insert(len(scale_seq) / 2, temp)
+
+    return [i * scale for i in scale_seq]
 
 
 nodename = "generating_terrain"
@@ -55,19 +91,9 @@ else:
 writeFile = open(args['file_path'], 'w')
 writeFile.write("<?xml version='1.0'?>\n<sdf version='1.6'>\n	<model name='Terrain'>\n		<static>true</static>")
 
+# get scale sequence if is needed
 if args["cage_height_param"] == "gauss_terrain":
-    scale = (args['cage_height_range_end'] - args['cage_height_range_begin']) / (
-        (args['cell_length_number'] // 2) - args['scale_coeff'])
-    temp = (args['cell_length_number'] // 2) - args['scale_coeff']
-    scale_seq = []
-    for i in range(args['cell_length_number'] // 2):
-        if i > temp:
-            scale_seq.append(temp)
-        else:
-            scale_seq.append(i)
-    scale_seq += list(reversed(scale_seq))
-    if (args['cell_length_number'] % 2 == 1):
-        scale_seq.insert(len(scale_seq) / 2, temp)
+    scale_seq = get_gauss_terrain_height_seq()
 
 lis = ["collision", "visual"]
 for i in range(args['cell_length_number']):
@@ -75,7 +101,7 @@ for i in range(args['cell_length_number']):
     if args["two_dimension_terrain"] == True:
         if args['cage_height_param'] == "gauss_terrain":
             cur_cage_height = cage_height(args['cage_height_param'],
-                                          ex_args=args['cage_height_range_begin'] + scale_seq[i] * scale)
+                                          ex_args=args['cage_height_range_begin'] + scale_seq[i])
         else:
             cur_cage_height = cage_height(args["cage_height_param"])
 
@@ -83,7 +109,7 @@ for i in range(args['cell_length_number']):
         if args["two_dimension_terrain"] == False:
             if args['cage_height_param'] == "gauss_terrain":
                 cur_cage_height = cage_height(args['cage_height_param'],
-                                              ex_args=args['cage_height_range_begin'] + scale_seq[i] * scale)
+                                              ex_args=args['cage_height_range_begin'] + scale_seq[i])
             else:
                 cur_cage_height = cage_height(args["cage_height_param"])
         writeFile.write("\n		<link name=\"box_" + str(i) + "_" + str(j) + "\">\n")

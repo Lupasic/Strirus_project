@@ -9,6 +9,5 @@ velocity = rospy.get_param("~velocity")
 msg = Twist()
 msg.linear.x = velocity
 while not rospy.is_shutdown():
-        pub.publish(msg)
-        time.sleep(0.1)
-
+    pub.publish(msg)
+    time.sleep(0.1)

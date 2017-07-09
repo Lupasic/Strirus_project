@@ -1,7 +1,7 @@
 <launch>
   <arg name="namespace" default="/"/>
   <arg name="velocity" default="0.4" />
-  <arg name="generate_terrain" default="false"/>
+  <arg name="generate_terrain" default="true"/>
 
   <group ns="$(arg namespace)">
 
@@ -14,15 +14,15 @@
 
     <!-- args for changing terrain params -->
     <arg name="two_dimension_terrain" default="true"/> <!-- false is 3d -->
-    <arg name="cage_height_range_begin" default="0.02"/>
-    <arg name="cage_height_range_end" default="0.2" />
-    <arg name="cage_width_and_lengh" default="0.2"/> <!-- need to be float type -->
-    <arg name="cell_width_number" default="10"/>
-    <arg name="cell_length_number" default="10" />
-    <arg name="cage_height_param" default="each_cage_normalvariate"/> <!-- rand gauss_terrain each_cage_normalvariate -->
-    <!-- args for gauss distribution -->	
-    <arg name="std_deviation" default="0.01"/>
-    <arg name="scale_coeff" default="0"/> <!-- how many cage sets will have max height, 0 - 1 set -->
+	%<arg name="cage_height_range_begin" default="0.001"/>
+	<arg name="cage_height_range_end" default="0.161" />
+	<arg name="cage_width_and_lengh" default="0.2"/> <!-- need to be float type -->
+	<arg name="cell_width_number" default="14"/>
+	<arg name="cell_length_number" default="20" />
+	<arg name="cage_height_param" default="rand"/> <!-- rand gauss_terrain each_cage_normalvariate -->
+	<arg name="std_deviation" default="0.04"/> <!-- Isn't used in rand distribution -->
+	<!-- args for gauss distribution -->	
+	<arg name="scale_coeff" default="0"/> <!-- how many cage sets will have max height, 0 - 1 set -->
 
     <param name="robot_description"
       command="$(find xacro)/xacro --inorder '$(find strirus_robot_description)/urdf/strirus.xacro'  real_number_of_legs:=$(arg real_number_of_legs) angle_between_legs:=$(arg angle_between_legs) offset_between_legs_wave:=$(arg offset_between_legs_waves)" /> 
@@ -46,7 +46,7 @@
       <param name="velocity" value="$(arg velocity)"/> 
     </node>
 
-    <!-- запускаем комнату -->
+    <!-- Launch the room -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
       <arg name="world_name" value="$(find strirus_gazebo)/worlds/testing_area.world"/>
       <arg name="paused" value="true"/>

@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="default">
+  <gravity>0 0 -9.81</gravity>
+  <physics name="ode_900iters" type="ode" default="true">
+    <!-- the combination of 2 params below provides real time factor speed for simulation -->
+    <!-- max_real_time_factor = real_time_update_rate * max_step_size -->
+    <!-- min_real_time_factor depends only from max_step_size -->
+    <real_time_update_rate>1000</real_time_update_rate>
+    <max_step_size>0.003 </max_step_size>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>900</iters>
+        <sor>0.9</sor>
+        </solver>
+      </ode>
+    </physics>
+      <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+        <include>
+		<uri>model://strirus_ga_body_optimization/maps/Generated_terrain_3</uri>
+      <name>Terrain</name>
+      <pose>0 -0.35 0 0 0 0</pose>
+    </include>
+  </world>
+</sdf>

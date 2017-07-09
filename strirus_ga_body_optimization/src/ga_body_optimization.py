@@ -20,6 +20,12 @@ _robo_index = 0
 
 
 def write_in_file(array):
+    '''
+    Write results in file, results_path can specify in roslaunch file (body_optimization.launch)
+
+    :param array: array of phrases
+    :type array: list
+    '''
     temp = args['results_path'].split("/")
     temp = temp[-1]
     if not os.path.exists(args['results_path'][:-(len(temp) + 1)]):
@@ -35,6 +41,12 @@ def write_in_file(array):
 
 
 def dist_log(dist):
+    '''
+    Func for write distance from each simulation. Can be turn off in roslaunch file (body_optimization.launch)
+
+    :param dist: distance
+    :type dist: float
+    '''
     temp = args['dist_path'].split("/")
     temp = temp[-1]
     if not os.path.exists(args['dist_path'][:-(len(temp) + 1)]):
@@ -45,6 +57,7 @@ def dist_log(dist):
         dist_file.write("Start \n")
 
     dist_file.write(str(dist))
+    # Value need to be matched manually
     if dist > 0.25:
         dist_file.write(" +")
     dist_file.write("\n")
@@ -52,9 +65,14 @@ def dist_log(dist):
 
 
 def update_args(arg_defaults):
-    '''Look up parameters starting in the driver's private parameter space, but
+    '''
+    Look up parameters starting in the driver's private parameter space, but
     also searching outer namespaces.  Defining them in a higher namespace allows
-    the axis_ptz.py script to share parameters with the driver.'''
+    the axis_ptz.py script to share parameters with the driver
+
+    :return: available args from roslaunch files
+    :rtype: dict
+    '''
     args = {}
     for name, val in arg_defaults.iteritems():
         full_name = rospy.search_param(name)  # search without postfix
@@ -68,10 +86,20 @@ def update_args(arg_defaults):
 
 
 def get_avg_dist_and_vel(index, legs_num, angle_between_legs, offset_between_leg_waves):
+    '''
+    Start gazebo roslaunch file, which activate gazebo simulation. It will stop, when sim.time reach args['sim time'] (can be specified in roslaunch file(body_optimization.launch))
+
+    :param index: world index (world, which will be launched)
+    :param legs_num: number of legs from one side
+    :type legs_num: int
+    :param angle_between_legs: angle between neighbor legs
+    :type angle_between_legs: int
+    :param offset_between_leg_waves: offset between legs from opposite sides
+    :type offset_between_leg_waves: int
+    :return data: store several information about simulation results (at the moment, only distance)
+    :raise AttributeError: sometimes gazebo crashed and data is vanish.
+    '''
     data = {}
-    # namespace = "terrain" + str(index)
-    # # namespace = "/"
-    # ros_namespace = "namespace:=" + namespace + " "
     real_number_of_legs = "real_number_of_legs:=\"" + str(legs_num) + "\" "
     angle_between_legs = "angle_between_legs:=\"" + str(angle_between_legs) + "\" "
     offset_between_legs_waves = "offset_between_legs_waves:=\"" + str(offset_between_leg_waves) + "\" "
@@ -80,7 +108,6 @@ def get_avg_dist_and_vel(index, legs_num, angle_between_legs, offset_between_leg
         ['roslaunch', 'strirus_ga_body_optimization',
          'strirus_gazebo_with_auto_move_forward.launch', real_number_of_legs, angle_between_legs,
          offset_between_legs_waves, cur_index])
-    # subscribers
 
     rospy.logdebug('The PID of child: %d', roslaunch.pid)
     cur_listener.set_clock(0)
@@ -96,12 +123,14 @@ def get_avg_dist_and_vel(index, legs_num, angle_between_legs, offset_between_leg
                 cur_logger.logWarn("cur_listener is empty, distance = 0")
                 rospy.logwarn("cur_listener is empty, distance = 0")
                 break
+
     rospy.loginfo("Distance:= %f for %d terrain" % (data['distance'], index))
     cur_logger.logInfo("Distance:= " + str(data['distance']) + " for " + str(index) + " terrain")
 
     if args['extra_dist_log'] == True:
         dist_log(data['distance'])
 
+    # kill roslaunch. SIGINT is the only way, otherwise rosmaster will araise
     roslaunch.send_signal(signal.SIGINT)
     # for avoidng zombie processes
     roslaunch.wait()
@@ -111,12 +140,26 @@ def get_avg_dist_and_vel(index, legs_num, angle_between_legs, offset_between_leg
 
 
 def world_generation():
+    '''
+    Generate worlds, number of worlds can be specify in roslaunch (body_optimization.launch)
+    '''
     number_of_worlds = "number_of_worlds:=\"" + str(args['number_of_worlds']) + "\" "
     all_args = number_of_worlds
     os.system("roslaunch strirus_ga_body_optimization whole_worlds_generation.launch " + all_args)
 
 
 def get_avg_dist_from_robot(legs_num, angle_between_legs, offset_between_leg_waves):
+    '''
+    Launch the sequence of world simulations, number of worlds can be specify in roslaunch file (body_optimization.launch)
+
+    :param legs_num: number of legs from one side
+    :type legs_num: int
+    :param angle_between_legs: angle between neighbor legs
+    :type angle_between_legs: int
+    :param offset_between_leg_waves: offset between legs from opposite sides
+    :type offset_between_leg_waves: int
+    :return: average distance from all worlds
+    '''
     all_data_from_cur_robot = []
     global _robo_index
 
@@ -141,11 +184,17 @@ def get_avg_dist_from_robot(legs_num, angle_between_legs, offset_between_leg_wav
 
 # the goal ('fitness') function to be maximized
 def fitness_function(individual):
+    '''
+    Calculate fitness function - coeffs for distance and length can be specified in roslaunch file (body_optimization.launch)
+
+    :param individual: data storage, which cosist number of legs [0], angle between legs [1] and offset between legs from opposite sides [2]
+    :return: value of fitness function
+    '''
     distance = get_avg_dist_from_robot(individual[0], individual[1], individual[2])
     num_of_legs = individual[0]
     angle_btw_legs = individual[1]
     length = ((num_of_legs - 1) * math.sin(math.radians(angle_btw_legs)))
-    res = (args['dist_coeff'] * distance) / (args['length_coeff'] * length)
+    res = (args['dist_coeff'] * distance) - (args['length_coeff'] * length)
     rospy.loginfo("AVG_dist is:= %f , length is %f , and the result is %f", distance, length, res)
     cur_logger.logInfo(
         "AVG_dist is:= " + str(distance) + " , length is " + str(length) + " , and the result is " + str(res))
@@ -153,6 +202,12 @@ def fitness_function(individual):
 
 
 def mutation_function(individual, mutpb):
+    '''
+    Mutation function, which randomly change individual's values
+    :param individual: individual: data storage, which cosist number of legs [0], angle between legs [1] and offset between legs from opposite sides [2]
+    :param mutpb: percentage of success mutation
+    :return:
+    '''
     if random.random() < mutpb:
         individual[0] = random.randrange(args['legs_num_min'], args['legs_num_max'])
     if random.random() < mutpb:
@@ -164,7 +219,9 @@ def mutation_function(individual, mutpb):
 
 
 def delete_worlds():
-    # delete all world files after working
+    '''
+    Delete all world files after working
+    '''
     os.system("rm -r " + args['terrain_file_path_without_file_name'] + "_*")
     os.system("rm " + args['world_file_path_without_extention'] + "_*")
 
@@ -198,7 +255,9 @@ if __name__ == '__main__':
 
     args = update_args(args_default)
     # Generate world
-    if args['generate_worlds'] == True or not os.path.exists(args['terrain_file_path_without_file_name'] + "_0"):
+    if args['generate_worlds'] == True or not os.path.exists(args['terrain_file_path_without_file_name'] + "_" + str(
+                    args['number_of_worlds'] - 1) or os.path.exists(
+                    args['world_file_path_without_extention'] + ".world")):
         world_generation()
     rospy.init_node("ga_body_optimization")
     cur_listener = ClockDistListener("terrain")
@@ -208,7 +267,7 @@ if __name__ == '__main__':
     for i in range(args['ga_repetition_num']):
         cur_logger.logInfo("START program")
         rospy.loginfo("START program")
-        # minimazing number of legs
+
         creator.create("FitnessMax", base.Fitness, weights=(1.0,))
         creator.create("Individual", list, fitness=creator.FitnessMax)
 
@@ -221,7 +280,9 @@ if __name__ == '__main__':
                          args['offset_between_leg_waves_max'])
 
         toolbox.register("individual", tools.initCycle, creator.Individual,
-                         (toolbox.attr_legs_num, toolbox.attr_angle_between_legs, toolbox.attr_offset_between_leg_waves),
+                         (
+                             toolbox.attr_legs_num, toolbox.attr_angle_between_legs,
+                             toolbox.attr_offset_between_leg_waves),
                          n=1)
 
         toolbox.register("population", tools.initRepeat, list, toolbox.individual)
@@ -239,7 +300,8 @@ if __name__ == '__main__':
         stats.register("min", numpy.min)
         stats.register("max", numpy.max)
 
-        pop, log = algorithms.eaSimple(pop, toolbox, cxpb=args['crossover_probability'], mutpb=args['mutation_probability'],
+        pop, log = algorithms.eaSimple(pop, toolbox, cxpb=args['crossover_probability'],
+                                       mutpb=args['mutation_probability'],
                                        ngen=args['number_generations'],
                                        stats=stats, halloffame=hof, verbose=True)
 
