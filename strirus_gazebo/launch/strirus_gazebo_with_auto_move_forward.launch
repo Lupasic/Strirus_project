@@ -17,10 +17,10 @@
 	%<arg name="cage_height_range_begin" default="0.001"/>
 	<arg name="cage_height_range_end" default="0.161" />
 	<arg name="cage_width_and_lengh" default="0.2"/> <!-- need to be float type -->
-	<arg name="cell_width_number" default="14"/>
-	<arg name="cell_length_number" default="20" />
-	<arg name="cage_height_param" default="rand"/> <!-- rand gauss_terrain each_cage_normalvariate -->
-	<arg name="std_deviation" default="0.04"/> <!-- Isn't used in rand distribution -->
+	<arg name="cell_width_number" default="10"/>
+	<arg name="cell_length_number" default="15" />
+	<arg name="cage_height_param" default="each_cage_normalvariate"/> <!-- rand gauss_terrain each_cage_normalvariate -->
+	<arg name="std_deviation" default="0.02"/> <!-- Isn't used in rand distribution -->
 	<!-- args for gauss distribution -->	
 	<arg name="scale_coeff" default="0"/> <!-- how many cage sets will have max height, 0 - 1 set -->
 
