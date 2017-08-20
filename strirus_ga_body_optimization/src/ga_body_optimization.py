@@ -4,11 +4,14 @@ import rospy
 import os
 import math
 import gc
+from multiprocessing import Pool
+from functools import partial
 from logger import Logger
 import rospy.exceptions
 from clock_dist_listener import ClockDistListener
 import subprocess
 import signal
+import time
 import random
 from deap import base
 from deap import creator
@@ -100,23 +103,37 @@ def get_avg_dist_and_vel(index, legs_num, angle_between_legs, offset_between_leg
     :raise AttributeError: sometimes gazebo crashed and data is vanish.
     '''
     data = {}
+    cur_gazebo_port = args['gazebo_first_port'] + index
+    cur_ros_port = args['rosmaster_first_port'] + index
+
     real_number_of_legs = "real_number_of_legs:=\"" + str(legs_num) + "\" "
     angle_between_legs = "angle_between_legs:=\"" + str(angle_between_legs) + "\" "
     offset_between_legs_waves = "offset_between_legs_waves:=\"" + str(offset_between_leg_waves) + "\" "
     cur_index = "cur_index:=\"" + str(index) + "\""
+
+    neended_env = os.environ
+    neended_env['GAZEBO_MASTER_URI'] = "http://lupasic-computer:" + str(cur_gazebo_port)
+
     roslaunch = subprocess.Popen(
-        ['roslaunch', 'strirus_ga_body_optimization',
+        ['roslaunch', '-p', str(cur_ros_port), 'strirus_ga_body_optimization',
          'strirus_gazebo_with_auto_move_forward.launch', real_number_of_legs, angle_between_legs,
-         offset_between_legs_waves, cur_index])
+         offset_between_legs_waves, cur_index], env=neended_env)
+
+    # change ROS_MASTER_URI for Listener node
+    os.environ['ROS_MASTER_URI'] = "http://localhost:" + str(cur_ros_port)
 
     rospy.logdebug('The PID of child: %d', roslaunch.pid)
-    cur_listener.set_clock(0)
+    rospy.logdebug('Terrain number is:= %d', index)
+
+    cur_listener = ClockDistListener("terrain")
+
     while True:
         if cur_listener.clock > args['simulation_time']:
             try:
                 data['distance'] = math.sqrt(
                     math.pow(cur_listener.last_point.x, 2) + math.pow(cur_listener.last_point.y, 2) + math.pow(
                         cur_listener.last_point.z, 2))
+                rospy.signal_shutdown("Sim time is out")
                 break
             except AttributeError:
                 data['distance'] = 0
@@ -170,10 +187,17 @@ def get_avg_dist_from_robot(legs_num, angle_between_legs, offset_between_leg_wav
     rospy.loginfo("Robot_number:= %d has num_of_legs:= %d , angle_between_legs:= %d , offset_between_leg_waves:= %d",
                   _robo_index % args['population_size'], legs_num, angle_between_legs, offset_between_leg_waves)
     _robo_index += 1
-    for i in range(int(args['number_of_worlds'])):
-        rospy.loginfo('Terrain number:= %d', i)
-        result = get_avg_dist_and_vel(i, legs_num, angle_between_legs, offset_between_leg_waves)
-        all_data_from_cur_robot += [result]
+
+    for i in range(int(args['number_of_worlds'] / args['max_simultaneous_processes'])):
+        p = Pool()
+        index_arr = range(i * args['max_simultaneous_processes'],
+                          args['max_simultaneous_processes'] + i * args['max_simultaneous_processes'])
+        rospy.loginfo('Terrain range is:= %d - %d', index_arr[0], index_arr[-1])
+        result = p.map(partial(get_avg_dist_and_vel, legs_num=legs_num, angle_between_legs=angle_between_legs,
+                               offset_between_leg_waves=offset_between_leg_waves), index_arr)
+        all_data_from_cur_robot = all_data_from_cur_robot + result
+        p.terminate()
+        del p
     temp_sum = 0
     for temp in all_data_from_cur_robot:
         temp_sum = temp_sum + temp['distance']
@@ -193,12 +217,15 @@ def fitness_function(individual):
     distance = get_avg_dist_from_robot(individual[0], individual[1], individual[2])
     num_of_legs = individual[0]
     angle_btw_legs = individual[1]
-    length = ((num_of_legs - 1) * math.sin(math.radians(angle_btw_legs)))
-    res = (args['dist_coeff'] * distance) - (args['length_coeff'] * length)
-    rospy.loginfo("AVG_dist is:= %f , length is %f , and the result is %f", distance, length, res)
+    length = (num_of_legs - 1) * math.sin(math.radians(angle_btw_legs))
+
+    fitness = args['beta_coeff'] * (args['dist_coeff'] * distance + args['length_coeff'] * (1 / length)) + (1 - args[
+'beta_coeff']) * (pow(distance, args['dist_coeff']) * pow((1 / length), args['length_coeff']))
+
+    rospy.loginfo("AVG_dist is:= %f , length is %f , and the result is %f", distance, length, fitness)
     cur_logger.logInfo(
-        "AVG_dist is:= " + str(distance) + " , length is " + str(length) + " , and the result is " + str(res))
-    return res,
+        "AVG_dist is:= " + str(distance) + " , length is " + str(length) + " , and the result is " + str(fitness))
+    return fitness,
 
 
 def mutation_function(individual, mutpb):
@@ -208,12 +235,17 @@ def mutation_function(individual, mutpb):
     :param mutpb: percentage of success mutation
     :return:
     '''
-    if random.random() < mutpb:
+    count_mut = 0
+    max_mutation_iter = 2
+    if random.random() < mutpb and count_mut < max_mutation_iter:
         individual[0] = random.randrange(args['legs_num_min'], args['legs_num_max'])
-    if random.random() < mutpb:
+        count_mut += 1
+    if random.random() < mutpb and count_mut < max_mutation_iter:
         individual[1] = random.randrange(args['angle_between_legs_min'], args['angle_between_legs_max'])
-    if random.random() < mutpb:
+        count_mut += 1
+    if random.random() < mutpb and count_mut < max_mutation_iter:
         individual[2] = random.randrange(args['offset_between_leg_waves_min'], args['offset_between_leg_waves_max'])
+        count_mut += 1
 
     return individual,
 
@@ -230,8 +262,11 @@ if __name__ == '__main__':
     args_default = {
         'terrain_file_path_without_file_name': '../maps/Generated_terrain',
         'world_file_path_without_extention': '../worlds/Generated_terrain/testing_area',
-        'number_of_worlds': '4',
-        'simulation_time': '10',
+        'rosmaster_first_port': '1234',
+        'gazebo_first_port': '11345',
+        'number_of_worlds': 4,
+        'max_simultaneous_processes': 2,
+        'simulation_time': 10,
         'number_generations': '',
         'population_size': '',
         'tournament_size': '',
@@ -245,22 +280,24 @@ if __name__ == '__main__':
         'offset_between_leg_waves_max': '',
         'results_path': '',
         'logging_path': '',
-        'dist_coeff': '1',
-        'length_coeff': '1',
+        'dist_coeff': 1,
+        'length_coeff': 1,
         'generate_worlds': 'False',
         'dist_path': '',
         'extra_dist_log': 'True',
-        'ga_repetition_num': '5'
+        'ga_repetition_num': 5,
+        'beta_coeff': 1
     }
 
     args = update_args(args_default)
     # Generate world
     if args['generate_worlds'] == True or not os.path.exists(args['terrain_file_path_without_file_name'] + "_" + str(
                     args['number_of_worlds'] - 1) or os.path.exists(
-                    args['world_file_path_without_extention'] + ".world")):
+                args['world_file_path_without_extention'] + ".world")):
         world_generation()
-    rospy.init_node("ga_body_optimization")
-    cur_listener = ClockDistListener("terrain")
+
+    # rospy.init_node("ga_body_optimization")
+    # cur_listener = ClockDistListener("terrain")
     # activate logging
     cur_logger = Logger(args['logging_path'])
 
@@ -288,7 +325,7 @@ if __name__ == '__main__':
         toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
         toolbox.register("evaluate", fitness_function)
-        toolbox.register("mate", tools.cxTwoPoint)
+        toolbox.register("mate", tools.cxTwoPoint) #crossover
         toolbox.register("mutate", mutation_function, mutpb=args['mutation_probability'])
         toolbox.register("select", tools.selTournament, tournsize=args['tournament_size'])
 

@@ -1,5 +1,7 @@
 <launch>
 	<arg name="namespace" default="terrain"/>
+	<arg name="velocity" default="0.4" />
+	
 	<group ns="$(arg namespace)">
 		<remap from="/clock" to="/$(arg namespace)/clock"/>
 		<!-- args for changing robot params -->
@@ -26,6 +28,11 @@
 			<!-- Spawn a robot into Gazebo -->
 		<node name="spawn_robot" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model strirus -param robot_description -unpause -gazebo_namespace /$(arg namespace)/gazebo ">
 		</node>
+
+		<node name="move_forward" pkg="strirus_ga_body_optimization" type="move_forward.py" output="screen">
+			<param name="velocity" value="$(arg velocity)"/> 
+		</node>
+
 	</group>
 
 </launch>

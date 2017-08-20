@@ -18,6 +18,11 @@ class ClockDistListener:
         # subscribers
         self.clock = 0
         self.last_point = None
+        try:
+            rospy.init_node("Listener")
+        except rospy.exceptions.ROSInitExeption:
+            print("It cannot be init\n")
+
         self.namespace = namespace
         if namespace == None or namespace == "/":
             rospy.Subscriber("/clock", Clock, self.callback_clock)

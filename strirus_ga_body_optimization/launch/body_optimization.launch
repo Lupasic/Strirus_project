@@ -1,7 +1,6 @@
 <launch>
 
 	<arg name="namespace" default="terrain"/>
-	<arg name="velocity" default="0.4" />
 	
 	<arg name="terrain_file_path_without_file_name" default="$(find strirus_ga_body_optimization)/maps/Generated_terrain"/>
 	<arg name="world_file_path_without_extention" default="$(find strirus_ga_body_optimization)/worlds/testing_area"/>
@@ -10,22 +9,26 @@
 	<arg name="dist_path" default="$(find strirus_ga_body_optimization)/results/dist_set.txt"/>
 	<arg name="extra_dist_log" default="false"/> <!-- need to set number_generations in 0 value -->
 
-	<arg name="ga_repetition_num" default="5"/>
-	<arg name="generate_worlds" default="false"/>
-	<arg name="number_of_worlds" default="12"/>
-	<!-- -->
-	<arg name="simulation_time" default="9"/>
+	<arg name="ga_repetition_num" default="1"/>
+	<arg name="generate_worlds" default="true"/>
+
+	<!-- need to divided without remainder -->
+	<arg name="number_of_worlds" default="6"/>
+	<arg name="max_simultaneous_processes" default="3"/>
+
+	<arg name="simulation_time" default="6"/>
 
 	<!-- GA params -->
-	<arg name="number_generations" default="9"/>
-	<arg name="population_size" default="15"/>
+	<arg name="number_generations" default="2"/>
+	<arg name="population_size" default="4"/>
 	<!-- Ga local params -->
 	<arg name="tournament_size" default="3"/>
 	<arg name="crossover_probability" default="0.4"/>
 	<arg name="mutation_probability" default="0.2"/>
 	<!-- Fitness params -->
+	<arg name="beta_coeff" default="0.5"/>
 	<arg name="dist_coeff" default="1"/>
-	<arg name="length_coeff" default="2.5"/>
+	<arg name="length_coeff" default="1"/>
 
 	<!-- min and max values for robot -->
 	<arg name="legs_num_min" default="3"/>
@@ -42,6 +45,10 @@
 	<param name="dist_path" value="$(arg dist_path)"/>
 	<param name="world_file_path_without_extention" value="$(arg world_file_path_without_extention)"/>
 
+	<param name="rosmaster_first_port" value="42930"/>
+	<param name="gazebo_first_port" value="11350"/>
+	<param name="max_simultaneous_processes" value="$(arg max_simultaneous_processes)"/>
+
 	<param name="extra_dist_log" value="$(arg extra_dist_log)"/>
 	<param name="ga_repetition_num" value="$(arg ga_repetition_num)"/>
 	<param name="generate_worlds" value="$(arg generate_worlds)"/>
@@ -53,6 +60,7 @@
 	<param name="tournament_size" value="$(arg tournament_size)"/>
 	<param name="crossover_probability" value="$(arg crossover_probability)"/>
 	<param name="mutation_probability" value="$(arg mutation_probability)"/>
+	<param name="beta_coeff" value="$(arg beta_coeff)"/>
 	<param name="dist_coeff" value="$(arg dist_coeff)"/>
 	<param name="length_coeff" value="$(arg length_coeff)"/>
 
@@ -64,11 +72,5 @@
 	<param name="offset_between_leg_waves_max" value="$(arg offset_between_leg_waves_max)"/>
 
 	<node name="ga_body_optimization" pkg="strirus_ga_body_optimization" type="ga_body_optimization.py" output="screen" required="true" respawn="false"/>
-
-	<group ns="$(arg namespace)">
-		<node name="move_forward" pkg="strirus_ga_body_optimization" type="move_forward.py" output="screen">
-			<param name="velocity" value="$(arg velocity)"/> 
-		</node>
-	</group>
 
 </launch>

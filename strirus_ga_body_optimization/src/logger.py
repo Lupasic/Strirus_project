@@ -53,5 +53,7 @@ class Logger:
         self.__writeLog.write("[ERROR][" + time.ctime() + "] " + string + "\n")
         self.__writeLog.close()
 
-    def __del__(self):
-        self.__writeLog.close()
+    # def __del__(self):
+    #     pass
+    #     # if Logger:
+    #     #     self.__writeLog.close()
