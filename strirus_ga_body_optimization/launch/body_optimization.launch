@@ -1,5 +1,4 @@
 <launch>
-
 	<arg name="namespace" default="terrain"/>
 	
 	<arg name="terrain_file_path_without_file_name" default="$(find strirus_ga_body_optimization)/maps/Generated_terrain"/>
@@ -16,17 +15,17 @@
 	<arg name="number_of_worlds" default="6"/>
 	<arg name="max_simultaneous_processes" default="3"/>
 
-	<arg name="simulation_time" default="6"/>
+	<arg name="simulation_time" default="5"/>
 
 	<!-- GA params -->
 	<arg name="number_generations" default="2"/>
 	<arg name="population_size" default="4"/>
 	<!-- Ga local params -->
 	<arg name="tournament_size" default="3"/>
-	<arg name="crossover_probability" default="0.4"/>
-	<arg name="mutation_probability" default="0.2"/>
+	<arg name="crossover_probability" default="0.3"/>
+	<arg name="mutation_probability" default="0.3"/>
 	<!-- Fitness params -->
-	<arg name="beta_coeff" default="0.5"/>
+	<arg name="beta_coeff" default="0.35"/>
 	<arg name="dist_coeff" default="1"/>
 	<arg name="length_coeff" default="1"/>
 

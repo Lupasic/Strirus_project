@@ -296,8 +296,6 @@ if __name__ == '__main__':
                 args['world_file_path_without_extention'] + ".world")):
         world_generation()
 
-    # rospy.init_node("ga_body_optimization")
-    # cur_listener = ClockDistListener("terrain")
     # activate logging
     cur_logger = Logger(args['logging_path'])
 
