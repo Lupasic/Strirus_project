@@ -186,19 +186,21 @@ def get_avg_dist_from_robot(legs_num, angle_between_legs, offset_between_leg_wav
 def fitness_function(individual):
     '''
     Calculate fitness function - coeffs for distance and length can be specified in roslaunch file (body_optimization.launch)
-
     :param individual: data storage, which cosist number of legs [0], angle between legs [1] and offset between legs from opposite sides [2]
     :return: value of fitness function
     '''
     distance = get_avg_dist_from_robot(individual[0], individual[1], individual[2])
     num_of_legs = individual[0]
     angle_btw_legs = individual[1]
-    length = ((num_of_legs - 1) * math.sin(math.radians(angle_btw_legs)))
-    res = (args['dist_coeff'] * distance) - (args['length_coeff'] * length)
-    rospy.loginfo("AVG_dist is:= %f , length is %f , and the result is %f", distance, length, res)
+    length = (num_of_legs - 1) * math.sin(math.radians(angle_btw_legs))
+
+    fitness = args['beta_coeff'] * (args['dist_coeff'] * distance + args['length_coeff'] * (1 / length)) + (1 - args[
+'beta_coeff']) * (pow(distance, args['dist_coeff']) * pow((1 / length), args['length_coeff']))
+
+    rospy.loginfo("AVG_dist is:= %f , length is %f , and the result is %f", distance, length, fitness)
     cur_logger.logInfo(
-        "AVG_dist is:= " + str(distance) + " , length is " + str(length) + " , and the result is " + str(res))
-    return res,
+        "AVG_dist is:= " + str(distance) + " , length is " + str(length) + " , and the result is " + str(fitness))
+    return fitness,
 
 
 def mutation_function(individual, mutpb):
@@ -250,7 +252,8 @@ if __name__ == '__main__':
         'generate_worlds': 'False',
         'dist_path': '',
         'extra_dist_log': 'True',
-        'ga_repetition_num': '5'
+        'ga_repetition_num': '5',
+        'beta_coeff': 1
     }
 
     args = update_args(args_default)
