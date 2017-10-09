@@ -10,7 +10,7 @@
     <rightJoint>leg_right_0_revolute_joint</rightJoint>
     <wheelSeparation>${body_width}</wheelSeparation>
     <wheelDiameter>${leg_height}</wheelDiameter>
-    <wheelTorque>30</wheelTorque>
+    <wheelTorque>15</wheelTorque>
     <wheelAcceleration>0</wheelAcceleration>
     <publishWheelJointState>false</publishWheelJointState>
     <publishWheelTF>false</publishWheelTF>

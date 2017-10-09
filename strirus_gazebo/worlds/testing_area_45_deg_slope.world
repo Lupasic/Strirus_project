@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="default">
+  <gravity>0 0 -9.81</gravity>
+  <physics name="ode_400iters" type="ode" default="true">
+    <!-- the combination of 2 params below provides real time factor speed for simulation -->
+    <!-- max_real_time_factor = real_time_update_rate * max_step_size -->
+    <!-- min_real_time_factor depends only from max_step_size --> 
+    <real_time_update_rate>1000</real_time_update_rate>
+    <max_step_size>0.002</max_step_size>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>900</iters>
+          <!-- sor is number for more accurate results of convergence (сходимость)-->
+           <sor>0.9</sor>  
+        </solver>
+        <constraints>
+<!--           <cfm>0</cfm>
+          <erp>1</erp> -->
+          <!-- <contact_max_correcting_vel>1000</contact_max_correcting_vel>
+          <contact_surface_layer>0</contact_surface_layer> -->
+      </constraints>
+      </ode>
+    </physics>  
+    <include>
+      <uri>model://strirus_gazebo/maps/Ground_plane</uri>
+    </include>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+        <include>
+		<uri>model://strirus_gazebo/maps/Slope_45deg</uri>
+      <name>Terrain</name>
+      <pose>1.5 -1 0 0 0 0</pose>
+    </include>
+  </world>
+</sdf>

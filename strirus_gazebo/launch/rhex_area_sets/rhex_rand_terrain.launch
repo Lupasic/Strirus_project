@@ -1,6 +1,6 @@
 <launch>
   <arg name="namespace" default="/"/>
-  <arg name="velocity" default="0.8" />
+  <arg name="velocity" default="0.4" />
   <arg name="generate_terrain" default="true"/>
 
   <group ns="$(arg namespace)">
@@ -8,24 +8,24 @@
     <remap from="/clock" to="/$(arg namespace)/clock"/>
     <!-- args for changing robot params -->
     <arg name="use_sim_time" default="true"/>
-    <arg name="real_number_of_legs" default="6" />
-    <arg name="angle_between_legs" default="65" /> <!-- in degree -->
-    <arg name="offset_between_legs_waves" default="170" />
+    <arg name="real_number_of_legs" default="3" />
+    <arg name="angle_between_legs" default="180" /> <!-- in degree -->
+    <arg name="offset_between_legs_waves" default="180" />
 
     <!-- args for changing terrain params -->
-    <arg name="two_dimension_terrain" default="false"/> <!-- false is 3d -->
+    <arg name="two_dimension_terrain" default="true"/> <!-- false is 3d -->
 	%<arg name="cage_height_range_begin" default="0.001"/>
-	<arg name="cage_height_range_end" default="0.461" />
+	<arg name="cage_height_range_end" default="0.261" />
 	<arg name="cage_width_and_lengh" default="0.3"/> <!-- need to be float type -->
 	<arg name="cell_width_number" default="10"/>
 	<arg name="cell_length_number" default="15" />
-	<arg name="cage_height_param" default="rand"/> <!-- rand gauss_terrain each_cage_normalvariate -->
-	<arg name="std_deviation" default="0.02"/> <!-- Isn't used in rand distribution -->
+	<arg name="cage_height_param" default="each_cage_normalvariate"/> <!-- rand gauss_terrain each_cage_normalvariate -->
+	<arg name="std_deviation" default="0.1"/> <!-- Isn't used in rand distribution -->
 	<!-- args for gauss distribution -->	
 	<arg name="scale_coeff" default="0"/> <!-- how many cage sets will have max height, 0 - 1 set -->
 
     <param name="robot_description"
-      command="$(find xacro)/xacro --inorder '$(find strirus_robot_description)/urdf/strirus.xacro'  real_number_of_legs:=$(arg real_number_of_legs) angle_between_legs:=$(arg angle_between_legs) offset_between_legs_wave:=$(arg offset_between_legs_waves)" /> 
+      command="$(find xacro)/xacro --inorder '$(find strirus_robot_description)/urdf/rhex.xacro'  real_number_of_legs:=$(arg real_number_of_legs) angle_between_legs:=$(arg angle_between_legs) offset_between_legs_wave:=$(arg offset_between_legs_waves)" /> 
 
  <group if="$(arg generate_terrain)">
     <node name="generating_terrain" pkg="strirus_gazebo" type="generating_terrain.py" output="screen">
@@ -41,11 +41,11 @@
       <param name="two_dimension_terrain" value="$(arg two_dimension_terrain)"/>
     </node>
  </group>
-
+<!--
     <node name="move_forward" pkg="strirus_gazebo" type="move_forward.py" output="screen">
       <param name="velocity" value="$(arg velocity)"/> 
     </node>
-
+-->
     <!-- Launch the room -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
       <arg name="world_name" value="$(find strirus_gazebo)/worlds/testing_area.world"/>
@@ -58,7 +58,7 @@
 
     <!-- Spawn a robot into Gazebo -->
     <node name="spawn_robot" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-     args="-urdf -model strirus -param robot_description">
+     args="-urdf -model rhex -param robot_description">
      <remap from="/gazebo/spawn_urdf_model" to="/$(arg namespace)/gazebo/spawn_urdf_model"/>
    </node>
 

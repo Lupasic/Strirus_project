@@ -1,6 +1,6 @@
 <launch>
   <arg name="namespace" default="/"/>
-  <arg name="velocity" default="0.8" />
+  <arg name="velocity" default="0.4" />
   <arg name="generate_terrain" default="true"/>
 
   <group ns="$(arg namespace)">
@@ -13,42 +13,29 @@
     <arg name="offset_between_legs_waves" default="170" />
 
     <!-- args for changing terrain params -->
-    <arg name="two_dimension_terrain" default="false"/> <!-- false is 3d -->
+    <arg name="two_dimension_terrain" default="true"/> <!-- false is 3d -->
 	%<arg name="cage_height_range_begin" default="0.001"/>
-	<arg name="cage_height_range_end" default="0.461" />
+	<arg name="cage_height_range_end" default="0.261" />
 	<arg name="cage_width_and_lengh" default="0.3"/> <!-- need to be float type -->
 	<arg name="cell_width_number" default="10"/>
 	<arg name="cell_length_number" default="15" />
-	<arg name="cage_height_param" default="rand"/> <!-- rand gauss_terrain each_cage_normalvariate -->
-	<arg name="std_deviation" default="0.02"/> <!-- Isn't used in rand distribution -->
+	<arg name="cage_height_param" default="each_cage_normalvariate"/> <!-- rand gauss_terrain each_cage_normalvariate -->
+	<arg name="std_deviation" default="0.1"/> <!-- Isn't used in rand distribution -->
 	<!-- args for gauss distribution -->	
 	<arg name="scale_coeff" default="0"/> <!-- how many cage sets will have max height, 0 - 1 set -->
 
     <param name="robot_description"
       command="$(find xacro)/xacro --inorder '$(find strirus_robot_description)/urdf/strirus.xacro'  real_number_of_legs:=$(arg real_number_of_legs) angle_between_legs:=$(arg angle_between_legs) offset_between_legs_wave:=$(arg offset_between_legs_waves)" /> 
 
- <group if="$(arg generate_terrain)">
-    <node name="generating_terrain" pkg="strirus_gazebo" type="generating_terrain.py" output="screen">
-      <param name="cage_height_range_begin" value="$(arg cage_height_range_begin)"/>
-      <param name="cage_height_range_end" value="$(arg cage_height_range_end)" />
-      <param name="cage_width_and_lengh" value="$(arg cage_width_and_lengh)"/> 
-      <param name="cell_width_number" value="$(arg cell_width_number)"/>
-      <param name="cell_length_number" value="$(arg cell_length_number)" />
-      <param name="cage_height_param" value="$(arg cage_height_param)"/>
-      <param name="file_path" value="$(find strirus_gazebo)/maps/Generated_terrain/model.sdf"/>
-      <param name="std_deviation" value="$(arg std_deviation)"/>
-      <param name="scale_coeff" value="$(arg scale_coeff)"/>
-      <param name="two_dimension_terrain" value="$(arg two_dimension_terrain)"/>
-    </node>
- </group>
-
+<!--
     <node name="move_forward" pkg="strirus_gazebo" type="move_forward.py" output="screen">
       <param name="velocity" value="$(arg velocity)"/> 
     </node>
+-->
 
     <!-- Launch the room -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
-      <arg name="world_name" value="$(find strirus_gazebo)/worlds/testing_area.world"/>
+      <arg name="world_name" value="$(find strirus_gazebo)/worlds/testing_area_45_deg_slope.world"/>
       <arg name="paused" value="true"/>
       <arg name="physics" default="ode"/>
       <arg name="verbose" default="true"/>'

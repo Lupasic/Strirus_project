@@ -1,0 +1,76 @@
+<launch>
+
+	<arg name="namespace" default="terrain"/>
+	<arg name="velocity" default="0.4" />
+	
+	<arg name="terrain_file_path_without_file_name" default="$(find strirus_ga_body_optimization)/maps/Generated_terrain"/>
+	<arg name="world_file_path_without_extention" default="$(find strirus_ga_body_optimization)/worlds/testing_area"/>
+	<arg name="results_path" default="$(find strirus_ga_body_optimization)/results/all_data.txt"/>
+	<arg name="logging_path" default="$(find strirus_ga_body_optimization)/results/log_data.txt"/>
+	<arg name="dist_path" default="$(find strirus_ga_body_optimization)/results/dist_set.txt"/>
+	<arg name="extra_dist_log" default="false"/> <!-- need to set number_generations in 0 value -->
+
+	<arg name="ga_repetition_num" default="1"/>
+	<arg name="generate_worlds" default="true"/>
+	<arg name="number_of_worlds" default="10"/>
+	<!-- -->
+	<arg name="simulation_time" default="8"/>
+
+	<!-- GA params -->
+	<arg name="number_generations" default="10"/>
+	<arg name="population_size" default="55"/>
+	<!-- Ga local params -->
+	<arg name="tournament_size" default="3"/>
+	<arg name="crossover_probability" default="0.3"/>
+	<arg name="mutation_probability" default="0.3"/>
+	<!-- Fitness params -->
+	<arg name="beta_coeff" default="0.35"/>
+	<arg name="dist_coeff" default="1"/>
+	<arg name="length_coeff" default="1"/>
+
+	<!-- min and max values for robot -->
+	<arg name="legs_num_min" default="3"/>
+	<arg name="legs_num_max" default="15"/>
+	<arg name="angle_between_legs_min" default="12"/>
+	<arg name="angle_between_legs_max" default="89"/>
+	<arg name="offset_between_leg_waves_min" default="0"/>
+	<arg name="offset_between_leg_waves_max" default="180"/>
+	
+
+	<param name="terrain_file_path_without_file_name" value="$(arg terrain_file_path_without_file_name)"/>
+	<param name="results_path" value="$(arg results_path)"/>
+	<param name="logging_path" value="$(arg logging_path)"/>
+	<param name="dist_path" value="$(arg dist_path)"/>
+	<param name="world_file_path_without_extention" value="$(arg world_file_path_without_extention)"/>
+
+	<param name="extra_dist_log" value="$(arg extra_dist_log)"/>
+	<param name="ga_repetition_num" value="$(arg ga_repetition_num)"/>
+	<param name="generate_worlds" value="$(arg generate_worlds)"/>
+	<param name="number_of_worlds" value="$(arg number_of_worlds)"/>
+	<param name="simulation_time" value="$(arg simulation_time)"/>
+
+	<param name="number_generations" value="$(arg number_generations)"/>
+	<param name="population_size" value="$(arg population_size)"/>
+	<param name="tournament_size" value="$(arg tournament_size)"/>
+	<param name="crossover_probability" value="$(arg crossover_probability)"/>
+	<param name="mutation_probability" value="$(arg mutation_probability)"/>
+	<param name="beta_coeff" value="$(arg beta_coeff)"/>
+	<param name="dist_coeff" value="$(arg dist_coeff)"/>
+	<param name="length_coeff" value="$(arg length_coeff)"/>
+
+	<param name="legs_num_min" value="$(arg legs_num_min)"/>
+	<param name="legs_num_max" value="$(arg legs_num_max)"/>
+	<param name="angle_between_legs_max" value="$(arg angle_between_legs_max)"/>
+	<param name="angle_between_legs_min" value="$(arg angle_between_legs_min)"/>
+	<param name="offset_between_leg_waves_min" value="$(arg offset_between_leg_waves_min)"/>
+	<param name="offset_between_leg_waves_max" value="$(arg offset_between_leg_waves_max)"/>
+
+	<node name="ga_body_optimization" pkg="strirus_ga_body_optimization" type="ga_body_optimization.py" output="screen" required="true" respawn="false"/>
+
+	<group ns="$(arg namespace)">
+		<node name="move_forward" pkg="strirus_ga_body_optimization" type="move_forward.py" output="screen">
+			<param name="velocity" value="$(arg velocity)"/> 
+		</node>
+	</group>
+
+</launch>

@@ -1,6 +1,6 @@
 <launch>
   <arg name="namespace" default="/"/>
-  <arg name="velocity" default="0.8" />
+  <arg name="velocity" default="0.4" />
   <arg name="generate_terrain" default="true"/>
 
   <group ns="$(arg namespace)">
@@ -13,14 +13,14 @@
     <arg name="offset_between_legs_waves" default="170" />
 
     <!-- args for changing terrain params -->
-    <arg name="two_dimension_terrain" default="false"/> <!-- false is 3d -->
+    <arg name="two_dimension_terrain" default="true"/> <!-- false is 3d -->
 	%<arg name="cage_height_range_begin" default="0.001"/>
-	<arg name="cage_height_range_end" default="0.461" />
+	<arg name="cage_height_range_end" default="0.261" />
 	<arg name="cage_width_and_lengh" default="0.3"/> <!-- need to be float type -->
 	<arg name="cell_width_number" default="10"/>
 	<arg name="cell_length_number" default="15" />
-	<arg name="cage_height_param" default="rand"/> <!-- rand gauss_terrain each_cage_normalvariate -->
-	<arg name="std_deviation" default="0.02"/> <!-- Isn't used in rand distribution -->
+	<arg name="cage_height_param" default="each_cage_normalvariate"/> <!-- rand gauss_terrain each_cage_normalvariate -->
+	<arg name="std_deviation" default="0.1"/> <!-- Isn't used in rand distribution -->
 	<!-- args for gauss distribution -->	
 	<arg name="scale_coeff" default="0"/> <!-- how many cage sets will have max height, 0 - 1 set -->
 
@@ -41,11 +41,11 @@
       <param name="two_dimension_terrain" value="$(arg two_dimension_terrain)"/>
     </node>
  </group>
-
+<!--
     <node name="move_forward" pkg="strirus_gazebo" type="move_forward.py" output="screen">
       <param name="velocity" value="$(arg velocity)"/> 
     </node>
-
+-->
     <!-- Launch the room -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
       <arg name="world_name" value="$(find strirus_gazebo)/worlds/testing_area.world"/>

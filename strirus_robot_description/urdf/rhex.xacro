@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
-<robot name="Strirus" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="RHex" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 <!-- 	<xacro:arg name="namespace" default="/"/>
 	<xacro:property name="namespace" value="$(arg namespace)" /> -->
 	
 
 	<xacro:property name="deg2rad" value="${pi / 180}" />
+	<xacro:property name="scale" value="1" />
 	<!-- Constants for simulating -->
 	<!-- number of legs need to be real number - 1 (it is from one side only)-->
 	<!-- Xacro arg provides xacro.py file.xacro real_number_of_legs:=12 -->
@@ -25,25 +26,25 @@
 	<xacro:property name="body_x_offset" value="${0}" />
 	<xacro:property name="body_y_offset" value="${body_length / 2}" />
 	<xacro:property name="body_z_offset" value="${leg_width + leg_height}" />
-	<xacro:property name="first_hole_x_offset" value="${0.05}" />	
+	<xacro:property name="first_hole_x_offset" value="${0.05 * scale}" />	
 
-	<xacro:property name="body_width" value="${0.250}" />
-	<xacro:property name="body_height" value="${0.07}" />
+	<xacro:property name="body_width" value="${0.2  * scale}" />
+	<xacro:property name="body_height" value="${0.15  * scale}" />
 	<!-- consider that body is hollow-type , 1200 is plastic density-->
-	<xacro:property name="body_wall_thickness" value="${0.01}" />
+	<xacro:property name="body_wall_thickness" value="${0.01  * scale}" />
 	<xacro:property name="body_weight" value="${((body_width * body_length * body_height) - ((body_width - body_wall_thickness) * (body_length - body_wall_thickness) * (body_height - body_wall_thickness))) * 1200}"/>	
 
 	<xacro:property name="leg_x_offset" value="${0}" />
 	<xacro:property name="leg_y_offset" value="${0}" />
 	<xacro:property name="leg_z_offset" value="${0}" />
 
-	<xacro:property name="leg_x_offset_in_body" value="${-0.045}" />
-	<xacro:property name="leg_width" value="${0.03}" />
-	<xacro:property name="leg_height" value="${0.175}" />
-	<xacro:property name="fallibility_between_legs" value="${0.005 + 2 * leg_width}" />
+	<xacro:property name="leg_x_offset_in_body" value="${-0.075  * scale}" />
+	<xacro:property name="leg_width" value="${0.015  * scale}" />
+	<xacro:property name="leg_height" value="${0.175  * scale}" />
+	<xacro:property name="fallibility_between_legs" value="${0.005 * scale + 2 * leg_width}" />
 
 	<!-- Formulas -->
-	<xacro:property name="dist_between_legs" value="${leg_height * sin(angle_between_legs * deg2rad) + fallibility_between_legs}" />
+	<xacro:property name="dist_between_legs" value="${leg_height + fallibility_between_legs}" />
 	<xacro:property name="body_length" value="${2 * first_hole_x_offset + (real_number_of_legs -1) * dist_between_legs}" />
 
 	<!-- Import all Gazebo-customization elements, including Gazebo colors -->
@@ -51,7 +52,7 @@
 	<!-- Import Rviz colors -->
 	<xacro:include filename="$(find strirus_robot_description)/urdf/materials.xacro" />
 	<gazebo>
-		<self_collide> 0 </self_collide>
+		<self_collide> 1 </self_collide>
 	</gazebo>
 	<!-- Leg description -->
 	<xacro:macro name="leg" params="prefix num side">
@@ -61,18 +62,16 @@
 		<link name="leg_${prefix}_${num}">
 			<inertial>
 				<!-- was calcuclated in Siemens NX -->
-				<mass value="${1.1}"/>
+				<mass value="${0.52 * pow(scale,3)}"/>
 				<xacro:if value="${prefix == 'left'}">
-					<!---4e-7 is Y center of mass, -0.088 Z , it need to be in meters(NX provide data in mm) -->
-				<origin rpy="${angle_coeff_left} 0 0" xyz="0.1384 ${(-4e-7 * cos(angle_coeff_left)) - (-0.088 * sin(angle_coeff_left))} ${-(-4e-7 * sin(angle_coeff_left)) + (-0.088 * cos(angle_coeff_left))}"/>
+					<origin rpy="${angle_coeff_left} 0 0" xyz="${leg_x_offset + (0.137 * scale)} ${leg_y_offset + ((-2.99e-7 * cos(angle_coeff_left)  * scale) - (-0.0004 * sin(angle_coeff_left) * scale))} ${leg_z_offset + ( - (-2.99e-7 * sin(angle_coeff_left)  * scale) + (-0.086 * cos(angle_coeff_left)  * scale))}"/>
 				</xacro:if>
 				<xacro:if value="${prefix == 'right'}">
-				<origin rpy="${angle_coeff_right} 0 0" xyz="-0.1384 ${-(-4e-7 * cos(angle_coeff_right)) + (-0.088 * sin(angle_coeff_right))} ${-(-4e-7 * sin(angle_coeff_right)) + (-0.088 * cos(angle_coeff_right))}"/>
+					<origin rpy="${angle_coeff_right} 0 0" xyz="-${leg_x_offset + (0.137 * scale)} ${-(leg_y_offset + ((-2.99e-7 * cos(angle_coeff_right) * scale) - (-0.0004 * sin(angle_coeff_right) * scale)))} ${leg_z_offset + ( - (-2.99e-7 * sin(angle_coeff_right) * scale) + (-0.086 * cos(angle_coeff_right) * scale))}"/>
 				</xacro:if>
 
-				<inertia ixx="${0.013656}" ixy="0" ixz="${-0.018310}" iyy="${0.040017}" iyz="0" izz="${0.026503}"/>
+				<inertia ixx="${0.006195 * pow(scale,5)}" ixy="0" ixz="${-0.008444 * pow(scale,5)}" iyy="${0.018 * pow(scale,5)}" iyz="0" izz="${0.012  * pow(scale,5)}"/>
 			</inertial>
-
 			<collision>
 				<!-- legs wave offset change only on the left side -->
 				<xacro:if value="${prefix == 'left'}">
@@ -82,7 +81,7 @@
 					<origin rpy="${angle_coeff_right} 0 ${pi}" xyz="${leg_x_offset} ${leg_y_offset} ${leg_z_offset}"/>
 				</xacro:if>
 				<geometry>
-					<mesh filename="package://strirus_robot_description/meshes/stl/leg_30_degree.stl" scale="${1} ${1} ${1}"/>
+					<mesh filename="package://strirus_robot_description/meshes/stl/leg_r_rhex.stl" scale="${scale} ${scale} ${scale}"/>
 				</geometry>
 			</collision>
 
@@ -94,7 +93,7 @@
 					<origin rpy="${angle_coeff_right} 0 ${pi}" xyz="${leg_x_offset} ${leg_y_offset} ${leg_z_offset}"/>
 				</xacro:if>
 				<geometry>
-					<mesh filename="package://strirus_robot_description/meshes/stl/leg_30_degree.stl" scale="${1} ${1} ${1}"/>
+					<mesh filename="package://strirus_robot_description/meshes/stl/leg_r_rhex.stl" scale="${scale} ${scale} ${scale}"/>
 				</geometry>
 				<material name="blue"/>
 			</visual>
