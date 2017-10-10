@@ -12,12 +12,15 @@
 	<!-- Xacro arg provides xacro.py file.xacro real_number_of_legs:=12 -->
 	<xacro:arg name="real_number_of_legs" default="6" />
 	<xacro:arg name="angle_between_legs" default="60" />
-	<!-- in degree -->
+	<xacro:arg name="angle_between_body_leg" default="45" />
 	<xacro:arg name="offset_between_legs_wave" default="0" />
+	<!-- in degree -->
+
 
 	<xacro:property name="real_number_of_legs" value="$(arg real_number_of_legs)" />
 	<xacro:property name="number_of_legs" value="${real_number_of_legs - 1}" />
 	<xacro:property name="angle_between_legs" value="$(arg angle_between_legs)" />
+	<xacro:property name="angle_between_body_leg" value="$(arg angle_between_body_leg)" />
 	<!-- in degree -->
 	<xacro:property name="offset_between_legs_wave" value="$(arg offset_between_legs_wave)" />
 
@@ -38,9 +41,9 @@
 	<xacro:property name="leg_y_offset" value="${0}" />
 	<xacro:property name="leg_z_offset" value="${0}" />
 
-	<xacro:property name="leg_x_offset_in_body" value="${-0.075  * scale}" />
+	<xacro:property name="leg_x_offset_in_body" value="${-0.000  * scale}" />
 	<xacro:property name="leg_width" value="${0.02  * scale}" />
-	<xacro:property name="leg_height" value="${0.08  * scale}" />
+	<xacro:property name="leg_height" value="${0.18  * scale}" />
 	<xacro:property name="fallibility_between_legs" value="${0.001 * scale + 2 * leg_width}" />
 
 	<!-- Formulas -->
@@ -64,10 +67,10 @@
 				<!-- was calcuclated in Siemens NX -->
 				<mass value="${0.36 * pow(scale,3)}"/>
 				<xacro:if value="${prefix == 'left'}">
-					<origin rpy="${angle_coeff_left} 0 0" xyz="${leg_x_offset + (0.1 * scale)} ${leg_y_offset + ((-2.99e-7 * cos(angle_coeff_left)  * scale) - (-0.04 * sin(angle_coeff_left) * scale))} ${leg_z_offset + ( - (-2.99e-7 * sin(angle_coeff_left)  * scale) + (-0.04 * cos(angle_coeff_left)  * scale))}"/>
+					<origin rpy="${angle_coeff_left} 0 ${angle_between_body_leg * deg2rad}" xyz="${leg_x_offset + (0.1 * scale)} ${leg_y_offset + ((-2.99e-7 * cos(angle_coeff_left)  * scale) - (-0.04 * sin(angle_coeff_left) * scale))} ${leg_z_offset + ( - (-2.99e-7 * sin(angle_coeff_left)  * scale) + (-0.04 * cos(angle_coeff_left)  * scale))}"/>
 				</xacro:if>
 				<xacro:if value="${prefix == 'right'}">
-					<origin rpy="${angle_coeff_right} 0 0" xyz="-${leg_x_offset + (0.1 * scale)} ${-(leg_y_offset + ((-2.99e-7 * cos(angle_coeff_right) * scale) - (-0.04 * sin(angle_coeff_right) * scale)))} ${leg_z_offset + ( - (-2.99e-7 * sin(angle_coeff_right) * scale) + (-0.04 * cos(angle_coeff_right) * scale))}"/>
+					<origin rpy="${angle_coeff_right} 0 -${angle_between_body_leg * deg2rad}" xyz="-${leg_x_offset + (0.1 * scale)} ${-(leg_y_offset + ((-2.99e-7 * cos(angle_coeff_right) * scale) - (-0.04 * sin(angle_coeff_right) * scale)))} ${leg_z_offset + ( - (-2.99e-7 * sin(angle_coeff_right) * scale) + (-0.04 * cos(angle_coeff_right) * scale))}"/>
 				</xacro:if>
 
 				<inertia ixx="${0.001041 * pow(scale,5)}" ixy="0" ixz="${-0.00213 * pow(scale,5)}" iyy="${0.006 * pow(scale,5)}" iyz="0" izz="${0.00497  * pow(scale,5)}"/>
@@ -81,7 +84,7 @@
 					<origin rpy="${angle_coeff_right} 0 ${pi}" xyz="${leg_x_offset} ${leg_y_offset} ${leg_z_offset}"/>
 				</xacro:if>
 				<geometry>
-					<mesh filename="package://strirus_robot_description/meshes/stl/leg_30_degree.stl" scale="${scale} ${scale} ${scale}"/>
+					<mesh filename="package://strirus_robot_description/meshes/stl/leg_strirus.stl" scale="${scale} ${scale} ${scale}"/>
 				</geometry>
 			</collision>
 
@@ -93,7 +96,7 @@
 					<origin rpy="${angle_coeff_right} 0 ${pi}" xyz="${leg_x_offset} ${leg_y_offset} ${leg_z_offset}"/>
 				</xacro:if>
 				<geometry>
-					<mesh filename="package://strirus_robot_description/meshes/stl/leg_30_degree.stl" scale="${scale} ${scale} ${scale}"/>
+					<mesh filename="package://strirus_robot_description/meshes/stl/leg_strirus.stl" scale="${scale} ${scale} ${scale}"/>
 				</geometry>
 				<material name="blue"/>
 			</visual>
@@ -102,7 +105,12 @@
 		<joint name="leg_${prefix}_${num}_revolute_joint" type="revolute">
 			<parent link="body"/>
 			<child link="leg_${prefix}_${num}"/>
-			<origin rpy="0       0      0" xyz="${(body_width / 4 + leg_x_offset_in_body) * side} ${first_hole_x_offset + (num) * dist_between_legs}  ${body_z_offset}"/>
+			<xacro:if value="${prefix == 'left'}">
+					<origin rpy="0       0      ${angle_between_body_leg * deg2rad}" xyz="${(body_width / 4 + leg_x_offset_in_body) * side} ${first_hole_x_offset + (num) * dist_between_legs}  ${body_z_offset}"/>
+				</xacro:if>
+			<xacro:if value="${prefix == 'right'}">
+					<origin rpy="0       0      ${-angle_between_body_leg * deg2rad}" xyz="${(body_width / 4 + leg_x_offset_in_body) * side} ${first_hole_x_offset + (num) * dist_between_legs}  ${body_z_offset}"/>
+				</xacro:if>
 			<axis xyz="1 0  0"/>
 			<limit effort="30" lower="-1e+100" upper="1e+100" velocity="3.0"/>
 			<joint_properties damping="0.0" friction="0.0" />
